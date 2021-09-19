@@ -398,3 +398,8 @@ export_presets.cfg
 # Mono-specific ignores
 .mono/
 data_*/
+
+# Folder-specific ignores
+UI.Godot/.import/
+UI.Godot/.mono/
+UI.Godot/.vs/
