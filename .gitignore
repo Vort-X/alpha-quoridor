@@ -403,3 +403,6 @@ data_*/
 UI.Godot/.import/
 UI.Godot/.mono/
 UI.Godot/.vs/
+
+Quoridor.Model/bin/
+Quoridor.Model/obj/
