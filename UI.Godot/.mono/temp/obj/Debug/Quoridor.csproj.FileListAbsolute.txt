@@ -1,0 +1,8 @@
+/Users/misha/Quoridor/UI.Godot/.mono/temp/bin/Debug/Quoridor.dll
+/Users/misha/Quoridor/UI.Godot/.mono/temp/bin/Debug/Quoridor.pdb
+/Users/misha/Quoridor/UI.Godot/.mono/temp/obj/Debug/Quoridor.csprojAssemblyReference.cache
+/Users/misha/Quoridor/UI.Godot/.mono/temp/obj/Debug/Quoridor.AssemblyInfoInputs.cache
+/Users/misha/Quoridor/UI.Godot/.mono/temp/obj/Debug/Quoridor.AssemblyInfo.cs
+/Users/misha/Quoridor/UI.Godot/.mono/temp/obj/Debug/Quoridor.csproj.CoreCompileInputs.cache
+/Users/misha/Quoridor/UI.Godot/.mono/temp/obj/Debug/Quoridor.dll
+/Users/misha/Quoridor/UI.Godot/.mono/temp/obj/Debug/Quoridor.pdb

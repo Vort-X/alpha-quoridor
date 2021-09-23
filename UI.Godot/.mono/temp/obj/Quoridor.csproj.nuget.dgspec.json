@@ -1,0 +1,45 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/misha/Quoridor/UI.Godot/Quoridor.csproj": {}
+  },
+  "projects": {
+    "/Users/misha/Quoridor/UI.Godot/Quoridor.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/misha/Quoridor/UI.Godot/Quoridor.csproj",
+        "projectName": "Quoridor",
+        "projectPath": "/Users/misha/Quoridor/UI.Godot/Quoridor.csproj",
+        "packagesPath": "/Users/misha/.nuget/packages/",
+        "outputPath": "/Users/misha/Quoridor/UI.Godot/.mono/temp/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/misha/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net472"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net472": {
+            "targetAlias": "net472",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net472": {
+          "targetAlias": "net472",
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
