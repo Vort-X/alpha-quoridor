@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "LR2SFqYmclfQRV0BAcIvtHXJtgeC6crME2GGChFY9OE8ijKpnry/Fo7UuSbEAqdZbqHgN9tpXjUgj4OZqKS4KQ==",
+  "dgSpecHash": "aYXzLb5cim+XlAn7eqSuUaTh77263mYnUp8UzhR8mcpmNUa/5hqxTOdZfjbbe0JlshZ941iwVcN1g5pw7fK1Dg==",
   "success": true,
   "projectFilePath": "/Users/misha/Quoridor/UI.Godot/Quoridor.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "/Users/misha/.nuget/packages/microsoft.netframework.referenceassemblies/1.0.0/microsoft.netframework.referenceassemblies.1.0.0.nupkg.sha512",
+    "/Users/misha/.nuget/packages/microsoft.netframework.referenceassemblies.net472/1.0.0/microsoft.netframework.referenceassemblies.net472.1.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
