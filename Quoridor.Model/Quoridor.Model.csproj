@@ -5,7 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="PlayerTypes\" />
+    <Compile Remove="PlayerTypes\**" />
+    <EmbeddedResource Remove="PlayerTypes\**" />
+    <None Remove="PlayerTypes\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

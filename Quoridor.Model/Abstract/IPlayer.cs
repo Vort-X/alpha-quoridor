@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace Quoridor.Model.Abstract
 {
-    abstract class Player
+    public interface IPlayer
     {
-        public Pawn Pawn { get; }
+        event Action<IPlayer, object> TurnFinished;
 
-        //TODO: commands
-        internal abstract object RequestTurn();
+        void NotifyTurn();
     }
 }

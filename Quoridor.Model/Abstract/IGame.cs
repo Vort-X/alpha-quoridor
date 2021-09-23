@@ -8,8 +8,17 @@ namespace Quoridor.Model.Abstract
 {
     public interface IGame
     {
-        public IField Field { get; }
+        IBoard Board { get; }
+        IPlayer Player1 { get; }
+        IPlayer Player2 { get; }
+        GameState State { get; }
 
-        public void NextTurn();
+        void MakeTurn(IPlayer sender, object turn);
+    }
+
+    public enum GameState
+    {
+        Waiting, 
+        FinishedTurn,
     }
 }
