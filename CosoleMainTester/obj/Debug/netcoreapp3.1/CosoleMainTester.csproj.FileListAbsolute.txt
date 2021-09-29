@@ -1,0 +1,16 @@
+C:\Users\MAKS\source\repos\Queridor\CosoleMainTester\bin\Debug\netcoreapp3.1\CosoleMainTester.exe
+C:\Users\MAKS\source\repos\Queridor\CosoleMainTester\bin\Debug\netcoreapp3.1\CosoleMainTester.deps.json
+C:\Users\MAKS\source\repos\Queridor\CosoleMainTester\bin\Debug\netcoreapp3.1\CosoleMainTester.runtimeconfig.json
+C:\Users\MAKS\source\repos\Queridor\CosoleMainTester\bin\Debug\netcoreapp3.1\CosoleMainTester.runtimeconfig.dev.json
+C:\Users\MAKS\source\repos\Queridor\CosoleMainTester\bin\Debug\netcoreapp3.1\CosoleMainTester.dll
+C:\Users\MAKS\source\repos\Queridor\CosoleMainTester\bin\Debug\netcoreapp3.1\CosoleMainTester.pdb
+C:\Users\MAKS\source\repos\Queridor\CosoleMainTester\bin\Debug\netcoreapp3.1\Queridor.dll
+C:\Users\MAKS\source\repos\Queridor\CosoleMainTester\bin\Debug\netcoreapp3.1\Queridor.pdb
+C:\Users\MAKS\source\repos\Queridor\CosoleMainTester\obj\Debug\netcoreapp3.1\CosoleMainTester.csprojAssemblyReference.cache
+C:\Users\MAKS\source\repos\Queridor\CosoleMainTester\obj\Debug\netcoreapp3.1\CosoleMainTester.AssemblyInfoInputs.cache
+C:\Users\MAKS\source\repos\Queridor\CosoleMainTester\obj\Debug\netcoreapp3.1\CosoleMainTester.AssemblyInfo.cs
+C:\Users\MAKS\source\repos\Queridor\CosoleMainTester\obj\Debug\netcoreapp3.1\CosoleMainTester.csproj.CoreCompileInputs.cache
+C:\Users\MAKS\source\repos\Queridor\CosoleMainTester\obj\Debug\netcoreapp3.1\CosoleMainTester.csproj.CopyComplete
+C:\Users\MAKS\source\repos\Queridor\CosoleMainTester\obj\Debug\netcoreapp3.1\CosoleMainTester.dll
+C:\Users\MAKS\source\repos\Queridor\CosoleMainTester\obj\Debug\netcoreapp3.1\CosoleMainTester.pdb
+C:\Users\MAKS\source\repos\Queridor\CosoleMainTester\obj\Debug\netcoreapp3.1\CosoleMainTester.genruntimeconfig.cache

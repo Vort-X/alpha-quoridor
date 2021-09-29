@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "CosoleMainTester/1.0.0": {
+        "dependencies": {
+          "Queridor": "1.0.0"
+        },
+        "runtime": {
+          "CosoleMainTester.dll": {}
+        }
+      },
+      "Queridor/1.0.0": {
+        "runtime": {
+          "Queridor.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "CosoleMainTester/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Queridor/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

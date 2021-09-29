@@ -1,0 +1,9 @@
+C:\Users\MAKS\source\repos\Queridor\Queridor\bin\Debug\netcoreapp3.1\Queridor.deps.json
+C:\Users\MAKS\source\repos\Queridor\Queridor\bin\Debug\netcoreapp3.1\Queridor.dll
+C:\Users\MAKS\source\repos\Queridor\Queridor\bin\Debug\netcoreapp3.1\Queridor.pdb
+C:\Users\MAKS\source\repos\Queridor\Queridor\obj\Debug\netcoreapp3.1\Queridor.csprojAssemblyReference.cache
+C:\Users\MAKS\source\repos\Queridor\Queridor\obj\Debug\netcoreapp3.1\Queridor.AssemblyInfoInputs.cache
+C:\Users\MAKS\source\repos\Queridor\Queridor\obj\Debug\netcoreapp3.1\Queridor.AssemblyInfo.cs
+C:\Users\MAKS\source\repos\Queridor\Queridor\obj\Debug\netcoreapp3.1\Queridor.csproj.CoreCompileInputs.cache
+C:\Users\MAKS\source\repos\Queridor\Queridor\obj\Debug\netcoreapp3.1\Queridor.dll
+C:\Users\MAKS\source\repos\Queridor\Queridor\obj\Debug\netcoreapp3.1\Queridor.pdb
