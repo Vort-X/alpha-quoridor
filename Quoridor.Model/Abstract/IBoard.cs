@@ -12,8 +12,5 @@ namespace Quoridor.Model.Abstract
         Pawn Pawn1 { get; }
         Pawn Pawn2 { get; }
         List<Wall> Walls { get; }
-
-        PawnCell GetPawnCell(int x, int y);
-        WallCell GetWallCell(int x, int y);
     }
 }
