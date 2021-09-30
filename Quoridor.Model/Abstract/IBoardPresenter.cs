@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace Quoridor.Model.Abstract
 {
-    public interface IBoard
+    public interface IBoardPresenter
     {
         Pawn Pawn1 { get; }
         Pawn Pawn2 { get; }
         List<Wall> Walls { get; }
+
+        void MakeTurn(object turn);
     }
 }

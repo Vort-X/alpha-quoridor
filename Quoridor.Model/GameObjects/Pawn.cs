@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Queridor.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Quoridor.Model.GameObjects
 {
     public class Pawn
     {
-        public PawnCell Cell { get; internal set; }
-        public int AvailableWalls { get; internal set; } = 10;
+        public Cell Cell { get; internal set; }
+        public int AwailableWalls { get; internal set; } = 10;
     }
 }

@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net5.0": {}
+    "net5.0": {
+      "Queridor/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/Queridor.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Queridor.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Queridor/1.0.0": {
+      "type": "project",
+      "path": "../Queridor/Queridor.csproj",
+      "msbuildProject": "../Queridor/Queridor.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net5.0": []
+    "net5.0": [
+      "Queridor >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Mihailo\\.nuget\\packages\\": {}
@@ -33,7 +52,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Projects\\Games\\alpha-quoridor\\Queridor\\Queridor.csproj": {
+              "projectPath": "D:\\Projects\\Games\\alpha-quoridor\\Queridor\\Queridor.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

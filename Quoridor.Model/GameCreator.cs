@@ -5,14 +5,16 @@ namespace Quoridor.Model
 {
     public static class GameCreator
     {
-        public static IGame NewGameVsPlayer()
+        public static Game NewGameVsPlayer()
         {
             throw new NotImplementedException();
+            //return new Game() { };
         }
 
-        public static IGame NewGameVsBot()
+        public static Game NewGameVsBot()
         {
             throw new NotImplementedException();
+            //return new Game() { };
         }
     }
 }

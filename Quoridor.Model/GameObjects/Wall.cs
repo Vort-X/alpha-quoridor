@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Queridor.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace Quoridor.Model.GameObjects
 {
     public class Wall
     {
-        public WallCell Cell { get; internal set; }
+        public Corner Corner { get; internal set; }
+        public bool IsHorizontal { get; internal set; }
     }
 }

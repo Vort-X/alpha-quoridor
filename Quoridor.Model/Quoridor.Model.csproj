@@ -5,13 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="PlayerTypes\**" />
-    <EmbeddedResource Remove="PlayerTypes\**" />
-    <None Remove="PlayerTypes\**" />
+    <Compile Remove="Services\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <None Remove="Services\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\Queridor\Queridor.csproj" />
   </ItemGroup>
 
 </Project>

@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.31624.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quoridor", "Quoridor.csproj", "{1B5E20AC-4567-4B1E-A2F8-BFDE9D7CF831}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quoridor.Model", "..\Quoridor.Model\Quoridor.Model.csproj", "{4A151E33-DD18-475B-90E1-EA592A07C35A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Quoridor.Model", "..\Quoridor.Model\Quoridor.Model.csproj", "{4A151E33-DD18-475B-90E1-EA592A07C35A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Queridor", "..\Queridor\Queridor.csproj", "{B829B973-9A01-4DA5-92C2-7EC3BAA2DA86}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,14 @@ Global
 		{4A151E33-DD18-475B-90E1-EA592A07C35A}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
 		{4A151E33-DD18-475B-90E1-EA592A07C35A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A151E33-DD18-475B-90E1-EA592A07C35A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B829B973-9A01-4DA5-92C2-7EC3BAA2DA86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B829B973-9A01-4DA5-92C2-7EC3BAA2DA86}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B829B973-9A01-4DA5-92C2-7EC3BAA2DA86}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B829B973-9A01-4DA5-92C2-7EC3BAA2DA86}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{B829B973-9A01-4DA5-92C2-7EC3BAA2DA86}.ExportRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{B829B973-9A01-4DA5-92C2-7EC3BAA2DA86}.ExportRelease|Any CPU.Build.0 = Release|Any CPU
+		{B829B973-9A01-4DA5-92C2-7EC3BAA2DA86}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B829B973-9A01-4DA5-92C2-7EC3BAA2DA86}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

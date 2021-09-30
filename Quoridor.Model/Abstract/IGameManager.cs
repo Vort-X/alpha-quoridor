@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Quoridor.Model.Abstract
 {
-    public interface IGame
+    public interface IGameManager
     {
-        IBoard Board { get; }
-        IPlayer Player1 { get; }
-        IPlayer Player2 { get; }
-        GameState State { get; }
+        IBoardPresenter BoardPresenter { get; }
+        GameState State { get; set; }
 
-        void MakeTurn(IPlayer sender, object turn);
+        event Action BoardUpdated;
+
+        internal void MakeTurn(IPlayer sender, object turn);
     }
 
     public enum GameState
