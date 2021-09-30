@@ -1,33 +1,28 @@
-using Godot;
 using System;
+using Godot;
+using Quoridor.Game;
+using Quoridor.UI;
+
 
 public class Cell : Node2D
 {
 	public int X { get; set; }
 	public int Y { get; set; }
-	
+
+	private Clickable _clickable;
+	private Quoridor.Game.Game _game;
+
 	public override void _Ready()
 	{
-		
-	}
-
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
-
-	private void _on_Area2D_input_event(object viewport, object @event, int shape_idx)
-	{
-		if (@event is InputEventMouseButton mouseEvent) 
+		_clickable = GetNode<Clickable>("Clickable");
+		_game = GetNode<Quoridor.Game.Game>("/root/Game");
+		_clickable.OnMouseClickLeft += () =>
 		{
-			if (mouseEvent.Pressed)
-			{
-				GD.Print($"X:{X}, Y:{Y} pressed");
-			}
-		}
+			_game.OnCellClicked(new Tuple<int, int>(X, Y));
+		};
 	}
 }
+
 
 
 

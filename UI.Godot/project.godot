@@ -14,13 +14,25 @@ config/name="Quoridor"
 run/main_scene="res://Board/Board.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Game="*res://Game/Game.tscn"
+
 [display]
 
 window/size/width=176
 window/size/height=192
-window/size/test_width=528
-window/size/test_height=576
+window/size/test_width=704
+window/size/test_height=768
 window/stretch/mode="2d"
+
+[input]
+
+input_request={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":125,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [physics]
 
