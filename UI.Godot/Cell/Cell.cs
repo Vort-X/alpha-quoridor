@@ -10,15 +10,15 @@ public class Cell : Node2D
 	public int Y { get; set; }
 
 	private Clickable _clickable;
-	private Quoridor.Game.Game _game;
+
+	public event Action<Tuple<int, int>> CellClicked; 
 
 	public override void _Ready()
 	{
 		_clickable = GetNode<Clickable>("Clickable");
-		_game = GetNode<Quoridor.Game.Game>("/root/Game");
 		_clickable.OnMouseClickLeft += () =>
 		{
-			_game.OnCellClicked(new Tuple<int, int>(X, Y));
+			CellClicked?.Invoke(new Tuple<int, int>(X, Y));
 		};
 	}
 }

@@ -1,5 +1,6 @@
 using Godot;
 using Godot.Collections;
+using Quoridor.Game;
 
 namespace Quoridor.Board
 {
@@ -8,8 +9,9 @@ namespace Quoridor.Board
 		[Export] private int _boardWidth = 9;
 		[Export] private int _boardHeight = 9;
 		[Export] private string _tileName = "New Piskel.png 0";
+		private int _tileId;
 
-		private TileMap _cellsTileMap;
+		private GameBuilder _gameBuilder;
 		
 		private readonly PackedScene _cellScene = ResourceLoader.Load<PackedScene>("res://Cell/Cell.tscn");
 		private readonly PackedScene _cornerScene = ResourceLoader.Load<PackedScene>("res://Corner/Corner.tscn");
@@ -18,28 +20,31 @@ namespace Quoridor.Board
 		private int _offsetY = 1;
 		private Cell[,] _cells;
 		private Corner[,] _corners;
+		private TileMap _cellsTileMap;
 
 		public override void _Ready()
 		{
 			_cellsTileMap = GetNode<TileMap>("CellsTileMap");
+			_gameBuilder = GetNode<GameBuilder>("/root/GameBuilder");
 			
+			_tileId = _cellsTileMap.TileSet.FindTileByName(_tileName);
 			_cells = new Cell[_boardHeight, _boardHeight];
 			_corners = new Corner[_boardHeight-1,_boardHeight-1];
+			
 			AddCells();
 			AddCorners();
-
 		}
 
 		private void AddCells()
 		{
-			var tileId = _cellsTileMap.TileSet.FindTileByName(_tileName);
-
 			for (int y = _offsetY; y < _boardHeight + _offsetY; y++)
 			{
 				for (int x = _offsetX; x < _boardWidth + _offsetX; x++)
 				{
-					_cellsTileMap.SetCell(x, y, tileId);
-					CreateCell(x, y);
+					var cell = DrawAndReturnCell(x, y);
+					
+					_cells[x - _offsetX, y - _offsetY] = cell;
+					_gameBuilder.ConnectCell(cell);
 				}
 				
 			}
@@ -48,15 +53,16 @@ namespace Quoridor.Board
 			
 		}
 
-		private void CreateCell(int x, int y)
+		private Cell DrawAndReturnCell(int x, int y)
 		{
 			var cell = _cellScene.Instance() as Cell;
 			cell.X = x - _offsetX;
 			cell.Y = y - _offsetY;
 			cell.Position = new Vector2(x * 16, y * 16);
-
-			_cells[x - _offsetX, y - _offsetY] = cell;
+			
+			_cellsTileMap.SetCell(x, y, _tileId);
 			AddChild(cell);
+			return cell;
 		}
 		
 		private void AddCorners()
@@ -67,13 +73,15 @@ namespace Quoridor.Board
 			{
 				for (int x = 0; x < cornersPerRow; x++)
 				{
-					GD.Print($"{x}, {y}");
-					CreateCorner(x, y);
+					var corner = DrawAndReturnCorner(x, y);
+					
+					_corners[x, y] = corner;
+					_gameBuilder.ConnectCorner(corner);
 				}
 			}
 		}
 
-		private void CreateCorner(int x, int y)
+		private Corner DrawAndReturnCorner(int x, int y)
 		{
 			var corner = _cornerScene.Instance() as Corner;
 			corner.X = x;
@@ -84,9 +92,10 @@ namespace Quoridor.Board
 			{
 				_cells[x, y], _cells[x + 1, y], _cells[x, y + 1], _cells[x + 1, y + 1]
 			});
-
-			_corners[x, y] = corner;
+			
 			AddChild(corner);
+
+			return corner;
 		}
 	}
 }

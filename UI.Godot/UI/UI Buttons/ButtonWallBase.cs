@@ -1,3 +1,4 @@
+using System;
 using Godot;
 using Quoridor.Game;
 
@@ -13,23 +14,27 @@ namespace Quoridor.UI.UI_Buttons
         private InteractiveWall _draggedWall;
         
         protected float WallRotationDegrees;
-        protected Quoridor.Game.Game _game;
+        protected GameBuilder _gameBuilder;
+
+        public event Action<Action> ButtonWallClicked;
 
         public override void _Ready()
         {
-            _game = GetNode<Quoridor.Game.Game>("/root/Game");
-            _game.WallPlaced += () =>
-            {
-                _draggedWall?.QueueFree();
-                _draggedWall = null;
-            };
+            _gameBuilder = GetNode<GameBuilder>("/root/GameBuilder");
+            _gameBuilder.ConnectButton(this);
         }
 
-        protected void ButtonWallOnStartDrag()
+        protected void OnButtonWallClick()
         {
-            _game.OnWallButtonClicked(CreateInteractiveWall);
+            ButtonWallClicked?.Invoke(CreateInteractiveWall);
         }
 
+        public void OnWallPlaced()
+        {
+            _draggedWall?.QueueFree();
+            _draggedWall = null;
+        }
+        
         private void CreateInteractiveWall()
         {
             _draggedWall = _wallScene.Instance<InteractiveWall>();
@@ -37,12 +42,8 @@ namespace Quoridor.UI.UI_Buttons
 
             _draggedWall.RotationDegrees = WallRotationDegrees;
             _draggedWall.Draggable.IsDragging = true;
-            _draggedWall.Clickable.OnMouseClickRight += () =>
-            {
-                _game.OnWallDeleted();
-                _draggedWall.QueueFree();
-                _draggedWall = null;
-            };
+
+            _gameBuilder.ConnectInteractiveWall(_draggedWall);
         }
         
     }

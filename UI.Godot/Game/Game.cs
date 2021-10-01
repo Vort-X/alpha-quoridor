@@ -10,11 +10,15 @@ namespace Quoridor.Game
 		public InputState InputState { get; private set; }
 
 		public event Action WallPlaced;
+		public event Action WallStartDragging;
+		public event Action WallStopDragging;
 			
 		public override void _Ready()
 		{
 			GameState = GameState.Waiting;
 			InputState = InputState.NoInputRequested;
+
+			WallPlaced += () => WallStopDragging?.Invoke();
 		}
 
 	
@@ -62,11 +66,14 @@ namespace Quoridor.Game
 				return;
 			
 			wallCreation.Invoke();
+			WallStartDragging?.Invoke();
+			
 			InputState = InputState.DraggingWall;
 		}
 
 		public void OnWallDeleted()
 		{
+			WallStopDragging?.Invoke();
 			InputState = InputState.SelectingCell;
 		}
 	}

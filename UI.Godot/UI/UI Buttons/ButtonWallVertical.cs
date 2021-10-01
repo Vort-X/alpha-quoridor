@@ -13,7 +13,7 @@ public class ButtonWallVertical : ButtonWallBase
 		base._Ready();
 		WallRotationDegrees = 90f;
 		Clickable = GetNode<Clickable>("Clickable");
-		Clickable.OnMouseClickLeft += ButtonWallOnStartDrag;
+		Clickable.OnMouseClickLeft += OnButtonWallClick;
 	}
 	
 }

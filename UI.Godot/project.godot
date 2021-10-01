@@ -17,6 +17,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Game="*res://Game/Game.tscn"
+GameBuilder="*res://Game/GameBuilder.cs"
 
 [display]
 
