@@ -13,8 +13,8 @@ namespace Quoridor.Board
 
 		private GameBuilder _gameBuilder;
 		
-		private readonly PackedScene _cellScene = ResourceLoader.Load<PackedScene>("res://Cell/Cell.tscn");
-		private readonly PackedScene _cornerScene = ResourceLoader.Load<PackedScene>("res://Corner/Corner.tscn");
+		private readonly PackedScene _cellScene = ResourceLoader.Load<PackedScene>("res://BoardEntities/Cell/Cell.tscn");
+		private readonly PackedScene _cornerScene = ResourceLoader.Load<PackedScene>("res://BoardEntities/Corner/Corner.tscn");
 
 		private int _offsetX = 1;
 		private int _offsetY = 1;

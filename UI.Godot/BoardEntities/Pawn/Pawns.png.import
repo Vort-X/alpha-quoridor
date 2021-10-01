@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Wall.png-5d5ae43b067579ecc4dd42afad8ca3c9.stex"
+path="res://.import/Pawns.png-164b69093a1aeab64a133e9300765090.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Wall/Wall.png"
-dest_files=[ "res://.import/Wall.png-5d5ae43b067579ecc4dd42afad8ca3c9.stex" ]
+source_file="res://BoardEntities/Pawn/Pawns.png"
+dest_files=[ "res://.import/Pawns.png-164b69093a1aeab64a133e9300765090.stex" ]
 
 [params]
 

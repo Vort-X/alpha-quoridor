@@ -1,16 +1,17 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Board/Board.png" type="Texture" id=1]
-[ext_resource path="res://Board/Board.cs" type="Script" id=2]
-[ext_resource path="res://UI/UI Buttons/ButtonWallVertical.tscn" type="PackedScene" id=3]
-[ext_resource path="res://UI/UI Buttons/ButtonWallHorizontal.tscn" type="PackedScene" id=5]
+[ext_resource path="res://UI/UI Buttons/ButtonWallVertical.tscn" type="PackedScene" id=1]
+[ext_resource path="res://UI/UI Buttons/ButtonWallHorizontal.tscn" type="PackedScene" id=2]
+[ext_resource path="res://BoardEntities/Board/Board.png" type="Texture" id=3]
+[ext_resource path="res://BoardEntities/Board/Board.cs" type="Script" id=4]
+[ext_resource path="res://BoardEntities/Pawn/Pawn.tscn" type="PackedScene" id=5]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 16, 0, 0, 0, 0, 0, 16, 0 )
 
 [sub_resource type="TileSet" id=2]
 0/name = "New Piskel.png 0"
-0/texture = ExtResource( 1 )
+0/texture = ExtResource( 3 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 144, 16 )
@@ -41,7 +42,7 @@ points = PoolVector2Array( 16, 0, 0, 0, 0, 0, 16, 0 )
 0/z_index = 0
 
 [node name="Board" type="Node2D"]
-script = ExtResource( 2 )
+script = ExtResource( 4 )
 
 [node name="CellsTileMap" type="TileMap" parent="."]
 rotation = 0.000341845
@@ -50,8 +51,23 @@ cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( 65537, 0, 0, 65545, 0, 0, 589825, 0, 0, 589833, 0, 0 )
 
-[node name="ButtonWallHorizontal" parent="." instance=ExtResource( 5 )]
+[node name="ButtonWallHorizontal" parent="." instance=ExtResource( 2 )]
 position = Vector2( 72, 176 )
 
-[node name="ButtonWallVertical" parent="." instance=ExtResource( 3 )]
-position = Vector2( 112, 176 )
+[node name="ButtonWallVertical" parent="." instance=ExtResource( 1 )]
+position = Vector2( 104, 176 )
+
+[node name="BlackPawn" parent="." instance=ExtResource( 5 )]
+
+[node name="Sprite" parent="BlackPawn" index="0"]
+position = Vector2( 88, 152 )
+
+[node name="WhitePawn" parent="." instance=ExtResource( 5 )]
+position = Vector2( 56, -24 )
+
+[node name="Sprite" parent="WhitePawn" index="0"]
+position = Vector2( 32, 48 )
+frame = 1
+
+[editable path="BlackPawn"]
+[editable path="WhitePawn"]

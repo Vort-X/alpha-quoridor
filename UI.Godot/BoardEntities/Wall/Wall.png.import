@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/CornerHighlight.png-683e2dd4158683133c92ca04f860a1b7.stex"
+path="res://.import/Wall.png-67d9e775113e18a72aedebe56fce4137.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Corner/CornerHighlight.png"
-dest_files=[ "res://.import/CornerHighlight.png-683e2dd4158683133c92ca04f860a1b7.stex" ]
+source_file="res://BoardEntities/Wall/Wall.png"
+dest_files=[ "res://.import/Wall.png-67d9e775113e18a72aedebe56fce4137.stex" ]
 
 [params]
 

@@ -11,16 +11,27 @@ public class Cell : Node2D
 
 	private Clickable _clickable;
 
-	public event Action<Tuple<int, int>> CellClicked; 
+	private Sprite _hightLight;
+
+	public event Action<Tuple<int, int>> CellClicked;
+
+	public bool IsHighlighted
+	{
+		set => _hightLight.Visible = value;
+	}
 
 	public override void _Ready()
 	{
 		_clickable = GetNode<Clickable>("Clickable");
+		_hightLight = GetNode<Sprite>("Highlight");
+
+		IsHighlighted = false;
 		_clickable.OnMouseClickLeft += () =>
 		{
 			CellClicked?.Invoke(new Tuple<int, int>(X, Y));
 		};
 	}
+	
 }
 
 
