@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\Games\\alpha-quoridor\\Quoridor.Model\\Quoridor.Model.csproj": {}
+    "C:\\Users\\MAKS\\source\\repos\\alpha-quoridor\\Quoridor.Model\\Quoridor.Model.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\Games\\alpha-quoridor\\Queridor\\Queridor.csproj": {
+    "C:\\Users\\MAKS\\source\\repos\\alpha-quoridor\\Queridor\\Queridor.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\Games\\alpha-quoridor\\Queridor\\Queridor.csproj",
+        "projectUniqueName": "C:\\Users\\MAKS\\source\\repos\\alpha-quoridor\\Queridor\\Queridor.csproj",
         "projectName": "Queridor",
-        "projectPath": "D:\\Projects\\Games\\alpha-quoridor\\Queridor\\Queridor.csproj",
-        "packagesPath": "C:\\Users\\Mihailo\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\Games\\alpha-quoridor\\Queridor\\obj\\",
+        "projectPath": "C:\\Users\\MAKS\\source\\repos\\alpha-quoridor\\Queridor\\Queridor.csproj",
+        "packagesPath": "C:\\Users\\MAKS\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\MAKS\\source\\repos\\alpha-quoridor\\Queridor\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Mihailo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\MAKS\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -26,7 +26,6 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
-            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -38,7 +37,6 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "imports": [
             "net461",
             "net462",
@@ -54,21 +52,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Projects\\Games\\alpha-quoridor\\Quoridor.Model\\Quoridor.Model.csproj": {
+    "C:\\Users\\MAKS\\source\\repos\\alpha-quoridor\\Quoridor.Model\\Quoridor.Model.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\Games\\alpha-quoridor\\Quoridor.Model\\Quoridor.Model.csproj",
+        "projectUniqueName": "C:\\Users\\MAKS\\source\\repos\\alpha-quoridor\\Quoridor.Model\\Quoridor.Model.csproj",
         "projectName": "Quoridor.Model",
-        "projectPath": "D:\\Projects\\Games\\alpha-quoridor\\Quoridor.Model\\Quoridor.Model.csproj",
-        "packagesPath": "C:\\Users\\Mihailo\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\Games\\alpha-quoridor\\Quoridor.Model\\obj\\",
+        "projectPath": "C:\\Users\\MAKS\\source\\repos\\alpha-quoridor\\Quoridor.Model\\Quoridor.Model.csproj",
+        "packagesPath": "C:\\Users\\MAKS\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\MAKS\\source\\repos\\alpha-quoridor\\Quoridor.Model\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Mihailo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\MAKS\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -79,11 +77,10 @@
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net5.0": {
-            "targetAlias": "net5.0",
+          "net50": {
             "projectReferences": {
-              "D:\\Projects\\Games\\alpha-quoridor\\Queridor\\Queridor.csproj": {
-                "projectPath": "D:\\Projects\\Games\\alpha-quoridor\\Queridor\\Queridor.csproj"
+              "C:\\Users\\MAKS\\source\\repos\\alpha-quoridor\\Queridor\\Queridor.csproj": {
+                "projectPath": "C:\\Users\\MAKS\\source\\repos\\alpha-quoridor\\Queridor\\Queridor.csproj"
               }
             }
           }
@@ -95,24 +92,8 @@
         }
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
+        "net50": {
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
         }
       }
     }
