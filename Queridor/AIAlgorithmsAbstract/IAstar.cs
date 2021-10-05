@@ -1,6 +1,8 @@
-﻿using Queridor.Model;
+﻿using Queridor.AIAlgotithms;
+using Queridor.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 
 namespace Queridor.AIAlgorithmsAbstract

@@ -1,16 +1,10 @@
 {
   "version": 3,
   "targets": {
-    "net5.0": {
+    ".NETFramework,Version=v5.0": {
       "Queridor/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v3.1",
-        "compile": {
-          "bin/placeholder/Queridor.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Queridor.dll": {}
-        }
+        "framework": "Unsupported,Version=v0.0"
       }
     }
   },
@@ -22,24 +16,24 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net5.0": [
+    ".NETFramework,Version=v5.0": [
       "Queridor >= 1.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Mihailo\\.nuget\\packages\\": {}
+    "C:\\Users\\MAKS\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\Games\\alpha-quoridor\\Quoridor.Model\\Quoridor.Model.csproj",
+      "projectUniqueName": "C:\\Users\\MAKS\\source\\repos\\alpha-quoridor\\Quoridor.Model\\Quoridor.Model.csproj",
       "projectName": "Quoridor.Model",
-      "projectPath": "D:\\Projects\\Games\\alpha-quoridor\\Quoridor.Model\\Quoridor.Model.csproj",
-      "packagesPath": "C:\\Users\\Mihailo\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\Games\\alpha-quoridor\\Quoridor.Model\\obj\\",
+      "projectPath": "C:\\Users\\MAKS\\source\\repos\\alpha-quoridor\\Quoridor.Model\\Quoridor.Model.csproj",
+      "packagesPath": "C:\\Users\\MAKS\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\MAKS\\source\\repos\\alpha-quoridor\\Quoridor.Model\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Mihailo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\MAKS\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -50,11 +44,10 @@
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
+        "net50": {
           "projectReferences": {
-            "D:\\Projects\\Games\\alpha-quoridor\\Queridor\\Queridor.csproj": {
-              "projectPath": "D:\\Projects\\Games\\alpha-quoridor\\Queridor\\Queridor.csproj"
+            "C:\\Users\\MAKS\\source\\repos\\alpha-quoridor\\Queridor\\Queridor.csproj": {
+              "projectPath": "C:\\Users\\MAKS\\source\\repos\\alpha-quoridor\\Queridor\\Queridor.csproj"
             }
           }
         }
@@ -66,25 +59,20 @@
       }
     },
     "frameworks": {
-      "net5.0": {
-        "targetAlias": "net5.0",
-        "imports": [
-          "net461",
-          "net462",
-          "net47",
-          "net471",
-          "net472",
-          "net48"
-        ],
-        "assetTargetFallback": true,
-        "warn": true,
-        "frameworkReferences": {
-          "Microsoft.NETCore.App": {
-            "privateAssets": "all"
-          }
-        },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
+      "net50": {
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1201",
+      "level": "Error",
+      "message": "Project Queridor is not compatible with net50 (.NETFramework,Version=v5.0). Project Queridor supports: netcoreapp3.1 (.NETCoreApp,Version=v3.1)",
+      "libraryId": "Queridor",
+      "targetGraphs": [
+        ".NETFramework,Version=v5.0"
+      ]
+    }
+  ]
 }

@@ -9,9 +9,10 @@ namespace Queridor.ServicesAbstract
 {
     public interface ITurnCheckService
     {
+        IMakeTurnService mService { get; set; }
         IAstar Algoritms { get; set; }
-        bool CanMakeTurnCheck(Cell startCell, Cell finishCell);
-        bool CanPlaceWallCheck(Corner corner, bool horizontal);
-        bool VictoryCheck(Cell cellToCheck, bool isFirstPlayer);
+        bool CanMakeTurnCheck(Cell finishCell, Pawn enemy, Pawn player, List<Cell> cells);
+        bool CanPlaceWallCheck(List<Cell> cells, Corner corner, bool horizontal, Pawn player, Pawn enemy);
+        bool VictoryCheck(Pawn player);
     }
 }
