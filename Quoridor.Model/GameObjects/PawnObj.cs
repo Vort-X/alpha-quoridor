@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Quoridor.Model.GameObjects
 {
-    public class Pawn
+    public class PawnObj
     {
         public Cell Cell { get; internal set; }
         public int AwailableWalls { get; internal set; } = 10;

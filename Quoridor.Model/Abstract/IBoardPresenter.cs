@@ -9,8 +9,8 @@ namespace Quoridor.Model.Abstract
 {
     public interface IBoardPresenter
     {
-        Pawn Pawn1 { get; }
-        Pawn Pawn2 { get; }
+        PawnObj Pawn1 { get; }
+        PawnObj Pawn2 { get; }
         List<Wall> Walls { get; }
 
         void MakeTurn(object turn);
