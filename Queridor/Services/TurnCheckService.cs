@@ -11,7 +11,15 @@ namespace Queridor.Services
 {
     public class TurnCheckService : ITurnCheckService
     {
-        public IAstar Algoritms { get; set; }
+        public TurnCheckService(IAstar algorithm, IMakeTurnService makeTurnService)
+        {
+            Algorithm = algorithm;
+            MakeTurnService = makeTurnService;
+        }
+
+        public IAstar Algorithm { get; private set; }
+        public IMakeTurnService MakeTurnService { get; private set; }
+
         public bool CanMakeTurnCheck(Cell finishCell, Pawn enemy, Pawn player, List<Cell> cells)
         {
             if (player.Cell == finishCell) return false;
@@ -72,7 +80,7 @@ namespace Queridor.Services
 
         private bool CheckIfWinPathExist(Pawn player, List<Cell> winCells)
         {
-            return !winCells.TrueForAll(c => Algoritms.FindBestWay(player.Cell, c) == null);
+            return !winCells.TrueForAll(c => Algorithm.FindBestWay(player.Cell, c) == null);
         }
 
         private List<Cell> FindWinCells(Pawn player, List<Cell> allCells)

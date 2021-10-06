@@ -1,4 +1,7 @@
 ﻿using Queridor.Model;
+using Queridor.ServicesAbstract;
+using Quoridor.Model.Abstract;
+using Quoridor.Model.Turns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +12,14 @@ namespace Quoridor.Model.PlayerTypes
 {
     class EasyBotPlayer : BotPlayer
     {
-        public EasyBotPlayer(Board board) : base(board)
+        private readonly ITurnCheckService turnCheckService;
+
+        public EasyBotPlayer(ITurnCheckService turnCheckService)
         {
+            this.turnCheckService = turnCheckService;
         }
 
-        protected override object GetTurnFromAlgorythm()
+        protected override Turn GetTurnFromAlgorythm()
         {
             throw new NotImplementedException();
         }

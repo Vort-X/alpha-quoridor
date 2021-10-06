@@ -1,4 +1,5 @@
 ﻿using Quoridor.Model.Abstract;
+using Quoridor.Model.Turns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,8 +24,12 @@ namespace Quoridor.Model.GameManager
 
         public event Action BoardUpdated;
 
-        void IGameManager.MakeTurn(IPlayer sender, object turn)
+        void IGameManager.MakeTurn(IPlayer sender, Turn turn)
         {
+            if (ptsm is null)
+            {
+                throw new NullReferenceException("State machine is null. Call method \"DefaultGameManager.RegisterPlayers\" to create state machine.");
+            }
             if (sender != ptsm.ActivePlayer)
             {
                 //????

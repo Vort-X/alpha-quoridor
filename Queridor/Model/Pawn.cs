@@ -8,6 +8,6 @@ namespace Queridor.Model
     {
         public Cell Cell { get; set; }
         public int WinXCoordinate { get; set; }
-
+        public int AvailableWalls { get; set; } = 10;
     }
 }

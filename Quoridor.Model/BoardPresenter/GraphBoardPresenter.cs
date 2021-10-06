@@ -1,7 +1,9 @@
-﻿using Queridor.Model;
+﻿using Queridor.BoardFabricAbstract;
+using Queridor.Model;
 using Queridor.ServicesAbstract;
 using Quoridor.Model.Abstract;
 using Quoridor.Model.GameObjects;
+using Quoridor.Model.Turns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +17,11 @@ namespace Quoridor.Model.BoardPresenter
         private Board board;
         private ITurnCheckService turnCheckService;
 
-        public GraphBoardPresenter(Board board, ITurnCheckService turnCheckService)
+        public GraphBoardPresenter(Board board, Pawn pawn1, Pawn pawn2, ITurnCheckService turnCheckService)
         {
             this.board = board;
+            Pawn1 = pawn1;
+            Pawn2 = pawn2;
             this.turnCheckService = turnCheckService;
             Walls = new List<Wall>();
         }
@@ -26,9 +30,11 @@ namespace Quoridor.Model.BoardPresenter
         public Pawn Pawn2 { get; set; }
         public List<Wall> Walls { get; set; }
 
-        public void MakeTurn(object turn)
+        void IBoardPresenter.MakeTurn(Turn turn)
         {
-            throw new NotImplementedException();
+            Pawn p1, p2;
+            (p1, p2) = turn.IsFirstPlayer ? (Pawn1, Pawn2) : (Pawn2, Pawn1);
+            turn.Execute(board, p1, p2, turnCheckService);
         }
     }
 }

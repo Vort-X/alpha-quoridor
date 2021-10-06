@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quoridor.Model.Turns;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace Quoridor.Model.Abstract
 
         event Action BoardUpdated;
 
-        internal void MakeTurn(IPlayer sender, object turn);
+        internal void MakeTurn(IPlayer sender, Turn turn);
     }
 
     public enum GameState

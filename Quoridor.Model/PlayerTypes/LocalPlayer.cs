@@ -1,6 +1,4 @@
-﻿using Queridor.Model;
-using Queridor.ServicesAbstract;
-using Quoridor.Model.Abstract;
+﻿using Quoridor.Model.Abstract;
 using Quoridor.Model.Turns;
 using System;
 using System.Collections.Generic;
@@ -10,16 +8,15 @@ using System.Threading.Tasks;
 
 namespace Quoridor.Model.PlayerTypes
 {
-    abstract class BotPlayer : IPlayer
+    class LocalPlayer : IPlayer
     {
         public event Action<IPlayer, Turn> TurnFinished;
 
         public void NotifyTurn()
         {
-            var turn = GetTurnFromAlgorythm();
+            throw new NotImplementedException();
+            var turn = (Turn) new object();
             TurnFinished?.Invoke(this, turn);
         }
-
-        protected abstract Turn GetTurnFromAlgorythm();
     }
 }

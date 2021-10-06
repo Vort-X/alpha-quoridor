@@ -1,4 +1,6 @@
-﻿using Quoridor.Model.GameObjects;
+﻿using Queridor.Model;
+using Quoridor.Model.GameObjects;
+using Quoridor.Model.Turns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +11,10 @@ namespace Quoridor.Model.Abstract
 {
     public interface IBoardPresenter
     {
-        PawnObj Pawn1 { get; }
-        PawnObj Pawn2 { get; }
+        Pawn Pawn1 { get; }
+        Pawn Pawn2 { get; }
         List<Wall> Walls { get; }
 
-        void MakeTurn(object turn);
+        internal void MakeTurn(Turn turn);
     }
 }
