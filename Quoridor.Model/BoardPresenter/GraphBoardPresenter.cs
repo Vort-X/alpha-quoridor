@@ -34,7 +34,19 @@ namespace Quoridor.Model.BoardPresenter
         {
             Pawn p1, p2;
             (p1, p2) = turn.IsFirstPlayer ? (Pawn1, Pawn2) : (Pawn2, Pawn1);
+
+            //TODO: find better solution
+            if (turn is PlaceWallTurn pwTurn)
+            {
+                pwTurn.PlaceWall += AddWall;
+            }
+
             turn.Execute(board, p1, p2, turnCheckService);
+        }
+
+        private void AddWall(Corner corner, bool isHorizontal)
+        {
+            Walls.Add(new Wall() { Corner = corner, IsHorizontal = isHorizontal });
         }
     }
 }
