@@ -1,8 +1,12 @@
 using Godot;
 using System;
+using Quoridor.Game;
+using Quoridor.Model;
 
 public class PixelLabel : Label
 {
+
+	[Export] private GameType _gameType = GameType.VsPlayer;
 
 	DynamicFontData _fontData = ResourceLoader.Load<DynamicFontData>("res://UI/Main Menu/press-start/prstartk.ttf");
 	public override void _Ready()
@@ -31,7 +35,36 @@ public class PixelLabel : Label
 		var newFont = CreateFontWithOutlineSize(1);
 		AddFontOverride("font", newFont);
 	}
+	
+	private void _on_PixelMenuItemLabel_gui_input(object @event)
+	{
+		if (!(@event is InputEventMouseButton mouseEvent)) return;
+			
+		var mouseButton = (ButtonList) mouseEvent.ButtonIndex;
+
+
+		if (mouseButton == ButtonList.Left && mouseEvent.Pressed)
+		{
+			var sceneLoader = GetNode<SceneLoader>("/root/SceneLoader");
+			var gameManager = _gameType switch
+			{
+				GameType.VsAi => GameCreator.NewGameVsBot(),
+				GameType.VsPlayer => GameCreator.NewGameVsPlayer()
+			};
+			sceneLoader.GotoScene(GameSession.CreateGameSession(gameManager));
+		}
+	}
 }
+
+public enum GameType
+{
+	VsAi,
+	VsPlayer
+}
+
+
+
+
 
 
 

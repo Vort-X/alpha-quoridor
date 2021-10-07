@@ -3,7 +3,7 @@ using Godot;
 
 namespace Quoridor.Game
 {
-	public class Game : Node
+	public class UiPresenter : Node
 	{
 	
 		public GameState GameState { get; private set; }
