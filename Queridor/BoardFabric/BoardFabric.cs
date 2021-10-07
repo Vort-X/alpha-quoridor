@@ -16,7 +16,7 @@ namespace Queridor.BoardFabric
             {
                 for (int j = 0; j < 9; j++)
                 {
-                    board.Cells.Add(new Cell() { X = i, Y = j, Edges = new List<Edge>() });
+                    board.Cells.Add(new Cell() { X = j, Y = i, Edges = new List<Edge>() });
 
                 }
             }
@@ -48,8 +48,8 @@ namespace Queridor.BoardFabric
                 {
                     board.Corners.Add(new Corner()
                     {
-                        X = i,
-                        Y = j,
+                        X = j,
+                        Y = i,
                         HorizontalEdges = new KeyValuePair<Edge, Edge>
                             (FindEdgeBetween(board.Cells[j + 9 * i], board.Cells[j + 9 * i + 9]),
                             FindEdgeBetween(board.Cells[j + 9 * i + 1], board.Cells[j + 9 * i + 10])),
@@ -72,7 +72,7 @@ namespace Queridor.BoardFabric
 
         public Pawn CreatePawn(Board board, bool isFirstPlayer)
         {
-            return isFirstPlayer ? new Pawn() {  Cell = board.Cells[4], WinXCoordinate = 8 } : new Pawn() { Cell = board.Cells[76], WinXCoordinate = 0 };
+            return isFirstPlayer ? new Pawn() {  Cell = board.Cells[4], WinCoordinate = 8 } : new Pawn() { Cell = board.Cells[76], WinCoordinate = 0 };
         }
     }
 }

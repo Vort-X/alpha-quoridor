@@ -60,7 +60,7 @@ namespace Queridor.Services
         {
             if(player.Cell.X - enemy.Cell.X == 1) return new KeyValuePair<int, int>(enemy.Cell.X - 1, enemy.Cell.Y);
             else if (player.Cell.X - enemy.Cell.X == -1) return new KeyValuePair<int, int>(enemy.Cell.X + 1, enemy.Cell.Y);
-            else if (player.Cell.X - enemy.Cell.X == 1) return new KeyValuePair<int, int>(enemy.Cell.X, enemy.Cell.Y - 1);
+            else if (player.Cell.Y - enemy.Cell.Y == 1) return new KeyValuePair<int, int>(enemy.Cell.X, enemy.Cell.Y - 1);
             else return new KeyValuePair<int, int>(enemy.Cell.X, enemy.Cell.Y + 1);
         }
 
@@ -86,13 +86,13 @@ namespace Queridor.Services
         private List<Cell> FindWinCells(Pawn player, List<Cell> allCells)
         {
             List<Cell> result = new List<Cell>(allCells);
-            result.RemoveRange(player.WinXCoordinate == 0 ? 9 : 0, 72);
+            result.RemoveRange(player.WinCoordinate == 0 ? 9 : 0, 72);
             return result;
         }
 
         public bool VictoryCheck(Pawn player)
         {
-            return player.Cell.X == player.WinXCoordinate;
+            return player.Cell.Y == player.WinCoordinate;
         }
     }
 }
