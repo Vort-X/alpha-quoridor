@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/UI_Quoridor.png-8d2eed48c60a8ed7d0939122ed8b720c.stex"
+path="res://.import/UI_Quoridor.png-bc8090f6005fe0c1bab764dbaef06c9a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/UI_Quoridor.png"
-dest_files=[ "res://.import/UI_Quoridor.png-8d2eed48c60a8ed7d0939122ed8b720c.stex" ]
+source_file="res://UI/UI Buttons/UI_Quoridor.png"
+dest_files=[ "res://.import/UI_Quoridor.png-bc8090f6005fe0c1bab764dbaef06c9a.stex" ]
 
 [params]
 

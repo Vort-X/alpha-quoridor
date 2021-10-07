@@ -1,3 +1,9 @@
 /.idea/
 /.import/
 /.mono/
+/UI.Godot/.idea/
+/UI.Godot/.mono/
+/UI.Godot/.vs/
+/UI.Godot/.import/
+/UI.Godot/mono_crash*
+

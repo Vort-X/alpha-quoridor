@@ -1,7 +1,5 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://UI/UI Buttons/ButtonWallVertical.tscn" type="PackedScene" id=1]
-[ext_resource path="res://UI/UI Buttons/ButtonWallHorizontal.tscn" type="PackedScene" id=2]
 [ext_resource path="res://BoardEntities/Board/Board.png" type="Texture" id=3]
 [ext_resource path="res://BoardEntities/Board/Board.cs" type="Script" id=4]
 [ext_resource path="res://BoardEntities/Pawn/Pawn.tscn" type="PackedScene" id=5]
@@ -50,12 +48,6 @@ tile_set = SubResource( 2 )
 cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( 65537, 0, 0, 65545, 0, 0, 589825, 0, 0, 589833, 0, 0 )
-
-[node name="ButtonWallHorizontal" parent="." instance=ExtResource( 2 )]
-position = Vector2( 72, 176 )
-
-[node name="ButtonWallVertical" parent="." instance=ExtResource( 1 )]
-position = Vector2( 104, 176 )
 
 [node name="BlackPawn" parent="." instance=ExtResource( 5 )]
 
