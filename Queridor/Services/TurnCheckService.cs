@@ -86,13 +86,13 @@ namespace Queridor.Services
         private List<Cell> FindWinCells(Pawn player, List<Cell> allCells)
         {
             List<Cell> result = new List<Cell>(allCells);
-            result.RemoveRange(player.WinXCoordinate == 0 ? 9 : 0, 72);
+            result.RemoveRange(player.WinCoordinate == 0 ? 9 : 0, 72);
             return result;
         }
 
         public bool VictoryCheck(Pawn player)
         {
-            return player.Cell.X == player.WinXCoordinate;
+            return player.Cell.Y == player.WinCoordinate;
         }
     }
 }
