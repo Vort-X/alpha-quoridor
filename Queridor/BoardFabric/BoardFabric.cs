@@ -48,6 +48,8 @@ namespace Queridor.BoardFabric
                 {
                     board.Corners.Add(new Corner()
                     {
+                        X = i,
+                        Y = j,
                         HorizontalEdges = new KeyValuePair<Edge, Edge>
                             (FindEdgeBetween(board.Cells[j + 9 * i], board.Cells[j + 9 * i + 9]),
                             FindEdgeBetween(board.Cells[j + 9 * i + 1], board.Cells[j + 9 * i + 10])),
@@ -55,7 +57,7 @@ namespace Queridor.BoardFabric
                         VerticalEdges = new KeyValuePair<Edge, Edge>
                             (FindEdgeBetween(board.Cells[j + 9 * i], board.Cells[j + 9 * i + 1]),
                             FindEdgeBetween(board.Cells[j + 9 * i + 9], board.Cells[j + 9 * i + 10]))
-                    });
+                    }); ;
                 }
             }
 
