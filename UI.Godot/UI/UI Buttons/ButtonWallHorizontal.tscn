@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://UI/UI Buttons/ButtonWall.tscn" type="PackedScene" id=2]
+
+[node name="ButtonWallHorizontal" instance=ExtResource( 2 )]
+
+[node name="Sprite" parent="." index="0"]
+frame = 1
+
+[editable path="Clickable"]

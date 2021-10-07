@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://UI/UI Buttons/UI_Quoridor.png" type="Texture" id=1]
+[ext_resource path="res://UI/UI Buttons/ButtonWallHorizontal.cs" type="Script" id=2]
+[ext_resource path="res://UI/Clickable/Clickable.tscn" type="PackedScene" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+
+[node name="ButtonWall" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+hframes = 2
+
+[node name="Clickable" parent="." instance=ExtResource( 3 )]
+
+[node name="CollisionShape2D" parent="Clickable" index="0"]
+shape = SubResource( 1 )
+
+[editable path="Clickable"]
