@@ -11,8 +11,9 @@
 З боку користувацького інтерфейсу маємо ігрове меню з можливістю переходу між відображеннями, спрайти дошки, пішок, стін, підсвічування розположення стін, також вікно реагує на клацання по дошці і по кнопкам стінок.
 
 # Скріншоти гри:
-![Головне меню](https://drive.google.com/file/d/1yCnUpR3uAFrrTA1F7PMYKVRCXZt88Cn5/view?usp=sharing)
-![Вибір гри](https://drive.google.com/file/d/1zuxCUtPne7K0hJgqds5Y8bQKfXquIkS7/view?usp=sharing)
-![Дошка з пішками](https://drive.google.com/file/d/1Rwo1rsx4RdiKooBBzH9lZnnxvpqJzPQj/view?usp=sharing)
-![Розміщення стіни](https://drive.google.com/file/d/1T52897Aj_YhDX-JHEfPmOGO_f7UGEZ2O/view?usp=sharing)
-![Підсвітка клтинок при розміщенні](https://drive.google.com/file/d/1ghfPFv8YZ1QDgJStPEkZoFw4H5K4h3S8/view?usp=sharing)
+
+https://drive.google.com/file/d/1yCnUpR3uAFrrTA1F7PMYKVRCXZt88Cn5/view?usp=sharing - Головне меню
+https://drive.google.com/file/d/1zuxCUtPne7K0hJgqds5Y8bQKfXquIkS7/view?usp=sharing - Вибір гри
+https://drive.google.com/file/d/1Rwo1rsx4RdiKooBBzH9lZnnxvpqJzPQj/view?usp=sharing - Дошка з пішками
+https://drive.google.com/file/d/1T52897Aj_YhDX-JHEfPmOGO_f7UGEZ2O/view?usp=sharing - Розміщення стіни
+https://drive.google.com/file/d/1ghfPFv8YZ1QDgJStPEkZoFw4H5K4h3S8/view?usp=sharing - Підсвітка клтинок при розміщенні
