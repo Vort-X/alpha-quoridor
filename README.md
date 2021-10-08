@@ -11,8 +11,8 @@
 З боку користувацького інтерфейсу маємо ігрове меню з можливістю переходу між відображеннями, спрайти дошки, пішок, стін, підсвічування розположення стін, також вікно реагує на клацання по дошці і по кнопкам стінок.
 
 # Скріншоти гри:
-![Головне меню](https://lh3.googleusercontent.com/9pfN3OLkHQP1saf0Ytb2Dm83eZMAoBkaHDpPx0R2EDCVqMwLC-3kZCnQNSJrUugMVAThBuUJy3HcRlux5eWV=w1920-h969-rw)
-![Вибір гри](https://lh6.googleusercontent.com/nSyAfuMr8BVUc0kB7DTQCZmdWY4nJATqyj8fqsa0Lo1__kVKwpl_uQI7olfczfmzCssEnKXgZ8rFaWhcdwlE=w1920-h969-rw)
-![Дошка з пішками](https://lh5.googleusercontent.com/jjMXEZlxqd-fncUiX172X3vqCJSI5sGopfimWuPSIUtN6hxXuOMTpFiC2SCtfP8BF1ex5MaQxmHEG6krUq9m=w1920-h969-rw)
-![Розміщення стіни](https://lh5.googleusercontent.com/mSb8eOb8s-WJknij5VFl8qKQJTuy7bbdweTFi8JJwv9k28QPSZywnpmWF-m29kxlzELr7kI0gyPsjeuWzBvq=w1920-h969-rw)
-![Підсвітка клтинок при розміщенні](https://lh5.googleusercontent.com/NdhC4Zz2oZSbWSA-6wYwQ5e8c2_CBV59RPmL3rRdr1Fnrm4_0v_-nVSkRsqkGXtJ0TyHOASSg6mzWOD_JXD0=w1920-h969-rw)
+![Головне меню](https://drive.google.com/file/d/1yCnUpR3uAFrrTA1F7PMYKVRCXZt88Cn5/view?usp=sharing)
+![Вибір гри](https://drive.google.com/file/d/1zuxCUtPne7K0hJgqds5Y8bQKfXquIkS7/view?usp=sharing)
+![Дошка з пішками](https://drive.google.com/file/d/1Rwo1rsx4RdiKooBBzH9lZnnxvpqJzPQj/view?usp=sharing)
+![Розміщення стіни](https://drive.google.com/file/d/1T52897Aj_YhDX-JHEfPmOGO_f7UGEZ2O/view?usp=sharing)
+![Підсвітка клтинок при розміщенні](https://drive.google.com/file/d/1ghfPFv8YZ1QDgJStPEkZoFw4H5K4h3S8/view?usp=sharing)
