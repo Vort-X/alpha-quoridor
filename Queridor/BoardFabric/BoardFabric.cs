@@ -57,7 +57,7 @@ namespace Queridor.BoardFabric
                         VerticalEdges = new KeyValuePair<Edge, Edge>
                             (FindEdgeBetween(board.Cells[j + 9 * i], board.Cells[j + 9 * i + 1]),
                             FindEdgeBetween(board.Cells[j + 9 * i + 9], board.Cells[j + 9 * i + 10]))
-                    }); ;
+                    }); 
                 }
             }
 

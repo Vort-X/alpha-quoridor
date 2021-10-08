@@ -6,4 +6,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Quoridor.Model\Quoridor.Model.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="UI\UI Buttons\ButtonExit.tscn" />
+    <Content Include="UI\UI Buttons\ExitButton.png" />
+    <Content Include="UI\UI Buttons\ExitButton.png.import" />
+  </ItemGroup>
 </Project>

@@ -28,6 +28,7 @@ namespace Quoridor.Board
 
 		public override void _Ready()
 		{
+			BoardPresenter = GetNode<GameSession>("/root/GameSession").Game.GameManager.BoardPresenter;
 			_cellsTileMap = GetNode<TileMap>("CellsTileMap");
 			_uiPresenterBuilder = GetNode<UiPresenterBuilder>("/root/UiPresenterBuilder");
 			
@@ -109,8 +110,10 @@ namespace Quoridor.Board
 		{
 			var cell = BoardPresenter.Pawn1.Cell;
 			_firstPlayerPawn.Position = new Vector2(16 * (cell.X + _offsetX), 16 * (cell.Y + _offsetY));
+			GD.Print($"{cell.X}, {cell.Y}");
 			cell = BoardPresenter.Pawn2.Cell;
 			_secondPlayerPawn.Position = new Vector2(16 * (cell.X + _offsetX), 16 * (cell.Y + _offsetY));
+			GD.Print($"{cell.X}, {cell.Y}");
 		}
 
 		private void DrawWalls()

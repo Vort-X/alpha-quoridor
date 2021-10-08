@@ -16,9 +16,10 @@ config/icon="res://icon.png"
 
 [autoload]
 
+GameSession="*res://Game/GameSession.cs"
+SceneLoader="*res://Game/SceneLoader.cs"
 UiPresenter="*res://Game/UiPresenter/UiPresenter.cs"
 UiPresenterBuilder="*res://Game/UiPresenter/UiPresenterBuilder.cs"
-SceneLoader="*res://Game/SceneLoader.cs"
 
 [display]
 

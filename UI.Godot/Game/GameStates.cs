@@ -1,6 +1,6 @@
 namespace Quoridor.Game
 {
-    public enum GameState
+    public enum GameStates
     {
         InputRequested,
         BoardChanged,

@@ -6,8 +6,8 @@ namespace Quoridor.Game
 	public class UiPresenter : Node
 	{
 	
-		public GameState GameState { get; private set; }
-		public InputState InputState { get; private set; }
+		public GameStates GameStates { get; private set; }
+		public InputStates InputStates { get; private set; }
 
 		public event Action WallPlaced;
 		public event Action WallStartDragging;
@@ -15,8 +15,8 @@ namespace Quoridor.Game
 			
 		public override void _Ready()
 		{
-			GameState = GameState.Waiting;
-			InputState = InputState.NoInputRequested;
+			GameStates = GameStates.Waiting;
+			InputStates = InputStates.NoInputRequested;
 
 			WallPlaced += () => WallStopDragging?.Invoke();
 		}
@@ -27,33 +27,33 @@ namespace Quoridor.Game
 			if (Input.IsActionJustPressed("input_request"))
 			{
 				GD.Print("input_request");
-				GameState = GameState switch
+				GameStates = GameStates switch
 				{
-					GameState.Waiting => GameState.InputRequested,
-					GameState.InputRequested => GameState.Waiting
+					GameStates.Waiting => GameStates.InputRequested,
+					GameStates.InputRequested => GameStates.Waiting
 				};
-				InputState = GameState switch
+				InputStates = GameStates switch
 				{
-					GameState.Waiting => InputState.NoInputRequested,
-					GameState.InputRequested => InputState.SelectingCell
+					GameStates.Waiting => InputStates.NoInputRequested,
+					GameStates.InputRequested => InputStates.SelectingCell
 				};
 			}
 		}
 
 		public void OnWallPlaced(Tuple<int, int> cornerCoordinates)
 		{
-			if (InputState != InputState.DraggingWall)
+			if (InputStates != InputStates.DraggingWall)
 				return;
 			
 			var (x, y) = cornerCoordinates;
 			GD.Print($"Corner: X:{x}, Y:{y}");
 			WallPlaced?.Invoke();
-			InputState = InputState.SelectingCell;
+			InputStates = InputStates.SelectingCell;
 		}
 
 		public void OnCellClicked(Tuple<int, int> cellCoordinates)
 		{
-			if (InputState != InputState.SelectingCell) 
+			if (InputStates != InputStates.SelectingCell) 
 				return;
 			
 			var (x, y) = cellCoordinates;
@@ -62,19 +62,19 @@ namespace Quoridor.Game
 
 		public void OnWallButtonClicked(Action wallCreation)
 		{
-			if (InputState != InputState.SelectingCell) 
+			if (InputStates != InputStates.SelectingCell) 
 				return;
 			
 			wallCreation.Invoke();
 			WallStartDragging?.Invoke();
 			
-			InputState = InputState.DraggingWall;
+			InputStates = InputStates.DraggingWall;
 		}
 
 		public void OnWallDeleted()
 		{
 			WallStopDragging?.Invoke();
-			InputState = InputState.SelectingCell;
+			InputStates = InputStates.SelectingCell;
 		}
 	}
 }
