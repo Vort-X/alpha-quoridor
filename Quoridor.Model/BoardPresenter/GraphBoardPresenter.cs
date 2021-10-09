@@ -32,8 +32,7 @@ namespace Quoridor.Model.BoardPresenter
 
         void IBoardPresenter.MakeTurn(Turn turn)
         {
-            Pawn p1, p2;
-            (p1, p2) = turn.IsFirstPlayer ? (Pawn1, Pawn2) : (Pawn2, Pawn1);
+            Pawn enemy = turn.Player == Pawn1 ? Pawn2 : Pawn1;
 
             //TODO: find better solution
             if (turn is PlaceWallTurn pwTurn)
@@ -41,7 +40,7 @@ namespace Quoridor.Model.BoardPresenter
                 pwTurn.PlaceWall += AddWall;
             }
 
-            turn.Execute(board, p1, p2, turnCheckService);
+            turn.Execute(board, turn.Player, enemy, turnCheckService);
         }
 
         private void AddWall(Corner corner, bool isHorizontal)

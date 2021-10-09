@@ -22,16 +22,13 @@ namespace Quoridor.Model
             var mts = new MakeTurnsService();
             var tcs = new TurnCheckService(ast, mts);
             var gbp = new GraphBoardPresenter(b, p1, p2, tcs);
-           
-            var mmtf = new MakeMoveTurnFactory();
-            var pwtf = new PlaceWallTurnFactory();
 
-            var player1 = new LocalPlayer(turnProvider);
-            var player2 = new LocalPlayer(turnProvider);
+            var player1 = new LocalPlayer(p1, turnProvider);
+            var player2 = new LocalPlayer(p2, turnProvider);
             
             var dgm = new DefaultGameManager(gbp, player1, player2);
             
-            return new Game() { GameManager = dgm, Player1 = player1, Player2 = player2, MakeMoveTurnFactory = mmtf, PlaceWallTurnFactory = pwtf };
+            return new Game() { GameManager = dgm, Player1 = player1, Player2 = player2 };
         }
 
         public static Game NewGameVsBot(ITurnProvider turnProvider)
@@ -44,15 +41,13 @@ namespace Quoridor.Model
             var mts = new MakeTurnsService();
             var tcs = new TurnCheckService(ast, mts);
             var gbp = new GraphBoardPresenter(b, p1, p2, tcs);
-            var mmtf = new MakeMoveTurnFactory();
-            var pwtf = new PlaceWallTurnFactory();
 
-            var player1 = new LocalPlayer(turnProvider);
-            var player2 = new EasyBotPlayer(tcs);
+            var player1 = new LocalPlayer(p1, turnProvider);
+            var player2 = new EasyBotPlayer(p2, tcs);
             
             var dgm = new DefaultGameManager(gbp, player1,player2);
             
-            return new Game() { GameManager = dgm, Player1 = player1, Player2 = player2, MakeMoveTurnFactory = mmtf, PlaceWallTurnFactory = pwtf };
+            return new Game() { GameManager = dgm, Player1 = player1, Player2 = player2 };
         }
 
         //private static Game NewGame(IPlayer player1, IPlayer player2)

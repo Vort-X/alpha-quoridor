@@ -12,7 +12,7 @@ namespace Quoridor.Model.Turns
     {
         protected bool isHorizontal;
 
-        public PlaceWallTurn(bool isFirstPlayer, int x, int y, bool isHorizontal) : base(isFirstPlayer, x, y)
+        public PlaceWallTurn(Pawn player, int x, int y, bool isHorizontal) : base(player, x, y)
         {
             this.isHorizontal = isHorizontal;
         }

@@ -10,7 +10,7 @@ namespace Quoridor.Model.Turns
 {
     class MakeMoveTurn : Turn
     {
-        public MakeMoveTurn(bool isFirstPlayer, int x, int y) : base(isFirstPlayer, x, y)
+        public MakeMoveTurn(Pawn player, int x, int y) : base(player, x, y)
         {
         }
 

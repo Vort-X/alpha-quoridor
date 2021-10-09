@@ -12,10 +12,12 @@ namespace Quoridor.Model.PlayerTypes
 {
     class EasyBotPlayer : BotPlayer
     {
+        private readonly Pawn pawn;
         private readonly ITurnCheckService turnCheckService;
 
-        public EasyBotPlayer(ITurnCheckService turnCheckService)
+        public EasyBotPlayer(Pawn pawn, ITurnCheckService turnCheckService)
         {
+            this.pawn = pawn;
             this.turnCheckService = turnCheckService;
         }
 
