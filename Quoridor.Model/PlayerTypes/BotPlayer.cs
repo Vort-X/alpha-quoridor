@@ -12,6 +12,13 @@ namespace Quoridor.Model.PlayerTypes
 {
     abstract class BotPlayer : IPlayer
     {
+        protected bool isFirstPlayer;
+
+        protected BotPlayer(bool isFirstPlayer)
+        {
+            this.isFirstPlayer = isFirstPlayer;
+        }
+
         public event Action<IPlayer, Turn> TurnFinished;
 
         public void NotifyTurn()

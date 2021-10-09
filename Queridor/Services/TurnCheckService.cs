@@ -27,15 +27,11 @@ namespace Queridor.Services
                     || FindAvaliableNeighbours(player.Cell).Contains(finishCell);
         }
 
-        private List<Cell> FindAvaliableNeighbours(Cell start)
+        public List<Cell> FindAvaliableNeighbours(Cell start)
         {
-            List<Cell> neighbourCells = new List<Cell>();
-
-            start.Edges.Where(e => !e.IsBlocked).ToList()
-                .ForEach(e => neighbourCells
-                .Add((e.Cells.Key != start) ? (e.Cells.Key) : (e.Cells.Value)));
-
-            return neighbourCells;
+            return start.Edges.Where(e => !e.IsBlocked)
+                .Select(e => (e.Cells.Key != start) ? e.Cells.Key : e.Cells.Value)
+                .ToList();
         }
 
         private bool CheckSituationWithMoveThroughtEnemy(Cell finishCell, Pawn enemy, Pawn player, List<Cell> cells)
