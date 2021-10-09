@@ -43,7 +43,7 @@ namespace Quoridor.Model
             var gbp = new GraphBoardPresenter(p1, p2);
 
             var player1 = new LocalPlayer(p1, turnProvider);
-            var player2 = new EasyBotPlayer(p2, tcs);
+            var player2 = new EasyBotPlayer(p2, gbp, tcs);
 
             var dgm = new DefaultGameManager(b, gbp, tcs, player1, player2);
 

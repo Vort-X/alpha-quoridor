@@ -16,7 +16,7 @@ namespace Quoridor.Model.PlayerTypes
         private readonly IBoardPresenter boardPresenter;
         private readonly ITurnCheckService turnCheckService;
 
-        public EasyBotPlayer(Pawn pawn, IBoardPresenter boardPresenter, ITurnCheckService turnCheckService) : base(isFirstPlayer)
+        public EasyBotPlayer(Pawn pawn, IBoardPresenter boardPresenter, ITurnCheckService turnCheckService) : base(pawn)
         {
             this.pawn = pawn;
             this.boardPresenter = boardPresenter;
