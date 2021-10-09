@@ -1,6 +1,6 @@
 namespace Quoridor.Game
 {
-    public enum InputState
+    public enum InputStates
     {
         DraggingWall,
         SelectingCell,

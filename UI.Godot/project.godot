@@ -11,13 +11,15 @@ config_version=4
 [application]
 
 config/name="Quoridor"
-run/main_scene="res://UI/Game UI/GameUI.tscn"
+run/main_scene="res://UI/Main Menu/MainMenu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-Game="*res://Game/Game.tscn"
-GameBuilder="*res://Game/GameBuilder.cs"
+GameSession="*res://Game/GameSession.cs"
+SceneLoader="*res://Game/SceneLoader.cs"
+UiPresenter="*res://Game/UiPresenter/UiPresenter.cs"
+UiPresenterBuilder="*res://Game/UiPresenter/UiPresenterBuilder.cs"
 
 [display]
 

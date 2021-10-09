@@ -1,6 +1,7 @@
 using Godot;
 using Godot.Collections;
 using Quoridor.Game;
+using Quoridor.Model.Abstract;
 
 namespace Quoridor.Board
 {
@@ -11,28 +12,35 @@ namespace Quoridor.Board
 		[Export] private string _tileName = "New Piskel.png 0";
 		private int _tileId;
 
-		private GameBuilder _gameBuilder;
+		private UiPresenterBuilder _uiPresenterBuilder;
+		public IBoardPresenter BoardPresenter { get; set; }
 		
 		private readonly PackedScene _cellScene = ResourceLoader.Load<PackedScene>("res://BoardEntities/Cell/Cell.tscn");
 		private readonly PackedScene _cornerScene = ResourceLoader.Load<PackedScene>("res://BoardEntities/Corner/Corner.tscn");
 
 		private int _offsetX = 1;
 		private int _offsetY = 1;
+		private Pawn _firstPlayerPawn;
+		private Pawn _secondPlayerPawn;
 		private Cell[,] _cells;
 		private Corner[,] _corners;
 		private TileMap _cellsTileMap;
 
 		public override void _Ready()
 		{
+			BoardPresenter = GetNode<GameSession>("/root/GameSession").Game.GameManager.BoardPresenter;
 			_cellsTileMap = GetNode<TileMap>("CellsTileMap");
-			_gameBuilder = GetNode<GameBuilder>("/root/GameBuilder");
+			_uiPresenterBuilder = GetNode<UiPresenterBuilder>("/root/UiPresenterBuilder");
 			
 			_tileId = _cellsTileMap.TileSet.FindTileByName(_tileName);
 			_cells = new Cell[_boardHeight, _boardHeight];
 			_corners = new Corner[_boardHeight-1,_boardHeight-1];
+			_firstPlayerPawn = Pawn.CreateAndAddWhitePawn(this);
+			_secondPlayerPawn = Pawn.CreateAndAddBlackPawn(this);
 			
 			AddCells();
 			AddCorners();
+			DrawPawns();
 		}
 
 		private void AddCells()
@@ -44,7 +52,7 @@ namespace Quoridor.Board
 					var cell = DrawAndReturnCell(x, y);
 					
 					_cells[x - _offsetX, y - _offsetY] = cell;
-					_gameBuilder.ConnectCell(cell);
+					_uiPresenterBuilder.ConnectCell(cell);
 				}
 				
 			}
@@ -76,7 +84,7 @@ namespace Quoridor.Board
 					var corner = DrawAndReturnCorner(x, y);
 					
 					_corners[x, y] = corner;
-					_gameBuilder.ConnectCorner(corner);
+					_uiPresenterBuilder.ConnectCorner(corner);
 				}
 			}
 		}
@@ -96,6 +104,21 @@ namespace Quoridor.Board
 			AddChild(corner);
 
 			return corner;
+		}
+
+		private void DrawPawns()
+		{
+			var cell = BoardPresenter.Pawn1.Cell;
+			_firstPlayerPawn.Position = new Vector2(16 * (cell.X + _offsetX), 16 * (cell.Y + _offsetY));
+			GD.Print($"{cell.X}, {cell.Y}");
+			cell = BoardPresenter.Pawn2.Cell;
+			_secondPlayerPawn.Position = new Vector2(16 * (cell.X + _offsetX), 16 * (cell.Y + _offsetY));
+			GD.Print($"{cell.X}, {cell.Y}");
+		}
+
+		private void DrawWalls()
+		{
+			
 		}
 	}
 }

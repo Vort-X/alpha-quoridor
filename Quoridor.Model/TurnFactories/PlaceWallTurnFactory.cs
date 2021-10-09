@@ -1,4 +1,5 @@
-﻿using Quoridor.Model.Turns;
+﻿using Queridor.Model;
+using Quoridor.Model.Turns;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Quoridor.Model.TurnFactories
 {
-    public class PlaceWallTurnFactory
+    public static class PlaceWallTurnFactory
     {
-        public Turn CreateTurn(bool isFirstPlayer, int x, int y, bool isHorizontal)
+        public static Turn CreateTurn(Pawn player, int x, int y, bool isHorizontal)
         {
-            return new PlaceWallTurn(isFirstPlayer, x, y, isHorizontal);
+            return new PlaceWallTurn(player, x, y, isHorizontal);
         }
     }
 }

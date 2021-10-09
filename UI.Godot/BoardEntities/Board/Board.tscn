@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://BoardEntities/Board/Board.png" type="Texture" id=3]
 [ext_resource path="res://BoardEntities/Board/Board.cs" type="Script" id=4]
-[ext_resource path="res://BoardEntities/Pawn/Pawn.tscn" type="PackedScene" id=5]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 16, 0, 0, 0, 0, 0, 16, 0 )
@@ -48,18 +47,3 @@ tile_set = SubResource( 2 )
 cell_size = Vector2( 16, 16 )
 format = 1
 tile_data = PoolIntArray( 65537, 0, 0, 65545, 0, 0, 589825, 0, 0, 589833, 0, 0 )
-
-[node name="BlackPawn" parent="." instance=ExtResource( 5 )]
-
-[node name="Sprite" parent="BlackPawn" index="0"]
-position = Vector2( 88, 152 )
-
-[node name="WhitePawn" parent="." instance=ExtResource( 5 )]
-position = Vector2( 56, -24 )
-
-[node name="Sprite" parent="WhitePawn" index="0"]
-position = Vector2( 32, 48 )
-frame = 1
-
-[editable path="BlackPawn"]
-[editable path="WhitePawn"]

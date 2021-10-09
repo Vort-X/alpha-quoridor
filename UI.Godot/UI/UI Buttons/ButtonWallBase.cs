@@ -13,14 +13,14 @@ namespace Quoridor.UI.UI_Buttons
 		private InteractiveWall _draggedWall;
 		
 		protected float WallRotationDegrees;
-		protected GameBuilder _gameBuilder;
+		protected UiPresenterBuilder UiPresenterBuilder;
 
 		public event Action<Action> ButtonWallClicked;
 
 		public override void _Ready()
 		{
-			_gameBuilder = GetNode<GameBuilder>("/root/GameBuilder");
-			_gameBuilder.ConnectButton(this);
+			UiPresenterBuilder = GetNode<UiPresenterBuilder>("/root/UiPresenterBuilder");
+			UiPresenterBuilder.ConnectButton(this);
 		}
 
 		protected void OnButtonWallClick()
@@ -42,7 +42,7 @@ namespace Quoridor.UI.UI_Buttons
 			_draggedWall.RotationDegrees = WallRotationDegrees;
 			_draggedWall.Draggable.IsDragging = true;
 
-			_gameBuilder.ConnectInteractiveWall(_draggedWall);
+			UiPresenterBuilder.ConnectInteractiveWall(_draggedWall);
 		}
 		
 	}

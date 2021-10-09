@@ -11,10 +11,10 @@ namespace Quoridor.Model.Abstract
     {
         IBoardPresenter BoardPresenter { get; }
         GameState State { get; set; }
-
         event Action BoardUpdated;
+        event Action InvalidTurn;
 
-        internal void MakeTurn(IPlayer sender, Turn turn);
+        void GameLoop();
     }
 
     public enum GameState
