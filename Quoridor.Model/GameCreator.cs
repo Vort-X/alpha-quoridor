@@ -21,12 +21,12 @@ namespace Quoridor.Model
             var ast = new AStar();
             var mts = new MakeTurnsService();
             var tcs = new TurnCheckService(ast, mts);
-            var gbp = new GraphBoardPresenter(b, p1, p2, tcs);
+            var gbp = new GraphBoardPresenter(p1, p2);
 
             var player1 = new LocalPlayer(p1, turnProvider);
             var player2 = new LocalPlayer(p2, turnProvider);
             
-            var dgm = new DefaultGameManager(gbp, player1, player2);
+            var dgm = new DefaultGameManager(b, gbp, tcs, player1, player2);
             
             return new Game() { GameManager = dgm, Player1 = player1, Player2 = player2 };
         }
@@ -40,13 +40,13 @@ namespace Quoridor.Model
             var ast = new AStar();
             var mts = new MakeTurnsService();
             var tcs = new TurnCheckService(ast, mts);
-            var gbp = new GraphBoardPresenter(b, p1, p2, tcs);
+            var gbp = new GraphBoardPresenter(p1, p2);
 
             var player1 = new LocalPlayer(p1, turnProvider);
             var player2 = new EasyBotPlayer(p2, tcs);
-            
-            var dgm = new DefaultGameManager(gbp, player1,player2);
-            
+
+            var dgm = new DefaultGameManager(b, gbp, tcs, player1, player2);
+
             return new Game() { GameManager = dgm, Player1 = player1, Player2 = player2 };
         }
 

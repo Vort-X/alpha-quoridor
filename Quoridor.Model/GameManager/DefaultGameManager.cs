@@ -1,4 +1,7 @@
-﻿using Quoridor.Model.Abstract;
+﻿using Queridor.Model;
+using Queridor.ServicesAbstract;
+using Quoridor.Model.Abstract;
+using Quoridor.Model.GameObjects;
 using Quoridor.Model.Turns;
 using System;
 using System.Collections.Generic;
@@ -10,12 +13,16 @@ namespace Quoridor.Model.GameManager
 {
     class DefaultGameManager : IGameManager
     {
+        private readonly Board board;
         private readonly IBoardPresenter boardPresenter;
+        private readonly ITurnCheckService turnCheckService;
         private PlayerTurnStateMachine ptsm;
 
-        public DefaultGameManager(IBoardPresenter boardPresenter, IPlayer player1, IPlayer player2)
+        public DefaultGameManager(Board board, IBoardPresenter boardPresenter, ITurnCheckService turnCheckService, IPlayer player1, IPlayer player2)
         {
+            this.board = board;
             this.boardPresenter = boardPresenter;
+            this.turnCheckService = turnCheckService;
             RegisterPlayers(player1, player2);
 
             State = GameState.Waiting;
@@ -51,6 +58,15 @@ namespace Quoridor.Model.GameManager
             try
             {
                 boardPresenter.MakeTurn(turn);
+                Pawn enemy = turn.Player == boardPresenter.Pawn1 ? boardPresenter.Pawn2 : boardPresenter.Pawn1;
+
+                //TODO: find better solution
+                if (turn is PlaceWallTurn pwTurn)
+                {
+                    pwTurn.PlaceWall += (corner, isHorizontal) => boardPresenter.Walls.Add(new Wall() { Corner = corner, IsHorizontal = isHorizontal });
+                }
+
+                turn.Execute(board, turn.Player, enemy, turnCheckService);
             }
             catch (Exception e)
             {
