@@ -57,7 +57,6 @@ namespace Quoridor.Model.GameManager
 
             try
             {
-                boardPresenter.MakeTurn(turn);
                 Pawn enemy = turn.Player == boardPresenter.Pawn1 ? boardPresenter.Pawn2 : boardPresenter.Pawn1;
 
                 //TODO: find better solution
