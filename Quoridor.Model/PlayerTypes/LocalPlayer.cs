@@ -39,9 +39,15 @@ namespace Quoridor.Model.PlayerTypes
             _turnProvider.RequestTurn(this);
         }
 
-        public void OnWallTurn(Tuple<int, int> cornerCoordinates)
+        public void OnWallTurn(Tuple<int, int> cornerCoordinates, bool isHorizontal)
         {
             
         }
+
+        public void OnCellTurn(Tuple<int, int> cellCoordinates)
+        {
+            
+        }
+        
     }
 }

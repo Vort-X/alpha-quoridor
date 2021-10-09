@@ -13,9 +13,10 @@ namespace Quoridor.UI.UI_Buttons
 		private InteractiveWall _draggedWall;
 		
 		protected float WallRotationDegrees;
+		protected bool isHorizontal;
 		protected UiPresenterBuilder UiPresenterBuilder;
 
-		public event Action<Action> ButtonWallClicked;
+		public event Action<Action, bool> ButtonWallClicked;
 
 		public override void _Ready()
 		{
@@ -25,7 +26,7 @@ namespace Quoridor.UI.UI_Buttons
 
 		protected void OnButtonWallClick()
 		{
-			ButtonWallClicked?.Invoke(CreateInteractiveWall);
+			ButtonWallClicked?.Invoke(CreateInteractiveWall, isHorizontal);
 		}
 
 		public void OnWallPlaced()

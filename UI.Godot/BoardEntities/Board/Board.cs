@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using Godot.Collections;
 using Quoridor.Game;
@@ -14,7 +17,7 @@ namespace Quoridor.Board
 
 		private UiPresenterBuilder _uiPresenterBuilder;
 		public IBoardPresenter BoardPresenter { get; set; }
-		
+
 		private readonly PackedScene _cellScene = ResourceLoader.Load<PackedScene>("res://BoardEntities/Cell/Cell.tscn");
 		private readonly PackedScene _cornerScene = ResourceLoader.Load<PackedScene>("res://BoardEntities/Corner/Corner.tscn");
 
@@ -25,6 +28,8 @@ namespace Quoridor.Board
 		private Cell[,] _cells;
 		private Corner[,] _corners;
 		private TileMap _cellsTileMap;
+
+		private List<Tuple<int, int>> _walls;
 
 		public override void _Ready()
 		{
@@ -41,6 +46,7 @@ namespace Quoridor.Board
 			AddCells();
 			AddCorners();
 			DrawPawns();
+			DrawWalls();
 		}
 
 		private void AddCells()
@@ -118,7 +124,21 @@ namespace Quoridor.Board
 
 		private void DrawWalls()
 		{
-			
+			var presenterWalls = BoardPresenter.Walls;
+			var newWalls = presenterWalls.Where(w => IsNewWall(w.Corner.X, w.Corner.Y));
+
+			foreach (var wall in newWalls)
+			{
+				var wallInstance = wall.IsHorizontal ? Wall.CreateHorizontalWall() : Wall.CreateVerticalWall();
+				wallInstance.Position = _cells[wall.Corner.X, wall.Corner.Y].Position;
+				AddChild(wallInstance);
+				_walls.Add(new Tuple<int, int>(wall.Corner.X, wall.Corner.Y));
+			}
+		}
+
+		private bool IsNewWall(int x, int y)
+		{
+			return _walls.Contains(new Tuple<int, int>(x, y));
 		}
 	}
 }

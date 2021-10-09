@@ -5,18 +5,17 @@ namespace Quoridor.Game
 {
 	public class UiPresenter : Node
 	{
-		public InputStates InputStates { get; private set; }
+		private InputStates InputStates { get;  set; }
+		private bool isWallHorizontal;
 
-		public event Action WallPlaced;
-		public event Action CellClicked;
+		public event Action<Tuple<int, int>, bool> WallPlaced;
+		public event Action<Tuple<int, int>> CellClicked;
 		public event Action WallStartDragging;
 		public event Action WallStopDragging;
 			
 		public override void _Ready()
 		{
 			InputStates = InputStates.NoInputRequested;
-
-			WallPlaced += () => WallStopDragging?.Invoke();
 		}
 
 		public void OnInputRequested()
@@ -32,7 +31,10 @@ namespace Quoridor.Game
 			
 			var (x, y) = cornerCoordinates;
 			GD.Print($"Corner: X:{x}, Y:{y}");
-			WallPlaced?.Invoke();
+			
+			WallStartDragging?.Invoke();
+			WallPlaced?.Invoke(cornerCoordinates, isWallHorizontal);
+			
 			InputStates = InputStates.NoInputRequested;
 		}
 
@@ -43,18 +45,21 @@ namespace Quoridor.Game
 			
 			var (x, y) = cellCoordinates;
 			GD.Print($"Cell: X:{x}, Y:{y}");
-			CellClicked?.Invoke();
+			
+			CellClicked?.Invoke(cellCoordinates);
+			
 			InputStates = InputStates.NoInputRequested;
 		}
 
-		public void OnWallButtonClicked(Action wallCreation)
+		public void OnWallButtonClicked(Action wallCreation, bool isHorizontal)
 		{
 			if (InputStates != InputStates.SelectingCell) 
 				return;
 			
 			wallCreation.Invoke();
 			WallStartDragging?.Invoke();
-			
+
+			isWallHorizontal = isHorizontal;
 			InputStates = InputStates.DraggingWall;
 		}
 

@@ -20,13 +20,15 @@ public class GameSession : Node, ITurnProvider
 
 	public override void _Ready()
 	{
-		_gameManager = Game.GameManager;
+		_gameManager = Game?.GameManager;
 		_uiPresenter = GetNode<UiPresenter>("/root/UiPresenter");
+		_uiPresenter.CellClicked += OnCellTurn;
+		_uiPresenter.WallPlaced += OnWallTurn;
 	}
 
 	public override void _Process(float delta)
 	{
-		_gameManager.GameLoop();
+		_gameManager?.GameLoop();
 	}
 
 	public void RequestTurn(LocalPlayer turnReceiver)
@@ -34,4 +36,15 @@ public class GameSession : Node, ITurnProvider
 		_uiPresenter.OnInputRequested();
 		_turnReceiver = turnReceiver;
 	}
+
+	private void OnCellTurn(Tuple<int, int> cellCoordinates)
+	{
+		_turnReceiver?.OnCellTurn(cellCoordinates);
+	}
+	
+	private void OnWallTurn(Tuple<int, int> cellCoordinates, bool isHorizontal)
+	{
+		_turnReceiver?.OnWallTurn(cellCoordinates, isHorizontal);
+	}
+	
 }

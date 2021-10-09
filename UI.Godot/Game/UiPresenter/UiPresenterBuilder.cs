@@ -29,7 +29,7 @@ namespace Quoridor.Game
 		{
 			buttonWall.ButtonWallClicked += _uiPresenter.OnWallButtonClicked;
 
-			_uiPresenter.WallPlaced += buttonWall.OnWallPlaced;
+			_uiPresenter.WallStopDragging += buttonWall.OnWallPlaced;
 		}
 
 		public void ConnectInteractiveWall(InteractiveWall draggedWall)
