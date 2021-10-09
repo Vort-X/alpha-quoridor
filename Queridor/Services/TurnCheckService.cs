@@ -22,7 +22,7 @@ namespace Queridor.Services
 
         public bool CanMakeTurnCheck(Cell finishCell, Pawn enemy, Pawn player, List<Cell> cells)
         {
-            if (player.Cell == finishCell) return false;
+            if (player.Cell == finishCell || enemy.Cell == finishCell) return false;
             else return CheckSituationWithMoveThroughtEnemy(finishCell, enemy, player, cells) 
                     || FindAvaliableNeighbours(player.Cell).Contains(finishCell);
         }
