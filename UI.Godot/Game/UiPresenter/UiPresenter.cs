@@ -5,40 +5,25 @@ namespace Quoridor.Game
 {
 	public class UiPresenter : Node
 	{
-	
-		public GameStates GameStates { get; private set; }
 		public InputStates InputStates { get; private set; }
 
 		public event Action WallPlaced;
+		public event Action CellClicked;
 		public event Action WallStartDragging;
 		public event Action WallStopDragging;
 			
 		public override void _Ready()
 		{
-			GameStates = GameStates.Waiting;
 			InputStates = InputStates.NoInputRequested;
 
 			WallPlaced += () => WallStopDragging?.Invoke();
 		}
 
-	
-		public override void _Process(float delta)
+		public void OnInputRequested()
 		{
-			if (Input.IsActionJustPressed("input_request"))
-			{
-				GD.Print("input_request");
-				GameStates = GameStates switch
-				{
-					GameStates.Waiting => GameStates.InputRequested,
-					GameStates.InputRequested => GameStates.Waiting
-				};
-				InputStates = GameStates switch
-				{
-					GameStates.Waiting => InputStates.NoInputRequested,
-					GameStates.InputRequested => InputStates.SelectingCell
-				};
-			}
+			InputStates = InputStates.SelectingCell;
 		}
+		
 
 		public void OnWallPlaced(Tuple<int, int> cornerCoordinates)
 		{
@@ -48,7 +33,7 @@ namespace Quoridor.Game
 			var (x, y) = cornerCoordinates;
 			GD.Print($"Corner: X:{x}, Y:{y}");
 			WallPlaced?.Invoke();
-			InputStates = InputStates.SelectingCell;
+			InputStates = InputStates.NoInputRequested;
 		}
 
 		public void OnCellClicked(Tuple<int, int> cellCoordinates)
@@ -58,6 +43,8 @@ namespace Quoridor.Game
 			
 			var (x, y) = cellCoordinates;
 			GD.Print($"Cell: X:{x}, Y:{y}");
+			CellClicked?.Invoke();
+			InputStates = InputStates.NoInputRequested;
 		}
 
 		public void OnWallButtonClicked(Action wallCreation)

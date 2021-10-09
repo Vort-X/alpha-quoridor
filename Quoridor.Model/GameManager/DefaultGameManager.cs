@@ -13,9 +13,11 @@ namespace Quoridor.Model.GameManager
         private readonly IBoardPresenter boardPresenter;
         private PlayerTurnStateMachine ptsm;
 
-        public DefaultGameManager(IBoardPresenter boardPresenter)
+        public DefaultGameManager(IBoardPresenter boardPresenter, IPlayer player1, IPlayer player2)
         {
             this.boardPresenter = boardPresenter;
+            RegisterPlayers(player1, player2);
+
             State = GameState.Waiting;
         }
 
@@ -23,8 +25,18 @@ namespace Quoridor.Model.GameManager
         public GameState State { get; set; }
 
         public event Action BoardUpdated;
+        public event Action InvalidTurn;
 
-        void IGameManager.MakeTurn(IPlayer sender, Turn turn)
+        public void GameLoop()
+        {
+            if (State is GameState.Waiting) return;
+
+            State = GameState.Waiting;
+            
+            ptsm.ActivePlayer.NotifyTurn();
+        }
+
+        private void MakeTurn(IPlayer sender, Turn turn)
         {
             if (ptsm is null)
             {
@@ -35,14 +47,28 @@ namespace Quoridor.Model.GameManager
                 //????
                 return;
             }
-            boardPresenter.MakeTurn(turn);
+
+            try
+            {
+                boardPresenter.MakeTurn(turn);
+            }
+            catch (Exception e)
+            {
+                InvalidTurn?.Invoke();
+            }
+            finally
+            {
+                State = GameState.FinishedTurn;
+            }
             ptsm.MoveNext();
             BoardUpdated?.Invoke();
         }
 
-        internal void RegisterPlayers(IPlayer player1, IPlayer player2)
+        private void RegisterPlayers(IPlayer player1, IPlayer player2)
         {
             ptsm = new PlayerTurnStateMachine(player1, player2);
+            player1.TurnFinished += MakeTurn;
+            player2.TurnFinished += MakeTurn;
         }
 
         private class PlayerTurnStateMachine

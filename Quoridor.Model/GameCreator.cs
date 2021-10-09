@@ -12,7 +12,7 @@ namespace Quoridor.Model
 {
     public static class GameCreator
     {
-        public static Game NewGameVsPlayer()
+        public static Game NewGameVsPlayer(ITurnProvider turnProvider)
         {
             var bf = new BoardFabric();
             var b = bf.CreateBoard();
@@ -22,20 +22,19 @@ namespace Quoridor.Model
             var mts = new MakeTurnsService();
             var tcs = new TurnCheckService(ast, mts);
             var gbp = new GraphBoardPresenter(b, p1, p2, tcs);
-            var dgm = new DefaultGameManager(gbp);
+           
             var mmtf = new MakeMoveTurnFactory();
             var pwtf = new PlaceWallTurnFactory();
 
-            var player1 = new LocalPlayer();
-            var player2 = new LocalPlayer();
-
-            dgm.RegisterPlayers(player1, player2);
-            player1.TurnFinished += (dgm as IGameManager).MakeTurn;
-            player2.TurnFinished += (dgm as IGameManager).MakeTurn;
+            var player1 = new LocalPlayer(turnProvider);
+            var player2 = new LocalPlayer(turnProvider);
+            
+            var dgm = new DefaultGameManager(gbp, player1, player2);
+            
             return new Game() { GameManager = dgm, Player1 = player1, Player2 = player2, MakeMoveTurnFactory = mmtf, PlaceWallTurnFactory = pwtf };
         }
 
-        public static Game NewGameVsBot()
+        public static Game NewGameVsBot(ITurnProvider turnProvider)
         {
             var bf = new BoardFabric();
             var b = bf.CreateBoard();
@@ -45,16 +44,14 @@ namespace Quoridor.Model
             var mts = new MakeTurnsService();
             var tcs = new TurnCheckService(ast, mts);
             var gbp = new GraphBoardPresenter(b, p1, p2, tcs);
-            var dgm = new DefaultGameManager(gbp);
             var mmtf = new MakeMoveTurnFactory();
             var pwtf = new PlaceWallTurnFactory();
 
-            var player1 = new LocalPlayer();
+            var player1 = new LocalPlayer(turnProvider);
             var player2 = new EasyBotPlayer(tcs);
-
-            dgm.RegisterPlayers(player1, player2);
-            player1.TurnFinished += (dgm as IGameManager).MakeTurn;
-            player2.TurnFinished += (dgm as IGameManager).MakeTurn;
+            
+            var dgm = new DefaultGameManager(gbp, player1,player2);
+            
             return new Game() { GameManager = dgm, Player1 = player1, Player2 = player2, MakeMoveTurnFactory = mmtf, PlaceWallTurnFactory = pwtf };
         }
 

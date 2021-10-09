@@ -46,13 +46,14 @@ public class PixelLabel : Label
 		if (mouseButton == ButtonList.Left && mouseEvent.Pressed)
 		{
 			var sceneLoader = GetNode<SceneLoader>("/root/SceneLoader");
+			var gameSession = GetNode<GameSession>("/root/GameSession");
 			var game = _gameType switch
 			{
-				GameType.VsAi => GameCreator.NewGameVsBot(),
-				GameType.VsPlayer => GameCreator.NewGameVsPlayer()
+				GameType.VsAi => GameCreator.NewGameVsBot(gameSession),
+				GameType.VsPlayer => GameCreator.NewGameVsPlayer(gameSession)
 			};
 
-			GetNode<GameSession>("/root/GameSession").Game = game;
+			gameSession.Game = game;
 			
 			sceneLoader.GotoScene(GameUI.CreateGameUi());
 		}

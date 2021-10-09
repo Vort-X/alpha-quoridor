@@ -9,7 +9,7 @@ namespace Quoridor.Model.TurnFactories
 {
     public class PlaceWallTurnFactory
     {
-        public Turn CreateTurn(bool isFirstPlayer, int x, int y, bool isHorizontal)
+        public static Turn CreateTurn(bool isFirstPlayer, int x, int y, bool isHorizontal)
         {
             return new PlaceWallTurn(isFirstPlayer, x, y, isHorizontal);
         }

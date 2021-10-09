@@ -5,18 +5,35 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Quoridor.Model.TurnFactories;
 
 namespace Quoridor.Model.PlayerTypes
 {
-    class LocalPlayer : IPlayer
+    
+    public interface ITurnProvider
     {
+        void RequestTurn(LocalPlayer turnReceiver);
+    }
+    
+    public class LocalPlayer : IPlayer
+    {
+        private readonly ITurnProvider _turnProvider;
+
+        public LocalPlayer(ITurnProvider turnProvider)
+        {
+            _turnProvider = turnProvider;
+        }
+        
         public event Action<IPlayer, Turn> TurnFinished;
 
         public void NotifyTurn()
         {
-            throw new NotImplementedException();
-            var turn = (Turn) new object();
-            TurnFinished?.Invoke(this, turn);
+            _turnProvider.RequestTurn(this);
+        }
+
+        public void OnWallTurn(Tuple<int, int> cornerCoordinates)
+        {
+            
         }
     }
 }
