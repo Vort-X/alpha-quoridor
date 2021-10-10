@@ -70,8 +70,8 @@ namespace Queridor.Services
             if (!CheckIfWinPathExist(player, FindWinCells(player, cells))
                 || !CheckIfWinPathExist(player, FindWinCells(enemy, cells)))
                 return false;
-            return horizontal ? (!corner.HorizontalEdges.Key.IsBlocked & !corner.HorizontalEdges.Key.IsBlocked) 
-                : (!corner.VerticalEdges.Key.IsBlocked & !corner.VerticalEdges.Key.IsBlocked);
+            return horizontal ? (!corner.HorizontalEdges.Key.IsBlocked & !corner.HorizontalEdges.Value.IsBlocked) 
+                : (!corner.VerticalEdges.Key.IsBlocked & !corner.VerticalEdges.Value.IsBlocked);
         }
 
         private bool CheckIfWinPathExist(Pawn player, List<Cell> winCells)

@@ -13,14 +13,13 @@ public class GameSession : Node, ITurnProvider
 	private static PackedScene _gameSessionScene = ResourceLoader.Load<PackedScene>("res://Game/GameSession.tscn");
 	
 	public Game Game { get; internal set; }
-
-	private IGameManager _gameManager;
+	
 	private UiPresenter _uiPresenter;
 	private LocalPlayer _turnReceiver;
+	private Timer _timer;
 
 	public override void _Ready()
 	{
-		_gameManager = Game?.GameManager;
 		_uiPresenter = GetNode<UiPresenter>("/root/UiPresenter");
 		_uiPresenter.CellClicked += OnCellTurn;
 		_uiPresenter.WallPlaced += OnWallTurn;
@@ -28,13 +27,15 @@ public class GameSession : Node, ITurnProvider
 
 	public override void _Process(float delta)
 	{
-		_gameManager?.GameLoop();
+		Game?.GameManager.GameLoop();
 	}
 
-	public void RequestTurn(LocalPlayer turnReceiver)
+	public async void RequestTurn(LocalPlayer turnReceiver)
 	{
+		await ToSignal(GetTree().CreateTimer(1), "timeout");
 		_uiPresenter.OnInputRequested();
 		_turnReceiver = turnReceiver;
+		GD.Print($"Turn requested by {turnReceiver}.");
 	}
 
 	private void OnCellTurn(Tuple<int, int> cellCoordinates)

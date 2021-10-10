@@ -13,6 +13,7 @@ public class ButtonWallHorizontal : ButtonWallBase
 	{
 		base._Ready();
 		WallRotationDegrees = 0f;
+		isHorizontal = true;
 		Clickable = GetNode<Clickable>("Clickable");
 		Clickable.OnMouseClickLeft += OnButtonWallClick;
 	}

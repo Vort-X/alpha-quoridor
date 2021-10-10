@@ -33,7 +33,14 @@ namespace Quoridor.Board
 
 		public override void _Ready()
 		{
-			BoardPresenter = GetNode<GameSession>("/root/GameSession").Game.GameManager.BoardPresenter;
+			var gameManager = GetNode<GameSession>("/root/GameSession").Game.GameManager;
+			gameManager.BoardUpdated += () =>
+			{
+				DrawPawns();
+				DrawWalls();
+			};
+			BoardPresenter = gameManager.BoardPresenter;
+			
 			_cellsTileMap = GetNode<TileMap>("CellsTileMap");
 			_uiPresenterBuilder = GetNode<UiPresenterBuilder>("/root/UiPresenterBuilder");
 			
@@ -42,6 +49,8 @@ namespace Quoridor.Board
 			_corners = new Corner[_boardHeight-1,_boardHeight-1];
 			_firstPlayerPawn = Pawn.CreateAndAddWhitePawn(this);
 			_secondPlayerPawn = Pawn.CreateAndAddBlackPawn(this);
+
+			_walls = new List<Tuple<int, int>>();
 			
 			AddCells();
 			AddCorners();
@@ -125,12 +134,12 @@ namespace Quoridor.Board
 		private void DrawWalls()
 		{
 			var presenterWalls = BoardPresenter.Walls;
-			var newWalls = presenterWalls.Where(w => IsNewWall(w.Corner.X, w.Corner.Y));
-
+			var newWalls = presenterWalls.Where(w => IsNewWall(w.Corner.X, w.Corner.Y)).ToList();
+			var five = 5;
 			foreach (var wall in newWalls)
 			{
 				var wallInstance = wall.IsHorizontal ? Wall.CreateHorizontalWall() : Wall.CreateVerticalWall();
-				wallInstance.Position = _cells[wall.Corner.X, wall.Corner.Y].Position;
+				wallInstance.Position = _corners[wall.Corner.X, wall.Corner.Y].Position;
 				AddChild(wallInstance);
 				_walls.Add(new Tuple<int, int>(wall.Corner.X, wall.Corner.Y));
 			}
@@ -138,7 +147,8 @@ namespace Quoridor.Board
 
 		private bool IsNewWall(int x, int y)
 		{
-			return _walls.Contains(new Tuple<int, int>(x, y));
+			var result = !_walls.Any(w => w.Item1 == x && w.Item2 == y);
+			return result;
 		}
 	}
 }

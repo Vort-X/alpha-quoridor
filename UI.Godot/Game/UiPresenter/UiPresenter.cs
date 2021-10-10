@@ -32,7 +32,7 @@ namespace Quoridor.Game
 			var (x, y) = cornerCoordinates;
 			GD.Print($"Corner: X:{x}, Y:{y}");
 			
-			WallStartDragging?.Invoke();
+			WallStopDragging?.Invoke();
 			WallPlaced?.Invoke(cornerCoordinates, isWallHorizontal);
 			
 			InputStates = InputStates.NoInputRequested;
