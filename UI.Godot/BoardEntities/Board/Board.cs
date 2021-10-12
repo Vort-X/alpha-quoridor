@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using Godot.Collections;
 using Quoridor.Game;
@@ -14,7 +17,7 @@ namespace Quoridor.Board
 
 		private UiPresenterBuilder _uiPresenterBuilder;
 		public IBoardPresenter BoardPresenter { get; set; }
-		
+
 		private readonly PackedScene _cellScene = ResourceLoader.Load<PackedScene>("res://BoardEntities/Cell/Cell.tscn");
 		private readonly PackedScene _cornerScene = ResourceLoader.Load<PackedScene>("res://BoardEntities/Corner/Corner.tscn");
 
@@ -26,9 +29,18 @@ namespace Quoridor.Board
 		private Corner[,] _corners;
 		private TileMap _cellsTileMap;
 
+		private List<Tuple<int, int>> _walls;
+
 		public override void _Ready()
 		{
-			BoardPresenter = GetNode<GameSession>("/root/GameSession").Game.GameManager.BoardPresenter;
+			var gameManager = GetNode<GameSession>("/root/GameSession").Game.GameManager;
+			gameManager.BoardUpdated += () =>
+			{
+				DrawPawns();
+				DrawWalls();
+			};
+			BoardPresenter = gameManager.BoardPresenter;
+			
 			_cellsTileMap = GetNode<TileMap>("CellsTileMap");
 			_uiPresenterBuilder = GetNode<UiPresenterBuilder>("/root/UiPresenterBuilder");
 			
@@ -37,10 +49,13 @@ namespace Quoridor.Board
 			_corners = new Corner[_boardHeight-1,_boardHeight-1];
 			_firstPlayerPawn = Pawn.CreateAndAddWhitePawn(this);
 			_secondPlayerPawn = Pawn.CreateAndAddBlackPawn(this);
+
+			_walls = new List<Tuple<int, int>>();
 			
 			AddCells();
 			AddCorners();
 			DrawPawns();
+			DrawWalls();
 		}
 
 		private void AddCells()
@@ -118,7 +133,22 @@ namespace Quoridor.Board
 
 		private void DrawWalls()
 		{
-			
+			var presenterWalls = BoardPresenter.Walls;
+			var newWalls = presenterWalls.Where(w => IsNewWall(w.Corner.X, w.Corner.Y)).ToList();
+			var five = 5;
+			foreach (var wall in newWalls)
+			{
+				var wallInstance = wall.IsHorizontal ? Wall.CreateHorizontalWall() : Wall.CreateVerticalWall();
+				wallInstance.Position = _corners[wall.Corner.X, wall.Corner.Y].Position;
+				AddChild(wallInstance);
+				_walls.Add(new Tuple<int, int>(wall.Corner.X, wall.Corner.Y));
+			}
+		}
+
+		private bool IsNewWall(int x, int y)
+		{
+			var result = !_walls.Any(w => w.Item1 == x && w.Item2 == y);
+			return result;
 		}
 	}
 }

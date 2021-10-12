@@ -26,7 +26,7 @@ namespace Quoridor.Model.Turns
                 throw new Exception("current player don't have any walls");
             }
             Corner corner = board.Corners.First(c => c.X == x && c.Y == y);
-            if (turnCheckService.CanPlaceWallCheck(board.Cells, corner, isHorizontal, player, enemy))
+            if (!turnCheckService.CanPlaceWallCheck(board.Cells, corner, isHorizontal, player, enemy))
             {
                 throw new Exception("cannot place wall");
             }

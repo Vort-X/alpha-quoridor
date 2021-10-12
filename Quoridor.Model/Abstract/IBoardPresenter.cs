@@ -14,5 +14,6 @@ namespace Quoridor.Model.Abstract
         Pawn Pawn1 { get; }
         Pawn Pawn2 { get; }
         List<Wall> Walls { get; }
+        
     }
 }

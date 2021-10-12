@@ -39,9 +39,22 @@ namespace Quoridor.Model.PlayerTypes
             _turnProvider.RequestTurn(this);
         }
 
-        public void OnWallTurn(Tuple<int, int> cornerCoordinates)
+        public void OnWallTurn(Tuple<int, int> cornerCoordinates, bool isHorizontal)
         {
-            
+            var wallTurn = PlaceWallTurnFactory.CreateTurn(pawn, 
+                cornerCoordinates.Item1, cornerCoordinates.Item2, isHorizontal);
+            TurnFinished?.Invoke(this, wallTurn);
+        }
+
+        public void OnCellTurn(Tuple<int, int> cellCoordinates)
+        {
+            var moveTurn = MakeMoveTurnFactory.CreateTurn(pawn, cellCoordinates.Item1, cellCoordinates.Item2);
+            TurnFinished?.Invoke(this, moveTurn);
+        }
+
+        public override string ToString()
+        {
+            return $"{pawn.Cell.X}, {pawn.Cell.Y}";
         }
     }
 }

@@ -19,6 +19,8 @@ public class ButtonExit : Node2D
 	{
 		var mainMenu = _mainMenuScene.Instance<Control>();
 		var sceneLoader = GetNode<SceneLoader>("/root/SceneLoader");
+		var gameSession = GetNode<GameSession>("/root/GameSession");
+		gameSession.Game = null;
 		sceneLoader.GotoScene(mainMenu);
 	}
 }

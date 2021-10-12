@@ -5,6 +5,7 @@ using Quoridor.Model.GameObjects;
 using Quoridor.Model.Turns;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +26,7 @@ namespace Quoridor.Model.GameManager
             this.turnCheckService = turnCheckService;
             RegisterPlayers(player1, player2);
 
-            State = GameState.Waiting;
+            State = GameState.FinishedTurn;
         }
 
         public IBoardPresenter BoardPresenter => boardPresenter;
@@ -66,6 +67,9 @@ namespace Quoridor.Model.GameManager
                 }
 
                 turn.Execute(board, turn.Player, enemy, turnCheckService);
+                ptsm.MoveNext();
+                BoardUpdated?.Invoke();
+                State = GameState.FinishedTurn;
             }
             catch (Exception e)
             {
@@ -75,8 +79,6 @@ namespace Quoridor.Model.GameManager
             {
                 State = GameState.FinishedTurn;
             }
-            ptsm.MoveNext();
-            BoardUpdated?.Invoke();
         }
 
         private void RegisterPlayers(IPlayer player1, IPlayer player2)
