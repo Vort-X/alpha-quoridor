@@ -10,23 +10,21 @@ using System.Threading.Tasks;
 
 namespace Quoridor.Model.PlayerTypes
 {
-    abstract class BotPlayer : IPlayer
+    public class BotPlayer : IPlayer
     {
-        protected Pawn pawn;
+        private readonly IBotAlgorithm algo;
 
-        protected BotPlayer(Pawn pawn)
+        public BotPlayer(IBotAlgorithm algo)
         {
-            this.pawn = pawn;
+            this.algo = algo;
         }
 
         public event Action<IPlayer, Turn> TurnFinished;
 
         public void NotifyTurn()
         {
-            var turn = GetTurnFromAlgorythm();
+            var turn = algo.GetTurn();
             TurnFinished?.Invoke(this, turn);
         }
-
-        protected abstract Turn GetTurnFromAlgorythm();
     }
 }

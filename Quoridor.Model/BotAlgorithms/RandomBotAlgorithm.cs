@@ -7,28 +7,30 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Quoridor.Model.PlayerTypes
+namespace Quoridor.Model.BotAlgorithms
 {
-    class EasyBotPlayer : BotPlayer
+    class RandomBotAlgorithm : IBotAlgorithm
     {
+        private const double MOVE_RATIO = 2 / 3;
+
         private readonly Board board;
-        private readonly IBoardPresenter boardPresenter;
+        private readonly Pawn pawn;
+        private readonly Pawn enemy;
         private readonly ITurnCheckService turnCheckService;
 
-        public EasyBotPlayer(Pawn pawn, Board board, IBoardPresenter boardPresenter, ITurnCheckService turnCheckService) : base(pawn)
+        public RandomBotAlgorithm(Board board, Pawn pawn, Pawn enemy, ITurnCheckService turnCheckService)
         {
             this.board = board;
-            this.boardPresenter = boardPresenter;
+            this.pawn = pawn;
+            this.enemy = enemy;
             this.turnCheckService = turnCheckService;
         }
 
-        protected override Turn GetTurnFromAlgorythm()
+        public Turn GetTurn()
         {
-            var enemy = pawn == boardPresenter.Pawn1 ? boardPresenter.Pawn2 : boardPresenter.Pawn1;
             var random = new Random();
-            if (random.NextDouble() < 0.5)
+            if (random.NextDouble() < MOVE_RATIO || pawn.AvailableWalls == 0)
             {
                 var ns = turnCheckService.FindAvaliableNeighbours(pawn.Cell);
                 var r = random.Next(0, ns.Count);
