@@ -22,7 +22,7 @@ namespace Queridor.Services
 
         public bool CanMakeTurnCheck(Cell finishCell, Pawn enemy, Pawn player, List<Cell> cells)
         {
-            if (player.Cell == finishCell) return false;
+            if (player.Cell == finishCell || enemy.Cell == finishCell) return false;
             else return CheckSituationWithMoveThroughtEnemy(finishCell, enemy, player, cells) 
                     || FindAvaliableNeighbours(player.Cell).Contains(finishCell);
         }
@@ -67,11 +67,34 @@ namespace Queridor.Services
 
         public bool CanPlaceWallCheck(List<Cell> cells, Corner corner, bool horizontal, Pawn player, Pawn enemy)
         {
-            if (!CheckIfWinPathExist(player, FindWinCells(player, cells))
-                || !CheckIfWinPathExist(player, FindWinCells(enemy, cells)))
+            if ((horizontal & (corner.HorizontalEdges.Key.IsBlocked || corner.HorizontalEdges.Key.IsBlocked))
+                || (!horizontal & (corner.VerticalEdges.Key.IsBlocked || corner.VerticalEdges.Key.IsBlocked)))
                 return false;
-            return horizontal ? (!corner.HorizontalEdges.Key.IsBlocked & !corner.HorizontalEdges.Value.IsBlocked) 
-                : (!corner.VerticalEdges.Key.IsBlocked & !corner.VerticalEdges.Value.IsBlocked);
+
+            MakeTurnService.PlaceWall(corner, horizontal);
+            if (!CheckIfWinPathExist(player, FindWinCells(player, cells))
+                || !CheckIfWinPathExist(enemy, FindWinCells(enemy, cells)))
+            {
+                DestroyWalls(corner, horizontal);
+                return false;
+            }
+
+            DestroyWalls(corner, horizontal);
+            return true;
+        }
+
+        private void DestroyWalls(Corner corner, bool horizontal)
+        {
+            if (horizontal)
+            {
+                corner.HorizontalEdges.Key.IsBlocked = false;
+                corner.HorizontalEdges.Value.IsBlocked = false;
+            }
+            else
+            {
+                corner.VerticalEdges.Key.IsBlocked = false;
+                corner.VerticalEdges.Value.IsBlocked = false;
+            }
         }
 
         private bool CheckIfWinPathExist(Pawn player, List<Cell> winCells)
