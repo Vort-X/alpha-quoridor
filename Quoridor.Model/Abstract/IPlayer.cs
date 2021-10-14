@@ -13,5 +13,6 @@ namespace Quoridor.Model.Abstract
         event Action<IPlayer, Turn> TurnFinished;
 
         void NotifyTurn();
+        string UserFriendlyName { get; }
     }
 }

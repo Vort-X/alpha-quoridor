@@ -24,8 +24,8 @@ namespace Quoridor.Model
             var tcs = new TurnCheckService(ast, mts);
             var gbp = new GraphBoardPresenter(p1, p2);
 
-            var player1 = new LocalPlayer(p1, turnProvider);
-            var player2 = new LocalPlayer(p2, turnProvider);
+            var player1 = new LocalPlayer(p1, turnProvider, true);
+            var player2 = new LocalPlayer(p2, turnProvider, false);
             
             var dgm = new DefaultGameManager(b, gbp, tcs, player1, player2);
             
@@ -43,7 +43,7 @@ namespace Quoridor.Model
             var tcs = new TurnCheckService(ast, mts);
             var gbp = new GraphBoardPresenter(p1, p2);
 
-            var player1 = new LocalPlayer(p1, turnProvider);
+            var player1 = new LocalPlayer(p1, turnProvider, true);
             var rba = new RandomBotAlgorithm(b, p1, p2, tcs);
             var player2 = new BotPlayer(rba);
 

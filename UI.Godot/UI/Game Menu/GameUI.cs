@@ -34,6 +34,7 @@ public class GameUI : Control
 
 		gameManager.BoardUpdated += OnBoardUpdated;
 		gameManager.InvalidTurn += DisplayError;
+		gameManager.PlayerWon += OnPlayerWin;
 
 		DrawPawnWallsCount();
 	}
@@ -50,7 +51,12 @@ public class GameUI : Control
 		
 		gameManager.BoardUpdated -= OnBoardUpdated;
 		gameManager.InvalidTurn -= DisplayError;
-		
+		gameManager.PlayerWon -= OnPlayerWin;
+	}
+
+	private void OnPlayerWin(IPlayer player)
+	{
+		_errorMessageLabel.Text = $"{player.UserFriendlyName} has won. Click on X button to return to main menu.";
 	}
 
 	private void DrawPawnWallsCount()

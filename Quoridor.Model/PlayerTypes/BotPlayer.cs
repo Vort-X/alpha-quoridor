@@ -19,6 +19,8 @@ namespace Quoridor.Model.PlayerTypes
             this.algo = algo;
         }
 
+        
+        
         public event Action<IPlayer, Turn> TurnFinished;
 
         public void NotifyTurn()
@@ -26,5 +28,7 @@ namespace Quoridor.Model.PlayerTypes
             var turn = algo.GetTurn();
             TurnFinished?.Invoke(this, turn);
         }
+
+        public string UserFriendlyName => $"Random Bot";
     }
 }

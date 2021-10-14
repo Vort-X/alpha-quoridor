@@ -14,6 +14,7 @@ namespace Quoridor.Model.Abstract
         ITurnCheckService TurnCheckService { get; }
         event Action BoardUpdated;
         event Action<string> InvalidTurn;
+        public event Action<IPlayer> PlayerWon;
 
         void GameLoop();
     }

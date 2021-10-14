@@ -23,9 +23,9 @@ namespace Quoridor.Model.GameManager
 
         public DefaultGameManager(Board board, IBoardPresenter boardPresenter, ITurnCheckService turnCheckService, IPlayer player1, IPlayer player2)
         {
-            this._board = board;
-            this._boardPresenter = boardPresenter;
-            this._turnCheckService = turnCheckService;
+            _board = board;
+            _boardPresenter = boardPresenter;
+            _turnCheckService = turnCheckService;
             RegisterPlayers(player1, player2);
 
             State = GameState.FinishedTurn;
@@ -42,6 +42,8 @@ namespace Quoridor.Model.GameManager
         {
             if (State is GameState.Waiting) return;
 
+            if (isGameOver) return;
+            
             State = GameState.Waiting;
             
             _ptsm.ActivePlayer.NotifyTurn();
@@ -76,6 +78,7 @@ namespace Quoridor.Model.GameManager
                 if (_turnCheckService.VictoryCheck(turn.Player)) 
                 { 
                     PlayerWon?.Invoke(sender);
+                    State = GameState.Waiting;
                     isGameOver = true;
                 }
             }

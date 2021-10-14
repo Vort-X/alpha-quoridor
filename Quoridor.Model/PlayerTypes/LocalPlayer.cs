@@ -20,17 +20,22 @@ namespace Quoridor.Model.PlayerTypes
     {
         public Pawn Pawn { get; private set; }
         private readonly ITurnProvider _turnProvider;
+        private bool _isGoingFirst;
 
         //public LocalPlayer(ITurnProvider turnProvider)
         //{
         //    _turnProvider = turnProvider;
         //}
+        
 
-        public LocalPlayer(Pawn pawn, ITurnProvider turnProvider)
+        public LocalPlayer(Pawn pawn, ITurnProvider turnProvider, bool isGoingFirst)
         {
             Pawn = pawn;
             _turnProvider = turnProvider;
+            _isGoingFirst = isGoingFirst;
         }
+
+        public string UserFriendlyName => _isGoingFirst ? "White Pawn" : "Black Pawn";
 
         public event Action<IPlayer, Turn> TurnFinished;
 
@@ -54,7 +59,7 @@ namespace Quoridor.Model.PlayerTypes
 
         public override string ToString()
         {
-            return $"{Pawn.Cell.X}, {Pawn.Cell.Y}";
+            return $"{UserFriendlyName} {Pawn.Cell.X}, {Pawn.Cell.Y}";
         }
     }
 }
