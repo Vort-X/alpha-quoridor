@@ -17,7 +17,9 @@ namespace Quoridor.Model.GameManager
         private readonly Board _board;
         private readonly IBoardPresenter _boardPresenter;
         private readonly ITurnCheckService _turnCheckService;
+        
         private PlayerTurnStateMachine _ptsm;
+        private bool isGameOver = false;
 
         public DefaultGameManager(Board board, IBoardPresenter boardPresenter, ITurnCheckService turnCheckService, IPlayer player1, IPlayer player2)
         {
@@ -33,6 +35,7 @@ namespace Quoridor.Model.GameManager
         public ITurnCheckService TurnCheckService => _turnCheckService;
         private GameState State { get; set; }
         public event Action BoardUpdated;
+        public event Action<IPlayer> PlayerWon;
         public event Action<string> InvalidTurn;
 
         public void GameLoop()
@@ -70,6 +73,11 @@ namespace Quoridor.Model.GameManager
                 _ptsm.MoveNext();
                 BoardUpdated?.Invoke();
                 State = GameState.FinishedTurn;
+                if (_turnCheckService.VictoryCheck(turn.Player)) 
+                { 
+                    PlayerWon?.Invoke(sender);
+                    isGameOver = true;
+                }
             }
             catch (Exception e)
             {
@@ -90,8 +98,8 @@ namespace Quoridor.Model.GameManager
 
         private class PlayerTurnStateMachine
         {
-            private IPlayer player1;
-            private IPlayer player2;
+            private readonly IPlayer player1;
+            private readonly IPlayer player2;
 
             public PlayerTurnStateMachine(IPlayer player1, IPlayer player2)
             {
