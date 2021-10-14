@@ -33,13 +33,9 @@ namespace Quoridor.Board
 
 		public override void _Ready()
 		{
-			var gameManager = GetNode<GameSession>("/root/GameSession").Game.GameManager;
-			gameManager.BoardUpdated += () =>
-			{
-				DrawPawns();
-				DrawWalls();
-			};
-			BoardPresenter = gameManager.BoardPresenter;
+			var gameSession = GetNode<GameSession>("/root/GameSession");
+			gameSession.GameStart += OnGameStart;
+			gameSession.GameEnd += OnGameEnd;
 			
 			_cellsTileMap = GetNode<TileMap>("CellsTileMap");
 			_uiPresenterBuilder = GetNode<UiPresenterBuilder>("/root/UiPresenterBuilder");
@@ -55,6 +51,37 @@ namespace Quoridor.Board
 			
 			AddCells();
 			AddCorners();
+
+		}
+
+		private void OnGameStart()
+		{
+			GD.Print("");
+			var gameManager = GetNode<GameSession>("/root/GameSession").Game.GameManager;
+			gameManager.BoardUpdated += OnBoardUpdated;
+			
+			BoardPresenter = gameManager.BoardPresenter;
+
+			DrawPawns();
+			DrawWalls();
+			
+		}
+
+		private void OnGameEnd()
+		{
+			var gameManager = GetNode<GameSession>("/root/GameSession").Game.GameManager;
+			gameManager.BoardUpdated -= OnBoardUpdated;
+			
+			_walls = new List<Tuple<int, int>>();
+			foreach (var child in GetChildren())
+			{
+				if (child is Wall wall)
+					wall.QueueFree();
+			}
+		}
+
+		private void OnBoardUpdated()
+		{
 			DrawPawns();
 			DrawWalls();
 		}

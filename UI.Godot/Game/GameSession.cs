@@ -12,8 +12,25 @@ using Quoridor.Model.TurnFactories;
 public class GameSession : Node, ITurnProvider
 {
 	private static PackedScene _gameSessionScene = ResourceLoader.Load<PackedScene>("res://Game/GameSession.tscn");
-	
-	public Game Game { get; internal set; }
+
+	private Game _game;
+
+	public Game Game
+	{
+		get => _game;
+		internal set
+		{
+			if (value is null)
+				GameEnd?.Invoke();
+			_game = value;
+			
+			if (!(value is null))
+				GameStart?.Invoke();
+		}
+	}
+
+	public event Action GameStart;
+	public event Action GameEnd;
 	
 	private UiPresenter _uiPresenter;
 	private LocalPlayer _turnReceiver;

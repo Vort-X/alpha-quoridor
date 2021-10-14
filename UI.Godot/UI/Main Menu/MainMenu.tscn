@@ -1,16 +1,18 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://UI/Main Menu/press-start/prstartk.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://UI/Main Menu/PixelLabel.tscn" type="PackedScene" id=2]
+[ext_resource path="res://UI/Main Menu/MainMenu.cs" type="Script" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
 font_data = ExtResource( 1 )
 
-[node name="Control" type="Control"]
+[node name="MainMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -77,12 +79,12 @@ margin_top = 31.0
 margin_right = 140.0
 margin_bottom = 42.0
 text = "Play vs AI"
-_gameType = 0
 
 [node name="Quit" parent="Control/VBoxContainer/BottomCenter/VBoxContainer" instance=ExtResource( 2 )]
 margin_top = 62.0
 margin_right = 140.0
 margin_bottom = 73.0
 text = "Quit"
+_menuOption = 2
 
 [editable path="Control/VBoxContainer/BottomCenter/VBoxContainer/Play vs Player"]

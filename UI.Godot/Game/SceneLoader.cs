@@ -4,12 +4,11 @@ namespace Quoridor.Game
 {
     public class SceneLoader : Node
     {
-        public Node CurrentScene { get; set; }
+        public Control CurrentScene { get; set; }
 
         public override void _Ready()
         {
-            Viewport root = GetTree().Root;
-            CurrentScene = root.GetChild(root.GetChildCount() - 1);
+            
         }
         
         public void GotoScene(Node scene)
@@ -26,10 +25,12 @@ namespace Quoridor.Game
             CallDeferred(nameof(DeferredGotoScene), scene);
         }
 
-        public void DeferredGotoScene(Node scene)
+        public void DeferredGotoScene(Control scene)
         {
+            CurrentScene?.Hide();
             CurrentScene = scene;
-
+            CurrentScene.Show();
+            
             // Optionally, to make it compatible with the SceneTree.change_scene() API.
             GetTree().CurrentScene = CurrentScene;
         }
