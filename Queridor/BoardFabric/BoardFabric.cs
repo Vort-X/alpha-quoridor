@@ -72,7 +72,7 @@ namespace Queridor.BoardFabric
 
         public Pawn CreatePawn(Board board, bool isFirstPlayer)
         {
-            return isFirstPlayer ? new Pawn() {  Cell = board.Cells[4], WinCoordinate = 8 } : new Pawn() { Cell = board.Cells[76], WinCoordinate = 0 };
+            return isFirstPlayer ? new Pawn() {  Cell = board.Cells[76], WinCoordinate = 0 } : new Pawn() { Cell = board.Cells[4], WinCoordinate = 8 };
         }
     }
 }

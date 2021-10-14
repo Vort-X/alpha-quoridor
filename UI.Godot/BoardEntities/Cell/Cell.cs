@@ -11,19 +11,19 @@ public class Cell : Node2D
 
 	private Clickable _clickable;
 
-	private Sprite _hightLight;
+	private Sprite _highLight;
 
 	public event Action<Tuple<int, int>> CellClicked;
 
 	public bool IsHighlighted
 	{
-		set => _hightLight.Visible = value;
+		set => _highLight.Visible = value;
 	}
 
 	public override void _Ready()
 	{
 		_clickable = GetNode<Clickable>("Clickable");
-		_hightLight = GetNode<Sprite>("Highlight");
+		_highLight = GetNode<Sprite>("Highlight");
 
 		IsHighlighted = false;
 		_clickable.OnMouseClickLeft += () =>

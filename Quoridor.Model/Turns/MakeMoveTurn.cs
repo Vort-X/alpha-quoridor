@@ -19,7 +19,7 @@ namespace Quoridor.Model.Turns
             Cell finishCell = board.Cells.First(c => c.X == x && c.Y == y);
             if (!turnCheckService.CanMakeTurnCheck(finishCell, enemy, player, board.Cells))
             {
-                throw new Exception("Cannot make move");
+                throw new Exception($"{player} can't move to {finishCell}.");
             }
             turnCheckService.MakeTurnService.MakeTurn(player, finishCell);
         }

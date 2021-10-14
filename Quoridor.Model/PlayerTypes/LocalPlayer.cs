@@ -18,7 +18,7 @@ namespace Quoridor.Model.PlayerTypes
     
     public class LocalPlayer : IPlayer
     {
-        private readonly Pawn pawn;
+        public Pawn Pawn { get; private set; }
         private readonly ITurnProvider _turnProvider;
 
         //public LocalPlayer(ITurnProvider turnProvider)
@@ -28,7 +28,7 @@ namespace Quoridor.Model.PlayerTypes
 
         public LocalPlayer(Pawn pawn, ITurnProvider turnProvider)
         {
-            this.pawn = pawn;
+            Pawn = pawn;
             _turnProvider = turnProvider;
         }
 
@@ -41,20 +41,20 @@ namespace Quoridor.Model.PlayerTypes
 
         public void OnWallTurn(Tuple<int, int> cornerCoordinates, bool isHorizontal)
         {
-            var wallTurn = PlaceWallTurnFactory.CreateTurn(pawn, 
+            var wallTurn = PlaceWallTurnFactory.CreateTurn(Pawn, 
                 cornerCoordinates.Item1, cornerCoordinates.Item2, isHorizontal);
             TurnFinished?.Invoke(this, wallTurn);
         }
 
         public void OnCellTurn(Tuple<int, int> cellCoordinates)
         {
-            var moveTurn = MakeMoveTurnFactory.CreateTurn(pawn, cellCoordinates.Item1, cellCoordinates.Item2);
+            var moveTurn = MakeMoveTurnFactory.CreateTurn(Pawn, cellCoordinates.Item1, cellCoordinates.Item2);
             TurnFinished?.Invoke(this, moveTurn);
         }
 
         public override string ToString()
         {
-            return $"{pawn.Cell.X}, {pawn.Cell.Y}";
+            return $"{Pawn.Cell.X}, {Pawn.Cell.Y}";
         }
     }
 }

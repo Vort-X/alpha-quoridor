@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 using Quoridor.Board;
 using Quoridor.Game;
 using Quoridor.Model;
@@ -32,8 +33,11 @@ public class GameSession : Node, ITurnProvider
 
 	public async void RequestTurn(LocalPlayer turnReceiver)
 	{
-		await ToSignal(GetTree().CreateTimer(1), "timeout");
-		_uiPresenter.OnInputRequested();
+		await ToSignal(GetTree().CreateTimer(0.5f), "timeout");
+		_uiPresenter.OnInputRequested(Game.GameManager.TurnCheckService
+			.FindAvaliableNeighbours(turnReceiver.Pawn.Cell)
+			.Select(c => new Tuple<int, int>(c.X, c.Y))
+			.ToList());
 		_turnReceiver = turnReceiver;
 		GD.Print($"Turn requested by {turnReceiver}.");
 	}

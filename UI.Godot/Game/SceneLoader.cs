@@ -28,13 +28,7 @@ namespace Quoridor.Game
 
         public void DeferredGotoScene(Node scene)
         {
-            // It is now safe to remove the current scene
-            CurrentScene.Free();
-
             CurrentScene = scene;
-
-            // Add it to the active scene, as child of root.
-            GetTree().Root.AddChild(CurrentScene);
 
             // Optionally, to make it compatible with the SceneTree.change_scene() API.
             GetTree().CurrentScene = CurrentScene;

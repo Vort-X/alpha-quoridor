@@ -23,12 +23,12 @@ namespace Quoridor.Model.Turns
         {
             if (player.AvailableWalls == 0)
             {
-                throw new Exception("current player don't have any walls");
+                throw new Exception("Current player doesn't have any walls.");
             }
             Corner corner = board.Corners.First(c => c.X == x && c.Y == y);
             if (!turnCheckService.CanPlaceWallCheck(board.Cells, corner, isHorizontal, player, enemy))
             {
-                throw new Exception("cannot place wall");
+                throw new Exception("Wall can't be placed there.");
             }
             turnCheckService.MakeTurnService.PlaceWall(corner, isHorizontal);
             PlaceWall(corner, isHorizontal);

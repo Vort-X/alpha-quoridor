@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 
 namespace Quoridor.Game
@@ -7,20 +8,25 @@ namespace Quoridor.Game
 	{
 		private InputStates InputStates { get;  set; }
 		private bool isWallHorizontal;
+		private List<Tuple<int, int>> _highlightedCells;
 
-		public event Action<Tuple<int, int>, bool> WallPlaced;
-		public event Action<Tuple<int, int>> CellClicked;
-		public event Action WallStartDragging;
-		public event Action WallStopDragging;
-			
+		public Action<Tuple<int, int>, bool> WallPlaced;
+		public Action<Tuple<int, int>> CellClicked;
+		public Action WallStartDragging;
+		public Action WallStopDragging;
+		public Action<List<Tuple<int, int>>> AddHighlightCells; 
+		public Action<List<Tuple<int, int>>> RemoveHighlightCells; 
+
 		public override void _Ready()
 		{
 			InputStates = InputStates.NoInputRequested;
 		}
 
-		public void OnInputRequested()
+		public void OnInputRequested(List<Tuple<int, int>> highlightedCells)
 		{
 			InputStates = InputStates.SelectingCell;
+			AddHighlightCells?.Invoke(highlightedCells);
+			_highlightedCells = highlightedCells;
 		}
 		
 
@@ -47,6 +53,7 @@ namespace Quoridor.Game
 			GD.Print($"Cell: X:{x}, Y:{y}");
 			
 			CellClicked?.Invoke(cellCoordinates);
+			RemoveHighlightCells?.Invoke(_highlightedCells);
 			
 			InputStates = InputStates.NoInputRequested;
 		}
@@ -61,12 +68,43 @@ namespace Quoridor.Game
 
 			isWallHorizontal = isHorizontal;
 			InputStates = InputStates.DraggingWall;
+			RemoveHighlightCells?.Invoke(_highlightedCells);
 		}
 
 		public void OnWallDeleted()
 		{
 			WallStopDragging?.Invoke();
 			InputStates = InputStates.SelectingCell;
+			AddHighlightCells?.Invoke(_highlightedCells);
+		}
+
+		public void UnsubscribeFromAll()
+		{
+			foreach (Delegate d in WallPlaced.GetInvocationList())
+			{
+				WallPlaced -= (Action<Tuple<int, int>, bool>) d;
+			}
+			foreach (Delegate d in CellClicked.GetInvocationList())
+			{
+				CellClicked -= (Action<Tuple<int, int>>) d;
+			}
+			foreach (Delegate d in WallStartDragging.GetInvocationList())
+			{
+				WallStartDragging -= (Action) d;
+			}
+			foreach (Delegate d in WallStopDragging.GetInvocationList())
+			{
+				WallStopDragging -= (Action) d;
+			}
+			foreach (Delegate d in AddHighlightCells.GetInvocationList())
+			{
+				AddHighlightCells -= (Action<List<Tuple<int, int>>>) d;
+			}
+			foreach (Delegate d in RemoveHighlightCells.GetInvocationList())
+			{
+				RemoveHighlightCells -= (Action<List<Tuple<int, int>>>) d;
+			}
+			InputStates = InputStates.NoInputRequested;
 		}
 	}
 }

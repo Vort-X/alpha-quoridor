@@ -40,5 +40,12 @@ namespace Quoridor.Game
 				draggedWall.QueueFree();
 			};
 		}
+
+		public void ConnectBoard(Board.Board board)
+		{
+			_uiPresenter.AddHighlightCells += board.HighlightCells;
+			_uiPresenter.RemoveHighlightCells += board.UnhighlightCells;
+		}
+
 	}
 }

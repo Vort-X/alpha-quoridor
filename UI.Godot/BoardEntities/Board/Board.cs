@@ -43,6 +43,7 @@ namespace Quoridor.Board
 			
 			_cellsTileMap = GetNode<TileMap>("CellsTileMap");
 			_uiPresenterBuilder = GetNode<UiPresenterBuilder>("/root/UiPresenterBuilder");
+			_uiPresenterBuilder.ConnectBoard(this);
 			
 			_tileId = _cellsTileMap.TileSet.FindTileByName(_tileName);
 			_cells = new Cell[_boardHeight, _boardHeight];
@@ -135,7 +136,6 @@ namespace Quoridor.Board
 		{
 			var presenterWalls = BoardPresenter.Walls;
 			var newWalls = presenterWalls.Where(w => IsNewWall(w.Corner.X, w.Corner.Y)).ToList();
-			var five = 5;
 			foreach (var wall in newWalls)
 			{
 				var wallInstance = wall.IsHorizontal ? Wall.CreateHorizontalWall() : Wall.CreateVerticalWall();
@@ -149,6 +149,22 @@ namespace Quoridor.Board
 		{
 			var result = !_walls.Any(w => w.Item1 == x && w.Item2 == y);
 			return result;
+		}
+
+		public void HighlightCells(List<Tuple<int, int>> cellsToHighlight)
+		{
+			foreach (var coords in cellsToHighlight)
+			{
+				_cells[coords.Item1, coords.Item2].IsHighlighted = true;
+			}
+		}
+		
+		public void UnhighlightCells(List<Tuple<int, int>> cellsToHighlight)
+		{
+			foreach (var coords in cellsToHighlight)
+			{
+				_cells[coords.Item1, coords.Item2].IsHighlighted = false;
+			}
 		}
 	}
 }

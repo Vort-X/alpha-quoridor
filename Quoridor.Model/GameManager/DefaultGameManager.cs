@@ -14,26 +14,26 @@ namespace Quoridor.Model.GameManager
 {
     class DefaultGameManager : IGameManager
     {
-        private readonly Board board;
-        private readonly IBoardPresenter boardPresenter;
-        private readonly ITurnCheckService turnCheckService;
-        private PlayerTurnStateMachine ptsm;
+        private readonly Board _board;
+        private readonly IBoardPresenter _boardPresenter;
+        private readonly ITurnCheckService _turnCheckService;
+        private PlayerTurnStateMachine _ptsm;
 
         public DefaultGameManager(Board board, IBoardPresenter boardPresenter, ITurnCheckService turnCheckService, IPlayer player1, IPlayer player2)
         {
-            this.board = board;
-            this.boardPresenter = boardPresenter;
-            this.turnCheckService = turnCheckService;
+            this._board = board;
+            this._boardPresenter = boardPresenter;
+            this._turnCheckService = turnCheckService;
             RegisterPlayers(player1, player2);
 
             State = GameState.FinishedTurn;
         }
 
-        public IBoardPresenter BoardPresenter => boardPresenter;
-        public GameState State { get; set; }
-
+        public IBoardPresenter BoardPresenter => _boardPresenter;
+        public ITurnCheckService TurnCheckService => _turnCheckService;
+        private GameState State { get; set; }
         public event Action BoardUpdated;
-        public event Action InvalidTurn;
+        public event Action<string> InvalidTurn;
 
         public void GameLoop()
         {
@@ -41,16 +41,16 @@ namespace Quoridor.Model.GameManager
 
             State = GameState.Waiting;
             
-            ptsm.ActivePlayer.NotifyTurn();
+            _ptsm.ActivePlayer.NotifyTurn();
         }
 
         private void MakeTurn(IPlayer sender, Turn turn)
         {
-            if (ptsm is null)
+            if (_ptsm is null)
             {
                 throw new NullReferenceException("State machine is null. Call method \"DefaultGameManager.RegisterPlayers\" to create state machine.");
             }
-            if (sender != ptsm.ActivePlayer)
+            if (sender != _ptsm.ActivePlayer)
             {
                 //????
                 return;
@@ -58,22 +58,22 @@ namespace Quoridor.Model.GameManager
 
             try
             {
-                Pawn enemy = turn.Player == boardPresenter.Pawn1 ? boardPresenter.Pawn2 : boardPresenter.Pawn1;
+                Pawn enemy = turn.Player == _boardPresenter.Pawn1 ? _boardPresenter.Pawn2 : _boardPresenter.Pawn1;
 
                 //TODO: find better solution
                 if (turn is PlaceWallTurn pwTurn)
                 {
-                    pwTurn.PlaceWall += (corner, isHorizontal) => boardPresenter.Walls.Add(new Wall() { Corner = corner, IsHorizontal = isHorizontal });
+                    pwTurn.PlaceWall += (corner, isHorizontal) => _boardPresenter.Walls.Add(new Wall() { Corner = corner, IsHorizontal = isHorizontal });
                 }
 
-                turn.Execute(board, turn.Player, enemy, turnCheckService);
-                ptsm.MoveNext();
+                turn.Execute(_board, turn.Player, enemy, _turnCheckService);
+                _ptsm.MoveNext();
                 BoardUpdated?.Invoke();
                 State = GameState.FinishedTurn;
             }
             catch (Exception e)
             {
-                InvalidTurn?.Invoke();
+                InvalidTurn?.Invoke(e.Message);
             }
             finally
             {
@@ -83,7 +83,7 @@ namespace Quoridor.Model.GameManager
 
         private void RegisterPlayers(IPlayer player1, IPlayer player2)
         {
-            ptsm = new PlayerTurnStateMachine(player1, player2);
+            _ptsm = new PlayerTurnStateMachine(player1, player2);
             player1.TurnFinished += MakeTurn;
             player2.TurnFinished += MakeTurn;
         }

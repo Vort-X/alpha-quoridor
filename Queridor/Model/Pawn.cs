@@ -9,5 +9,10 @@ namespace Queridor.Model
         public Cell Cell { get; set; }
         public int WinCoordinate { get; set; }
         public int AvailableWalls { get; set; } = 10;
+
+        public override string ToString()
+        {
+            return $"Pawn at: {Cell}";
+        }
     }
 }

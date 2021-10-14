@@ -20,6 +20,8 @@ UiPresenter="*res://Game/UiPresenter/UiPresenter.cs"
 GameSession="*res://Game/GameSession.cs"
 SceneLoader="*res://Game/SceneLoader.cs"
 UiPresenterBuilder="*res://Game/UiPresenter/UiPresenterBuilder.cs"
+MainMenu="*res://UI/Main Menu/MainMenu.tscn"
+GameUi="*res://UI/Game Menu/GameUI.tscn"
 
 [display]
 
