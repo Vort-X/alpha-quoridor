@@ -67,8 +67,10 @@ namespace Queridor.Services
 
         public bool CanPlaceWallCheck(List<Cell> cells, Corner corner, bool horizontal, Pawn player, Pawn enemy)
         {
-            if ((horizontal & (corner.HorizontalEdges.Key.IsBlocked || corner.HorizontalEdges.Key.IsBlocked))
-                || (!horizontal & (corner.VerticalEdges.Key.IsBlocked || corner.VerticalEdges.Key.IsBlocked)))
+            if ((horizontal & (corner.HorizontalEdges.Key.IsBlocked || corner.HorizontalEdges.Value.IsBlocked))
+                || (!horizontal & (corner.VerticalEdges.Key.IsBlocked || corner.VerticalEdges.Value.IsBlocked))
+                || (!horizontal & corner.HorizontalEdges.Key.IsBlocked & corner.HorizontalEdges.Value.IsBlocked)
+                || (horizontal & corner.VerticalEdges.Key.IsBlocked & corner.VerticalEdges.Value.IsBlocked))
                 return false;
 
             MakeTurnService.PlaceWall(corner, horizontal);
