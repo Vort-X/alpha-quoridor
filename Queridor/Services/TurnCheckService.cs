@@ -122,7 +122,7 @@ namespace Queridor.Services
             if (neihbours.Contains(enemy.Cell))
             {
                 neihbours.AddRange(FindAvaliableNeihbours(enemy.Cell)
-                                        .Where(e => e != user.Cell || CanMakeTurnCheck(e, enemy, user, cells))
+                                        .Where(e => CanMakeTurnCheck(e, enemy, user, cells))
                                         .ToList());
                 neihbours.Remove(enemy.Cell);
             }
