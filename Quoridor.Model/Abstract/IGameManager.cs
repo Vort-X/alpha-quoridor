@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Queridor.ServicesAbstract;
+using Queridor.Model;
 
 namespace Quoridor.Model.Abstract
 {
@@ -17,6 +18,7 @@ namespace Quoridor.Model.Abstract
         public event Action<IPlayer> PlayerWon;
 
         void GameLoop();
+        List<Cell> FindAvaliableCells(Pawn player); //TODO: find better solution
     }
 
     public enum GameState

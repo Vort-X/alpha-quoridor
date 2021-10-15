@@ -38,6 +38,13 @@ namespace Quoridor.Model.GameManager
         public event Action<IPlayer> PlayerWon;
         public event Action<string> InvalidTurn;
 
+        public List<Cell> FindAvaliableCells(Pawn player)
+        {
+            return _turnCheckService.FindAvaliableCells(player,
+                player == _boardPresenter.Pawn2 ? _boardPresenter.Pawn1 : _boardPresenter.Pawn2,
+                _board.Cells);
+        }
+
         public void GameLoop()
         {
             if (State is GameState.Waiting) return;

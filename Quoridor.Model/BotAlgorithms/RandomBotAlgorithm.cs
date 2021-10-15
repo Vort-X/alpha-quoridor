@@ -32,7 +32,7 @@ namespace Quoridor.Model.BotAlgorithms
             var random = new Random();
             if (random.NextDouble() < MOVE_RATIO || pawn.AvailableWalls == 0)
             {
-                var ns = turnCheckService.FindAvaliableCells(pawn.Cell);
+                var ns = turnCheckService.FindAvaliableCells(pawn, enemy, board.Cells);
                 var r = random.Next(0, ns.Count);
                 return MakeMoveTurnFactory.CreateTurn(pawn, ns[r].X, ns[r].Y);
             }

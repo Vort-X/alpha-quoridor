@@ -51,8 +51,8 @@ public class GameSession : Node, ITurnProvider
 	public async void RequestTurn(LocalPlayer turnReceiver)
 	{
 		await ToSignal(GetTree().CreateTimer(0.5f), "timeout");
-		_uiPresenter.OnInputRequested(Game.GameManager.TurnCheckService
-			.FindAvaliableCells(turnReceiver.Pawn.Cell)
+		_uiPresenter.OnInputRequested(Game.GameManager
+			.FindAvaliableCells(turnReceiver.Pawn)
 			.Select(c => new Tuple<int, int>(c.X, c.Y))
 			.ToList());
 		_turnReceiver = turnReceiver;
