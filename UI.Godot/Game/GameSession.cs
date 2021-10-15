@@ -52,7 +52,7 @@ public class GameSession : Node, ITurnProvider
 	{
 		await ToSignal(GetTree().CreateTimer(0.5f), "timeout");
 		_uiPresenter.OnInputRequested(Game.GameManager.TurnCheckService
-			.FindAvaliableNeighbours(turnReceiver.Pawn.Cell)
+			.FindAvaliableCells(turnReceiver.Pawn.Cell)
 			.Select(c => new Tuple<int, int>(c.X, c.Y))
 			.ToList());
 		_turnReceiver = turnReceiver;

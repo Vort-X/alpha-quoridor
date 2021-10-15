@@ -24,10 +24,10 @@ namespace Queridor.Services
         {
             if (player.Cell == finishCell || enemy.Cell == finishCell) return false;
             else return CheckSituationWithMoveThroughtEnemy(finishCell, enemy, player, cells) 
-                    || FindAvaliableNeighbours(player.Cell).Contains(finishCell);
+                    || FindAvaliableNeihbours(player.Cell).Contains(finishCell);
         }
 
-        public List<Cell> FindAvaliableNeighbours(Cell start)
+        private List<Cell> FindAvaliableNeihbours(Cell start)
         {
             return start.Edges.Where(e => !e.IsBlocked)
                 .Select(e => (e.Cells.Key != start) ? e.Cells.Key : e.Cells.Value)
@@ -36,8 +36,8 @@ namespace Queridor.Services
 
         private bool CheckSituationWithMoveThroughtEnemy(Cell finishCell, Pawn enemy, Pawn player, List<Cell> cells)
         {
-            List<Cell> enemyNeighbours = FindAvaliableNeighbours(enemy.Cell);
-            if (FindAvaliableNeighbours(player.Cell).Contains(enemy.Cell) 
+            List<Cell> enemyNeighbours = FindAvaliableNeihbours(enemy.Cell);
+            if (FindAvaliableNeihbours(player.Cell).Contains(enemy.Cell) 
                 && enemyNeighbours.Contains(finishCell)) 
             {
                 Cell cellBehind = FindCellByCoordinates(FindCellCoordinatesBehind(enemy, player), cells);
@@ -114,6 +114,19 @@ namespace Queridor.Services
         public bool VictoryCheck(Pawn player)
         {
             return player.Cell.Y == player.WinCoordinate;
+        }
+
+        public List<Cell> FindAvaliableCells(Pawn user, Pawn enemy, List<Cell> cells)
+        {
+            List<Cell> neihbours = FindAvaliableNeihbours(user.Cell);
+            if (neihbours.Contains(enemy.Cell))
+            {
+                neihbours.AddRange(FindAvaliableNeihbours(enemy.Cell)
+                                        .Where(e => e != user.Cell || CanMakeTurnCheck(e, enemy, user, cells))
+                                        .ToList());
+                neihbours.Remove(enemy.Cell);
+            }
+            return neihbours;
         }
     }
 }
