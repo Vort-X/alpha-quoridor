@@ -12,7 +12,7 @@ namespace Quoridor.Model.BotAlgorithms
 {
     class RandomBotAlgorithm : IBotAlgorithm
     {
-        private const double MOVE_RATIO = 2 / 3;
+        private const double MOVE_RATIO = 2d / 3;
 
         private readonly Board board;
         private readonly Pawn pawn;

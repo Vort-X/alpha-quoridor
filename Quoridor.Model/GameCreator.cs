@@ -44,7 +44,7 @@ namespace Quoridor.Model
             var gbp = new GraphBoardPresenter(p1, p2);
 
             var player1 = new LocalPlayer(p1, turnProvider, true);
-            var rba = new RandomBotAlgorithm(b, p1, p2, tcs);
+            var rba = new RandomBotAlgorithm(b, p2, p1, tcs);
             var player2 = new BotPlayer(rba);
 
             var dgm = new DefaultGameManager(b, gbp, tcs, player1, player2);
