@@ -6,9 +6,9 @@ namespace Queridor.Model
 {
     public class Board
     {
-        public List<Cell> Cells { get; set; }
-        public List<Corner> Corners { get; set; }
-        public Pawn FirstPlayer { get; set; }
-        public Pawn SecondPlayer { get; set; }
+        public List<Cell> Cells { get; internal set; }
+        public List<Corner> Corners { get; internal set; }
+        public Pawn FirstPlayer { get; internal set; }
+        public Pawn SecondPlayer { get; internal set; }
     }
 }
