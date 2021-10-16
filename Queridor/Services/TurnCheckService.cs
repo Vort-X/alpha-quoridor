@@ -22,14 +22,15 @@ namespace Queridor.Services
             this.makeTurnService = makeTurnService;
         }
 
-        public bool CanMakeTurnCheck(Cell finishCell, bool isFirstPlayer)
+        public bool CanMakeTurnCheck(bool isFirstPlayer, int x, int y)
         {
-            if (board.firstPlayer.Cell == finishCell 
-                || board.secondPlayer.Cell == finishCell) return false;
+            var finishCell = board.Cells.Find(c => c.X == x && c.Y == y);
+            if (board.FirstPlayer.Cell == finishCell 
+                || board.SecondPlayer.Cell == finishCell) return false;
             else return CheckSituationWithMoveThroughtEnemy(finishCell,
-                isFirstPlayer ? board.secondPlayer : board.firstPlayer,
-                isFirstPlayer ? board.firstPlayer : board.secondPlayer, board.Cells)
-                    || FindAvaliableNeihbours(isFirstPlayer ? board.firstPlayer.Cell : board.secondPlayer.Cell).Contains(finishCell);
+                isFirstPlayer ? board.SecondPlayer : board.FirstPlayer,
+                isFirstPlayer ? board.FirstPlayer : board.SecondPlayer, board.Cells)
+                    || FindAvaliableNeihbours(isFirstPlayer ? board.FirstPlayer.Cell : board.SecondPlayer.Cell).Contains(finishCell);
         }
 
         private List<Cell> FindAvaliableNeihbours(Cell start)
@@ -69,16 +70,21 @@ namespace Queridor.Services
         {
             return allCells.FirstOrDefault(c => c.X == coords.Key && c.Y == coords.Value);
         }
-        public bool CanPlaceWallCheck(Corner corner, bool horizontal)
+        public bool CanPlaceWallCheck(bool isFirstPlayer, int x, int y, bool horizontal)
         {
+            var corner = board.Corners.Find(c => c.X == x && c.Y == y);
             if ((horizontal & (corner.HorizontalEdges.Key.IsBlocked || corner.HorizontalEdges.Value.IsBlocked))
                 || (!horizontal & (corner.VerticalEdges.Key.IsBlocked || corner.VerticalEdges.Value.IsBlocked))
                 || (!horizontal & corner.HorizontalEdges.Key.IsBlocked & corner.HorizontalEdges.Value.IsBlocked)
                 || (horizontal & corner.VerticalEdges.Key.IsBlocked & corner.VerticalEdges.Value.IsBlocked))
                 return false;
-            makeTurnService.PlaceWall(corner, horizontal);
-            if (!CheckIfWinPathExist(board.firstPlayer, FindWinCells(board.firstPlayer, board.Cells))
-                || !CheckIfWinPathExist(board.secondPlayer, FindWinCells(board.secondPlayer, board.Cells)))
+            makeTurnService.PlaceWall(isFirstPlayer, x, y, horizontal);
+            if (isFirstPlayer) 
+                board.FirstPlayer.AvailableWalls++;
+            else 
+                board.SecondPlayer.AvailableWalls++;
+            if (!CheckIfWinPathExist(board.FirstPlayer, FindWinCells(board.FirstPlayer, board.Cells))
+                || !CheckIfWinPathExist(board.SecondPlayer, FindWinCells(board.SecondPlayer, board.Cells)))
             {
                 DestroyWalls(corner, horizontal);
                 return false;
@@ -116,21 +122,26 @@ namespace Queridor.Services
         public bool VictoryCheck(bool isFirstPlayer)
         {
             return isFirstPlayer ?
-                board.firstPlayer.Cell.Y == board.firstPlayer.WinCoordinate
-                : board.secondPlayer.Cell.Y == board.secondPlayer.WinCoordinate;
+                board.FirstPlayer.Cell.Y == board.FirstPlayer.WinCoordinate
+                : board.SecondPlayer.Cell.Y == board.SecondPlayer.WinCoordinate;
         }
 
         public List<Cell> FindAvaliableCells(bool isFirstPlayer)
         {
-            List<Cell> neihbours = FindAvaliableNeihbours(isFirstPlayer ? board.firstPlayer.Cell : board.secondPlayer.Cell);
-            if (neihbours.Contains(isFirstPlayer ? board.secondPlayer.Cell : board.firstPlayer.Cell))
+            List<Cell> neihbours = FindAvaliableNeihbours(isFirstPlayer ? board.FirstPlayer.Cell : board.SecondPlayer.Cell);
+            if (neihbours.Contains(isFirstPlayer ? board.SecondPlayer.Cell : board.FirstPlayer.Cell))
             {
-                neihbours.AddRange(FindAvaliableNeihbours(isFirstPlayer ? board.secondPlayer.Cell : board.firstPlayer.Cell)
-                                        .Where(e => CanMakeTurnCheck(e, isFirstPlayer))
+                neihbours.AddRange(FindAvaliableNeihbours(isFirstPlayer ? board.SecondPlayer.Cell : board.FirstPlayer.Cell)
+                                        .Where(e => CanMakeTurnCheck(isFirstPlayer, e.X, e.Y))
                                         .ToList());
-                neihbours.Remove(isFirstPlayer ? board.secondPlayer.Cell : board.firstPlayer.Cell);
+                neihbours.Remove(isFirstPlayer ? board.SecondPlayer.Cell : board.FirstPlayer.Cell);
             }
             return neihbours;
+        }
+
+        public int GetAvaliableWallsCount(bool isFirstPlayer)
+        {
+            return isFirstPlayer ? board.FirstPlayer.AvailableWalls : board.SecondPlayer.AvailableWalls;
         }
     }
 }

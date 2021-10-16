@@ -6,7 +6,6 @@ using Quoridor.Model.BoardPresenter;
 using Quoridor.Model.BotAlgorithms;
 using Quoridor.Model.GameManager;
 using Quoridor.Model.PlayerTypes;
-using Quoridor.Model.TurnFactories;
 using System;
 
 namespace Quoridor.Model
@@ -17,17 +16,15 @@ namespace Quoridor.Model
         {
             var bf = new BoardFactory();
             var b = bf.CreateBoard();
-            var p1 = bf.CreatePawn(b, true);
-            var p2 = bf.CreatePawn(b, false);
             var ast = new AStar();
-            var mts = new MakeTurnsService();
-            var tcs = new TurnCheckService(ast, mts);
-            var gbp = new GraphBoardPresenter(p1, p2);
+            var mts = new MakeTurnsService(b);
+            var tcs = new TurnCheckService(ast, b, mts);
+            var gbp = new GraphBoardPresenter(b);
 
-            var player1 = new LocalPlayer(p1, turnProvider, true);
-            var player2 = new LocalPlayer(p2, turnProvider, false);
+            var player1 = new LocalPlayer(b.FirstPlayer, turnProvider, true);
+            var player2 = new LocalPlayer(b.SecondPlayer, turnProvider, false);
             
-            var dgm = new DefaultGameManager(b, gbp, tcs, player1, player2);
+            var dgm = new DefaultGameManager(gbp, mts, tcs, player1, player2);
             
             return new Game() { GameManager = dgm, Player1 = player1, Player2 = player2 };
         }
@@ -36,18 +33,16 @@ namespace Quoridor.Model
         {
             var bf = new BoardFactory();
             var b = bf.CreateBoard();
-            var p1 = bf.CreatePawn(b, true);
-            var p2 = bf.CreatePawn(b, false);
             var ast = new AStar();
-            var mts = new MakeTurnsService();
-            var tcs = new TurnCheckService(ast, mts);
-            var gbp = new GraphBoardPresenter(p1, p2);
+            var mts = new MakeTurnsService(b);
+            var tcs = new TurnCheckService(ast, b, mts);
+            var gbp = new GraphBoardPresenter(b);
 
-            var player1 = new LocalPlayer(p1, turnProvider, true);
-            var rba = new RandomBotAlgorithm(b, p2, p1, tcs);
+            var player1 = new LocalPlayer(b.FirstPlayer, turnProvider, true);
+            var rba = new RandomBotAlgorithm(b, false, tcs);
             var player2 = new BotPlayer(rba);
 
-            var dgm = new DefaultGameManager(b, gbp, tcs, player1, player2);
+            var dgm = new DefaultGameManager(gbp, mts, tcs, player1, player2);
 
             return new Game() { GameManager = dgm, Player1 = player1, Player2 = player2 };
         }

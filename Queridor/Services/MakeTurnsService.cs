@@ -15,14 +15,16 @@ namespace Queridor.Services
             this.board = board;
         }
 
-        public void MakeTurn(bool isFirstPlayer, Cell cell)
+        public void MakeTurn(bool isFirstPlayer, int x, int y)
         {
-            if (isFirstPlayer) board.firstPlayer.Cell = cell;
-            else board.secondPlayer.Cell = cell;
+            var cell = board.Cells.Find(c => c.X == x && c.Y == y);
+            if (isFirstPlayer) board.FirstPlayer.Cell = cell;
+            else board.SecondPlayer.Cell = cell;
         }
 
-        public void PlaceWall(Corner corner, bool horizontal)
+        public void PlaceWall(bool isFirstPlayer, int x, int y, bool horizontal)
         {
+            var corner = board.Corners.Find(c => c.X == x && c.Y == y);
             if (horizontal)
             {
                 corner.HorizontalEdges.Key.IsBlocked = true;
@@ -33,6 +35,10 @@ namespace Queridor.Services
                 corner.VerticalEdges.Key.IsBlocked = true;
                 corner.VerticalEdges.Value.IsBlocked = true;
             }
+            if (isFirstPlayer) 
+                board.FirstPlayer.AvailableWalls--;
+            else 
+                board.SecondPlayer.AvailableWalls--;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Queridor.ServicesAbstract
 {
     public interface IMakeTurnService
     {
-        void MakeTurn(bool isFirstPlayer, Cell cell);
-        void PlaceWall(Corner corner, bool horizontal);
+        void MakeTurn(bool isFirstPlayer, int x, int y);
+        void PlaceWall(bool isFirstPlayer, int x, int y, bool horizontal);
     }
 }

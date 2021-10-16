@@ -61,8 +61,8 @@ namespace Queridor.BoardFabric
                 }
             }
 
-            board.firstPlayer = new Pawn() { Cell = board.Cells[4], WinCoordinate = 8 };
-            board.secondPlayer = new Pawn() { Cell = board.Cells[76], WinCoordinate = 0 };
+            board.FirstPlayer = new Pawn() { Cell = board.Cells[76], WinCoordinate = 0 };
+            board.SecondPlayer = new Pawn() { Cell = board.Cells[4], WinCoordinate = 8 };
 
             return board;
         }

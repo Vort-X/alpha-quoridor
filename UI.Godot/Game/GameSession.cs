@@ -6,7 +6,6 @@ using Quoridor.Game;
 using Quoridor.Model;
 using Quoridor.Model.Abstract;
 using Quoridor.Model.PlayerTypes;
-using Quoridor.Model.TurnFactories;
 
 
 public class GameSession : Node, ITurnProvider
@@ -52,7 +51,7 @@ public class GameSession : Node, ITurnProvider
 	{
 		await ToSignal(GetTree().CreateTimer(0.5f), "timeout");
 		_uiPresenter.OnInputRequested(Game.GameManager
-			.FindAvaliableCells(turnReceiver.Pawn)
+			.FindAvaliableCells(turnReceiver.IsFirstPlayer)
 			.Select(c => new Tuple<int, int>(c.X, c.Y))
 			.ToList());
 		_turnReceiver = turnReceiver;
