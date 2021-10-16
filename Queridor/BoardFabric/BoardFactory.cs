@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Queridor.BoardFabric
 {
-    public class BoardFabric : IBoardFabric
+    public class BoardFactory : IBoardFactory
     {
         public Board CreateBoard()
         {
@@ -61,6 +61,8 @@ namespace Queridor.BoardFabric
                 }
             }
 
+            board.firstPlayer = new Pawn() { Cell = board.Cells[4], WinCoordinate = 8 };
+            board.secondPlayer = new Pawn() { Cell = board.Cells[76], WinCoordinate = 0 };
 
             return board;
         }
@@ -68,11 +70,6 @@ namespace Queridor.BoardFabric
         private Edge FindEdgeBetween(Cell cell1, Cell cell2)
         {
             return cell1.Edges.Find(i => i.Cells.Key == cell1 ? i.Cells.Value == cell2 : i.Cells.Key == cell2);
-        }
-
-        public Pawn CreatePawn(Board board, bool isFirstPlayer)
-        {
-            return isFirstPlayer ? new Pawn() {  Cell = board.Cells[76], WinCoordinate = 0 } : new Pawn() { Cell = board.Cells[4], WinCoordinate = 8 };
         }
     }
 }

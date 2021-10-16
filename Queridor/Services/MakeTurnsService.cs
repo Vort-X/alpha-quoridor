@@ -8,9 +8,17 @@ namespace Queridor.Services
 {
     public class MakeTurnsService : IMakeTurnService
     {
-        public void MakeTurn(Pawn player, Cell cell)
+        private Board board;
+
+        public MakeTurnsService(Board board)
         {
-            player.Cell = cell;
+            this.board = board;
+        }
+
+        public void MakeTurn(bool isFirstPlayer, Cell cell)
+        {
+            if (isFirstPlayer) board.firstPlayer.Cell = cell;
+            else board.secondPlayer.Cell = cell;
         }
 
         public void PlaceWall(Corner corner, bool horizontal)

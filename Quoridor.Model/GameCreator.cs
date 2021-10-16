@@ -15,7 +15,7 @@ namespace Quoridor.Model
     {
         public static Game NewGameVsPlayer(ITurnProvider turnProvider)
         {
-            var bf = new BoardFabric();
+            var bf = new BoardFactory();
             var b = bf.CreateBoard();
             var p1 = bf.CreatePawn(b, true);
             var p2 = bf.CreatePawn(b, false);
@@ -34,7 +34,7 @@ namespace Quoridor.Model
 
         public static Game NewGameVsBot(ITurnProvider turnProvider)
         {
-            var bf = new BoardFabric();
+            var bf = new BoardFactory();
             var b = bf.CreateBoard();
             var p1 = bf.CreatePawn(b, true);
             var p2 = bf.CreatePawn(b, false);

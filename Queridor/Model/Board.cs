@@ -8,5 +8,7 @@ namespace Queridor.Model
     {
         public List<Cell> Cells { get; set; }
         public List<Corner> Corners { get; set; }
+        public Pawn firstPlayer { get; set; }
+        public Pawn secondPlayer { get; set; }
     }
 }

@@ -11,20 +11,25 @@ namespace Queridor.Services
 {
     public class TurnCheckService : ITurnCheckService
     {
-        public TurnCheckService(IAstar algorithm, IMakeTurnService makeTurnService)
+        private IAstar algorithm;
+        private Board board;
+        private IMakeTurnService makeTurnService;
+
+        public TurnCheckService(IAstar algorithm, Board board, IMakeTurnService makeTurnService)
         {
-            Algorithm = algorithm;
-            MakeTurnService = makeTurnService;
+            this.algorithm = algorithm;
+            this.board = board;
+            this.makeTurnService = makeTurnService;
         }
 
-        public IAstar Algorithm { get; private set; }
-        public IMakeTurnService MakeTurnService { get; private set; }
-
-        public bool CanMakeTurnCheck(Cell finishCell, Pawn enemy, Pawn player, List<Cell> cells)
+        public bool CanMakeTurnCheck(Cell finishCell, bool isFirstPlayer)
         {
-            if (player.Cell == finishCell || enemy.Cell == finishCell) return false;
-            else return CheckSituationWithMoveThroughtEnemy(finishCell, enemy, player, cells) 
-                    || FindAvaliableNeihbours(player.Cell).Contains(finishCell);
+            if (board.firstPlayer.Cell == finishCell 
+                || board.secondPlayer.Cell == finishCell) return false;
+            else return CheckSituationWithMoveThroughtEnemy(finishCell,
+                isFirstPlayer ? board.secondPlayer : board.firstPlayer,
+                isFirstPlayer ? board.firstPlayer : board.secondPlayer, board.Cells)
+                    || FindAvaliableNeihbours(isFirstPlayer ? board.firstPlayer.Cell : board.secondPlayer.Cell).Contains(finishCell);
         }
 
         private List<Cell> FindAvaliableNeihbours(Cell start)
@@ -64,23 +69,20 @@ namespace Queridor.Services
         {
             return allCells.FirstOrDefault(c => c.X == coords.Key && c.Y == coords.Value);
         }
-
-        public bool CanPlaceWallCheck(List<Cell> cells, Corner corner, bool horizontal, Pawn player, Pawn enemy)
+        public bool CanPlaceWallCheck(Corner corner, bool horizontal)
         {
             if ((horizontal & (corner.HorizontalEdges.Key.IsBlocked || corner.HorizontalEdges.Value.IsBlocked))
                 || (!horizontal & (corner.VerticalEdges.Key.IsBlocked || corner.VerticalEdges.Value.IsBlocked))
                 || (!horizontal & corner.HorizontalEdges.Key.IsBlocked & corner.HorizontalEdges.Value.IsBlocked)
                 || (horizontal & corner.VerticalEdges.Key.IsBlocked & corner.VerticalEdges.Value.IsBlocked))
                 return false;
-
-            MakeTurnService.PlaceWall(corner, horizontal);
-            if (!CheckIfWinPathExist(player, FindWinCells(player, cells))
-                || !CheckIfWinPathExist(enemy, FindWinCells(enemy, cells)))
+            makeTurnService.PlaceWall(corner, horizontal);
+            if (!CheckIfWinPathExist(board.firstPlayer, FindWinCells(board.firstPlayer, board.Cells))
+                || !CheckIfWinPathExist(board.secondPlayer, FindWinCells(board.secondPlayer, board.Cells)))
             {
                 DestroyWalls(corner, horizontal);
                 return false;
             }
-
             DestroyWalls(corner, horizontal);
             return true;
         }
@@ -101,7 +103,7 @@ namespace Queridor.Services
 
         private bool CheckIfWinPathExist(Pawn player, List<Cell> winCells)
         {
-            return !winCells.TrueForAll(c => Algorithm.FindBestWay(player.Cell, c) == null);
+            return !winCells.TrueForAll(c => algorithm.FindBestWay(player.Cell, c) == null);
         }
 
         private List<Cell> FindWinCells(Pawn player, List<Cell> allCells)
@@ -111,20 +113,22 @@ namespace Queridor.Services
             return result;
         }
 
-        public bool VictoryCheck(Pawn player)
+        public bool VictoryCheck(bool isFirstPlayer)
         {
-            return player.Cell.Y == player.WinCoordinate;
+            return isFirstPlayer ?
+                board.firstPlayer.Cell.Y == board.firstPlayer.WinCoordinate
+                : board.secondPlayer.Cell.Y == board.secondPlayer.WinCoordinate;
         }
 
-        public List<Cell> FindAvaliableCells(Pawn user, Pawn enemy, List<Cell> cells)
+        public List<Cell> FindAvaliableCells(bool isFirstPlayer)
         {
-            List<Cell> neihbours = FindAvaliableNeihbours(user.Cell);
-            if (neihbours.Contains(enemy.Cell))
+            List<Cell> neihbours = FindAvaliableNeihbours(isFirstPlayer ? board.firstPlayer.Cell : board.secondPlayer.Cell);
+            if (neihbours.Contains(isFirstPlayer ? board.secondPlayer.Cell : board.firstPlayer.Cell))
             {
-                neihbours.AddRange(FindAvaliableNeihbours(enemy.Cell)
-                                        .Where(e => CanMakeTurnCheck(e, enemy, user, cells))
+                neihbours.AddRange(FindAvaliableNeihbours(isFirstPlayer ? board.secondPlayer.Cell : board.firstPlayer.Cell)
+                                        .Where(e => CanMakeTurnCheck(e, isFirstPlayer))
                                         .ToList());
-                neihbours.Remove(enemy.Cell);
+                neihbours.Remove(isFirstPlayer ? board.secondPlayer.Cell : board.firstPlayer.Cell);
             }
             return neihbours;
         }
