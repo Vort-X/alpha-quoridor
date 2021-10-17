@@ -5,10 +5,8 @@ using System.Text;
 
 namespace Queridor.BoardFabricAbstract
 {
-    public interface IBoardFabric
+    public interface IBoardFactory
     {
         Board CreateBoard();
-
-        Pawn CreatePawn(Board board, bool isFirstPlayer);
     }
 }

@@ -10,29 +10,35 @@ namespace Quoridor.Model.Turns
 {
     class PlaceWallTurn : Turn
     {
-        protected bool isHorizontal;
+        protected bool horizontal;
 
-        public PlaceWallTurn(Pawn player, int x, int y, bool isHorizontal) : base(player, x, y)
+        public PlaceWallTurn(bool isFirstPlayer, int x, int y, bool horizontal) : base(isFirstPlayer, x, y)
         {
-            this.isHorizontal = isHorizontal;
+            this.horizontal = horizontal;
         }
 
-        public event Action<Corner, bool> PlaceWall; //TODO: find better solution
+        public override string ErrorMessage 
+        { 
+            get
+            {
+                var player = isFirstPlayer ? 1 : 2;
+                var axis = horizontal ? "horizontal" : "vertical";
+                return $"Player {player} can't place {axis} wall at {x}:{y}"; 
+            } 
+        }
 
-        internal override void Execute(Board board, Pawn player, Pawn enemy, ITurnCheckService turnCheckService)
+        public event Action<int, int, bool> PlaceWall; //TODO: find better solution
+
+        internal override bool CanExecute(ITurnCheckService turnCheckService)
         {
-            if (player.AvailableWalls == 0)
-            {
-                throw new Exception("Current player doesn't have any walls.");
-            }
-            Corner corner = board.Corners.First(c => c.X == x && c.Y == y);
-            if (!turnCheckService.CanPlaceWallCheck(board.Cells, corner, isHorizontal, player, enemy))
-            {
-                throw new Exception("Wall can't be placed there.");
-            }
-            turnCheckService.MakeTurnService.PlaceWall(corner, isHorizontal);
-            PlaceWall(corner, isHorizontal);
-            player.AvailableWalls -= 1;
+            return turnCheckService.GetAvaliableWallsCount(isFirstPlayer) > 0
+                && turnCheckService.CanPlaceWallCheck(isFirstPlayer, x, y, horizontal);
+        }
+
+        internal override void Execute(IMakeTurnService makeTurnService)
+        {
+            makeTurnService.PlaceWall(isFirstPlayer, x, y, horizontal);
+            PlaceWall(x, y, horizontal);
         }
     }
 }

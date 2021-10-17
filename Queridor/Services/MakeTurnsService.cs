@@ -8,13 +8,23 @@ namespace Queridor.Services
 {
     public class MakeTurnsService : IMakeTurnService
     {
-        public void MakeTurn(Pawn player, Cell cell)
+        private Board board;
+
+        public MakeTurnsService(Board board)
         {
-            player.Cell = cell;
+            this.board = board;
         }
 
-        public void PlaceWall(Corner corner, bool horizontal)
+        public void MakeTurn(bool isFirstPlayer, int x, int y)
         {
+            var cell = board.Cells.Find(c => c.X == x && c.Y == y);
+            if (isFirstPlayer) board.FirstPlayer.Cell = cell;
+            else board.SecondPlayer.Cell = cell;
+        }
+
+        public void PlaceWall(bool isFirstPlayer, int x, int y, bool horizontal)
+        {
+            var corner = board.Corners.Find(c => c.X == x && c.Y == y);
             if (horizontal)
             {
                 corner.HorizontalEdges.Key.IsBlocked = true;
@@ -25,6 +35,10 @@ namespace Queridor.Services
                 corner.VerticalEdges.Key.IsBlocked = true;
                 corner.VerticalEdges.Value.IsBlocked = true;
             }
+            if (isFirstPlayer) 
+                board.FirstPlayer.AvailableWalls--;
+            else 
+                board.SecondPlayer.AvailableWalls--;
         }
     }
 }

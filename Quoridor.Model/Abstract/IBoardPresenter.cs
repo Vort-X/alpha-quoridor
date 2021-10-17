@@ -14,6 +14,7 @@ namespace Quoridor.Model.Abstract
         Pawn Pawn1 { get; }
         Pawn Pawn2 { get; }
         List<Wall> Walls { get; }
-        
+
+        void PlaceWall(int x, int y, bool horizontal);
     }
 }

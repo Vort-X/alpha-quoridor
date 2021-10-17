@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Quoridor.Model.TurnFactories;
 using Queridor.Model;
 
 namespace Quoridor.Model.PlayerTypes
@@ -20,7 +19,7 @@ namespace Quoridor.Model.PlayerTypes
     {
         public Pawn Pawn { get; private set; }
         private readonly ITurnProvider _turnProvider;
-        private bool _isGoingFirst;
+        private bool _isFirstPlayer;
 
         //public LocalPlayer(ITurnProvider turnProvider)
         //{
@@ -32,10 +31,11 @@ namespace Quoridor.Model.PlayerTypes
         {
             Pawn = pawn;
             _turnProvider = turnProvider;
-            _isGoingFirst = isGoingFirst;
+            _isFirstPlayer = isGoingFirst;
         }
 
-        public string UserFriendlyName => _isGoingFirst ? "White Pawn" : "Black Pawn";
+        public bool IsFirstPlayer => _isFirstPlayer;
+        public string UserFriendlyName => _isFirstPlayer ? "White Pawn" : "Black Pawn";
 
         public event Action<IPlayer, Turn> TurnFinished;
 
@@ -46,14 +46,14 @@ namespace Quoridor.Model.PlayerTypes
 
         public void OnWallTurn(Tuple<int, int> cornerCoordinates, bool isHorizontal)
         {
-            var wallTurn = PlaceWallTurnFactory.CreateTurn(Pawn, 
+            var wallTurn = new PlaceWallTurn(_isFirstPlayer, 
                 cornerCoordinates.Item1, cornerCoordinates.Item2, isHorizontal);
             TurnFinished?.Invoke(this, wallTurn);
         }
 
         public void OnCellTurn(Tuple<int, int> cellCoordinates)
         {
-            var moveTurn = MakeMoveTurnFactory.CreateTurn(Pawn, cellCoordinates.Item1, cellCoordinates.Item2);
+            var moveTurn = new MakeMoveTurn(_isFirstPlayer, cellCoordinates.Item1, cellCoordinates.Item2);
             TurnFinished?.Invoke(this, moveTurn);
         }
 

@@ -14,17 +14,18 @@ namespace Quoridor.Model.GameManager
 {
     class DefaultGameManager : IGameManager
     {
-        private readonly Board _board;
         private readonly IBoardPresenter _boardPresenter;
+        private readonly IMakeTurnService _makeTurnService;
         private readonly ITurnCheckService _turnCheckService;
         
         private PlayerTurnStateMachine _ptsm;
         private bool isGameOver = false;
 
-        public DefaultGameManager(Board board, IBoardPresenter boardPresenter, ITurnCheckService turnCheckService, IPlayer player1, IPlayer player2)
+        public DefaultGameManager(IBoardPresenter boardPresenter, IMakeTurnService makeTurnService,
+            ITurnCheckService turnCheckService, IPlayer player1, IPlayer player2)
         {
-            _board = board;
             _boardPresenter = boardPresenter;
+            _makeTurnService = makeTurnService;
             _turnCheckService = turnCheckService;
             RegisterPlayers(player1, player2);
 
@@ -32,17 +33,14 @@ namespace Quoridor.Model.GameManager
         }
 
         public IBoardPresenter BoardPresenter => _boardPresenter;
-        public ITurnCheckService TurnCheckService => _turnCheckService;
         private GameState State { get; set; }
         public event Action BoardUpdated;
         public event Action<IPlayer> PlayerWon;
         public event Action<string> InvalidTurn;
 
-        public List<Cell> FindAvaliableCells(Pawn player)
+        public List<Cell> FindAvaliableCells(bool isFirstPlayer)
         {
-            return _turnCheckService.FindAvaliableCells(player,
-                player == _boardPresenter.Pawn2 ? _boardPresenter.Pawn1 : _boardPresenter.Pawn2,
-                _board.Cells);
+            return _turnCheckService.FindAvaliableCells(isFirstPlayer);
         }
 
         public void GameLoop()
@@ -67,35 +65,24 @@ namespace Quoridor.Model.GameManager
                 //????
                 return;
             }
-
-            try
+            if (!turn.CanExecute(_turnCheckService))
             {
-                Pawn enemy = turn.Player == _boardPresenter.Pawn1 ? _boardPresenter.Pawn2 : _boardPresenter.Pawn1;
-
-                //TODO: find better solution
-                if (turn is PlaceWallTurn pwTurn)
-                {
-                    pwTurn.PlaceWall += (corner, isHorizontal) => _boardPresenter.Walls.Add(new Wall() { Corner = corner, IsHorizontal = isHorizontal });
-                }
-
-                turn.Execute(_board, turn.Player, enemy, _turnCheckService);
-                _ptsm.MoveNext();
-                BoardUpdated?.Invoke();
+                InvalidTurn?.Invoke(turn.ErrorMessage);
                 State = GameState.FinishedTurn;
-                if (_turnCheckService.VictoryCheck(turn.Player)) 
-                { 
-                    PlayerWon?.Invoke(sender);
-                    State = GameState.Waiting;
-                    isGameOver = true;
-                }
+                return;
             }
-            catch (Exception e)
+            if (turn is PlaceWallTurn pwTurn)
             {
-                InvalidTurn?.Invoke(e.Message);
+                pwTurn.PlaceWall += _boardPresenter.PlaceWall;
             }
-            finally
+            turn.Execute(_makeTurnService);
+            _ptsm.MoveNext();
+            BoardUpdated?.Invoke();
+            State = GameState.FinishedTurn;
+            if (_turnCheckService.VictoryCheck(turn.IsFirstPlayer) || _turnCheckService.VictoryCheck(!turn.IsFirstPlayer))
             {
-                State = GameState.FinishedTurn;
+                PlayerWon?.Invoke(sender);
+                isGameOver = true;
             }
         }
 

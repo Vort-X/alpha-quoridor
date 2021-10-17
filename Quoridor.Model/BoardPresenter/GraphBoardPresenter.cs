@@ -14,15 +14,21 @@ namespace Quoridor.Model.BoardPresenter
 {
     class GraphBoardPresenter : IBoardPresenter
     {
-        public GraphBoardPresenter(Pawn pawn1, Pawn pawn2)
+        private readonly Board board;
+
+        public GraphBoardPresenter(Board board)
         {
-            Pawn1 = pawn1;
-            Pawn2 = pawn2;
+            this.board = board;
             Walls = new List<Wall>();
         }
 
-        public Pawn Pawn1 { get; set; }
-        public Pawn Pawn2 { get; set; }
+        public Pawn Pawn1 => board.FirstPlayer;
+        public Pawn Pawn2 => board.SecondPlayer;
         public List<Wall> Walls { get; set; }
+
+        public void PlaceWall(int x, int y, bool horizontal)
+        {
+            Walls.Add(new Wall { Corner = board.Corners.Find(c => c.X == x && c.Y == y), IsHorizontal = horizontal});
+        }
     }
 }

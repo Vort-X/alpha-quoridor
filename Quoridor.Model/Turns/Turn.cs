@@ -10,19 +10,21 @@ namespace Quoridor.Model.Turns
 {
     public abstract class Turn
     {
-        protected Pawn player;
+        protected bool isFirstPlayer;
         protected int x;
         protected int y;
 
-        protected Turn(Pawn player, int x, int y)
+        protected Turn(bool isFirstPlayer, int x, int y)
         {
-            this.player = player;
+            this.isFirstPlayer = isFirstPlayer;
             this.x = x;
             this.y = y;
         }
 
-        public Pawn Player => player;
+        public abstract string ErrorMessage { get; }
+        public bool IsFirstPlayer => isFirstPlayer;
 
-        internal abstract void Execute(Board board, Pawn player, Pawn enemy, ITurnCheckService turnCheckService);
+        internal abstract bool CanExecute(ITurnCheckService turnCheckService);
+        internal abstract void Execute(IMakeTurnService makeTurnService);
     }
 }

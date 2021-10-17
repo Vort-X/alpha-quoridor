@@ -6,9 +6,9 @@ namespace Queridor.Model
 {
     public class Pawn
     {
-        public Cell Cell { get; set; }
-        public int WinCoordinate { get; set; }
-        public int AvailableWalls { get; set; } = 10;
+        public Cell Cell { get; internal set; }
+        public int WinCoordinate { get; internal set; }
+        public int AvailableWalls { get; internal set; } = 10;
 
         public override string ToString()
         {

@@ -10,18 +10,27 @@ namespace Quoridor.Model.Turns
 {
     class MakeMoveTurn : Turn
     {
-        public MakeMoveTurn(Pawn player, int x, int y) : base(player, x, y)
+        public MakeMoveTurn(bool isFirstPlayer, int x, int y) : base(isFirstPlayer, x, y)
         {
         }
 
-        internal override void Execute(Board board, Pawn player, Pawn enemy, ITurnCheckService turnCheckService)
+        public override string ErrorMessage
         {
-            Cell finishCell = board.Cells.First(c => c.X == x && c.Y == y);
-            if (!turnCheckService.CanMakeTurnCheck(finishCell, enemy, player, board.Cells))
+            get
             {
-                throw new Exception($"{player} can't move to {finishCell}.");
+                var player = isFirstPlayer ? 1 : 2;
+                return $"Player {player} can't move to position {x}:{y}";
             }
-            turnCheckService.MakeTurnService.MakeTurn(player, finishCell);
+        }
+
+        internal override bool CanExecute(ITurnCheckService turnCheckService)
+        {
+            return turnCheckService.CanMakeTurnCheck(isFirstPlayer, x, y);
+        }
+
+        internal override void Execute(IMakeTurnService makeTurnService)
+        {
+            makeTurnService.MakeTurn(isFirstPlayer, x, y);
         }
     }
 }

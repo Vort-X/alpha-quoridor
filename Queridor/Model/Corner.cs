@@ -6,9 +6,9 @@ namespace Queridor.Model
 {
     public class Corner
     {
-        public int X { get; set; }
-        public int Y { get; set; }
-        public KeyValuePair<Edge, Edge> HorizontalEdges { get; set; }
-        public KeyValuePair<Edge, Edge> VerticalEdges { get; set; }
+        public int X { get; internal set; }
+        public int Y { get; internal set; }
+        public KeyValuePair<Edge, Edge> HorizontalEdges { get; internal set; }
+        public KeyValuePair<Edge, Edge> VerticalEdges { get; internal set; }
     }
 }

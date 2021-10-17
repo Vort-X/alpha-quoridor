@@ -6,7 +6,7 @@ namespace Queridor.Model
 {
     public class Edge
     {
-        public KeyValuePair<Cell, Cell> Cells { get; set; }
-        public bool IsBlocked { get; set; }
+        public KeyValuePair<Cell, Cell> Cells { get; internal set; }
+        public bool IsBlocked { get; internal set; }
     }
 }
