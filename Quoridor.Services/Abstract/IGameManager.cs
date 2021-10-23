@@ -12,12 +12,12 @@ namespace Quoridor.Model.Abstract
     public interface IGameManager
     {
         IBoardPresenter BoardPresenter { get; }
-        event Action BoardUpdated;
+        event Action<Turn, IPlayer> BoardUpdated;
         event Action<string> InvalidTurn;
         public event Action<IPlayer> PlayerWon;
 
         void GameLoop();
-        List<Cell> FindAvaliableCells(bool isFirstPlayer); //TODO: find better solution
+        List<Cell> FindAvailableCells(bool isFirstPlayer); //TODO: find better solution
     }
 
     public enum GameState

@@ -34,11 +34,11 @@ namespace Quoridor.Model.GameManager
 
         public IBoardPresenter BoardPresenter => _boardPresenter;
         private GameState State { get; set; }
-        public event Action BoardUpdated;
+        public event Action<Turn, IPlayer> BoardUpdated;
         public event Action<IPlayer> PlayerWon;
         public event Action<string> InvalidTurn;
 
-        public List<Cell> FindAvaliableCells(bool isFirstPlayer)
+        public List<Cell> FindAvailableCells(bool isFirstPlayer)
         {
             return _turnCheckService.FindAvaliableCells(isFirstPlayer);
         }
@@ -77,7 +77,7 @@ namespace Quoridor.Model.GameManager
             }
             turn.Execute(_makeTurnService);
             _ptsm.MoveNext();
-            BoardUpdated?.Invoke();
+            BoardUpdated?.Invoke(turn, sender);
             State = GameState.FinishedTurn;
             if (_turnCheckService.VictoryCheck(turn.IsFirstPlayer) || _turnCheckService.VictoryCheck(!turn.IsFirstPlayer))
             {
