@@ -43,7 +43,7 @@ namespace Quoridor.ConsoleClient
             var pawnColor = Console.ReadLine();
             var consoleGame = new ConsoleGameSession();
 
-            var gameManager = GameCreator.NewGameVsConsole(consoleGame, pawnColor).GameManager;
+            var gameManager = GameCreator.NewGameHardBotVsRandomBot(consoleGame, pawnColor).GameManager;
             gameManager.BoardUpdated += consoleGame.OnBoardUpdate;
 
             var isGameFinished = false;
