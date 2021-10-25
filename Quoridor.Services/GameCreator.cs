@@ -25,7 +25,7 @@ namespace Quoridor.Model
             var gbp = new GraphBoardPresenter(b);
 
             var player1 = new ConsolePlayer(pawnColor, turnProvider);
-            var rba = new RandomBotAlgorithm(b, pawnColor == "white", tcs);
+            var rba = new HardBotAlgorithm(pawnColor == "white", tcs, mts);
             var player2 = new BotPlayer(rba);
 
             var dgm = pawnColor == _blackPawn ? new DefaultGameManager(gbp, mts, tcs, player1, player2) 

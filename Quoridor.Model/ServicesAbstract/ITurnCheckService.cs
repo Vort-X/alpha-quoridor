@@ -12,7 +12,12 @@ namespace Queridor.ServicesAbstract
         bool CanMakeTurnCheck(bool isFirstPlayer, int x, int y);
         bool CanPlaceWallCheck(bool isFirstPlayer, int x, int y, bool horizontal);
         List<Cell> FindAvaliableCells(bool isFirstPlayer);
+        List<KeyValuePair<Corner, bool>> FindAvaliableWalls(bool isFirstPlayer);
+        Cell GetPlayerCell(bool isFirstPlayer);
         int GetAvaliableWallsCount(bool isFirstPlayer);
+        void DestroyWalls(Corner corner, bool horizontal);
         bool VictoryCheck(bool isFirstPlayer);
+        float FuncFromBoard(bool isFirstPlayer);
+        Corner GetCorner(int X, int Y);
     }
 }

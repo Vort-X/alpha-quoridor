@@ -77,8 +77,6 @@ namespace Queridor.AIAlgotithms
         {
            var result = new Collection<PathNode>();
 
-           List<Cell> neighbourCells = new List<Cell>();
-
            foreach(Edge e in pathNode.Position.Edges)
             {
                 if (!e.IsBlocked) 
