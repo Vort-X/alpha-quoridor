@@ -22,7 +22,7 @@ namespace Queridor.Services
             else board.SecondPlayer.Cell = cell;
         }
 
-        public void PlaceWall(bool isFirstPlayer, int x, int y, bool horizontal)
+        public void PlaceTestWall(bool isFirstPlayer, int x, int y, bool horizontal)
         {
             var corner = board.Corners.Find(c => c.X == x && c.Y == y);
             if (horizontal)
@@ -35,6 +35,11 @@ namespace Queridor.Services
                 corner.VerticalEdges.Key.IsBlocked = true;
                 corner.VerticalEdges.Value.IsBlocked = true;
             }
+        }
+
+        public void PlaceWall(bool isFirstPlayer, int x, int y, bool horizontal)
+        {
+            PlaceTestWall(isFirstPlayer, x, y, horizontal);
             if (isFirstPlayer) 
                 board.FirstPlayer.AvailableWalls--;
             else 

@@ -43,12 +43,12 @@ namespace Quoridor.Model.BotAlgorithms
                 }
             }
             
-            foreach (KeyValuePair<Corner, bool> kvp in turnCheckService.FindAvaliableWalls(isFirstPlayer))
+            foreach (KeyValuePair<Corner, bool> kvp in turnCheckService.FindAvaliableWalls(!isFirstPlayer))
             {
                 if (turnCheckService.GetAvaliableWallsCount(isFirstPlayer) > 0
                 && turnCheckService.CanPlaceWallCheck(isFirstPlayer, kvp.Key.X, kvp.Key.Y, kvp.Value)) 
                 {
-                    makeTurnService.PlaceWall(isFirstPlayer, kvp.Key.X, kvp.Key.Y, kvp.Value);
+                    makeTurnService.PlaceTestWall(isFirstPlayer, kvp.Key.X, kvp.Key.Y, kvp.Value);
                     float score = MiniMax(false, 0);
                     turnCheckService.DestroyWalls(kvp.Key, kvp.Value);
                     if (score > bestScore)
@@ -74,7 +74,7 @@ namespace Quoridor.Model.BotAlgorithms
                 return 100;
             }
             
-            if (depth == 5)
+            if (depth == 4)
             {
                 return turnCheckService.FuncFromBoard(isFirstPlayer);
             }
@@ -97,12 +97,12 @@ namespace Quoridor.Model.BotAlgorithms
                     }
                 }
                 
-                foreach (KeyValuePair<Corner, bool> kvp in turnCheckService.FindAvaliableWalls(isFirstPlayer))
+                foreach (KeyValuePair<Corner, bool> kvp in turnCheckService.FindAvaliableWalls(!isFirstPlayer))
                 {
                     if (turnCheckService.GetAvaliableWallsCount(isFirstPlayer) > 0
                      && turnCheckService.CanPlaceWallCheck(isFirstPlayer, kvp.Key.X, kvp.Key.Y, kvp.Value))
                     {
-                        makeTurnService.PlaceWall(isFirstPlayer, kvp.Key.X, kvp.Key.Y, kvp.Value);
+                        makeTurnService.PlaceTestWall(isFirstPlayer, kvp.Key.X, kvp.Key.Y, kvp.Value);
                         float score = MiniMax(false, depth + 1);
                         turnCheckService.DestroyWalls(kvp.Key, kvp.Value);
                         bestScore = Math.Max(bestScore, score);
@@ -127,18 +127,19 @@ namespace Quoridor.Model.BotAlgorithms
                     }
                 }
 
-
+                /*
                 foreach (KeyValuePair<Corner, bool> kvp in turnCheckService.FindAvaliableWalls(!isFirstPlayer))
                 {
                     if (turnCheckService.GetAvaliableWallsCount(!isFirstPlayer) > 0
                      && turnCheckService.CanPlaceWallCheck(!isFirstPlayer, kvp.Key.X, kvp.Key.Y, kvp.Value))
                     {
-                        makeTurnService.PlaceWall(!isFirstPlayer, kvp.Key.X, kvp.Key.Y, kvp.Value);
+                        makeTurnService.PlaceTestWall(!isFirstPlayer, kvp.Key.X, kvp.Key.Y, kvp.Value);
                         float score = MiniMax(true, depth + 1);
                         turnCheckService.DestroyWalls(kvp.Key, kvp.Value);
                         bestScore = Math.Min(bestScore, score);
                     }
                 }
+                */
                 
             }
             return bestScore;

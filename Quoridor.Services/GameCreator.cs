@@ -25,10 +25,9 @@ namespace Quoridor.Model
             var tcs = new TurnCheckService(ast, b, mts);
             var gbp = new GraphBoardPresenter(b);
 
-            var hba = new HardBotAlgorithm(pawnColor == "white", tcs, mts);
+            var hba = new HardBotAlgorithm(pawnColor == "black", tcs, mts);
             var player1 = new BotPlayer(hba);
-            var rba = new HardBotAlgorithm(pawnColor == "black", tcs, mts);
-            var player2 = new BotPlayer(rba);
+            var player2 = new ConsolePlayer("white", turnProvider);
 
             var dgm = pawnColor == _blackPawn ? new DefaultGameManager(gbp, mts, tcs, player1, player2) 
                 : new DefaultGameManager(gbp, mts, tcs, player2, player1);

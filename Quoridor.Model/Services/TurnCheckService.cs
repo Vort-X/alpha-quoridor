@@ -83,8 +83,8 @@ namespace Queridor.Services
                 board.FirstPlayer.AvailableWalls++;
             else 
                 board.SecondPlayer.AvailableWalls++;
-            if (!CheckIfWinPathExist(board.FirstPlayer, FindWinCells(board.FirstPlayer, board.Cells))
-                || !CheckIfWinPathExist(board.SecondPlayer, FindWinCells(board.SecondPlayer, board.Cells)))
+            if (!CheckIfWinPathExist(board.FirstPlayer)
+                || !CheckIfWinPathExist(board.SecondPlayer))
             {
                 DestroyWalls(corner, horizontal);
                 return false;
@@ -107,16 +107,9 @@ namespace Queridor.Services
             }
         }
 
-        private bool CheckIfWinPathExist(Pawn player, List<Cell> winCells)
+        private bool CheckIfWinPathExist(Pawn player)
         {
-            return !winCells.TrueForAll(c => algorithm.FindBestWay(player.Cell, c) == null);
-        }
-
-        private List<Cell> FindWinCells(Pawn player, List<Cell> allCells)
-        {
-            List<Cell> result = new List<Cell>(allCells);
-            result.RemoveRange(player.WinCoordinate == 0 ? 9 : 0, 72);
-            return result;
+            return algorithm.FindBestWay(player, board) != null;
         }
 
         public bool VictoryCheck(bool isFirstPlayer)
@@ -154,47 +147,27 @@ namespace Queridor.Services
             List<KeyValuePair<Corner, bool>> result = new List<KeyValuePair<Corner, bool>>();
             int X = GetPlayerCell(isFirstPlayer).X;
             int Y = GetPlayerCell(isFirstPlayer).Y;
-            int[] coords = new int[4] { -2, -1, 0, 1};
-            foreach(int y in coords)
+            int[] coords = new int[2] { -1, 0 };
+            int y = isFirstPlayer ? -1 : 0;
+            foreach(int x in coords)
             {
-                foreach(int x in coords)
-                {
-                    Corner c = GetCorner(X + x, Y + y);
-                    if (c != null)
-                    {
-                        result.Add(new KeyValuePair<Corner, bool>(c, true));
-                        result.Add(new KeyValuePair<Corner, bool>(c, false));
-                    }
-                }
+               Corner c = GetCorner(X + x, Y + y);
+               if (c != null)
+               {
+                    result.Add(new KeyValuePair<Corner, bool>(c, true));
+                    result.Add(new KeyValuePair<Corner, bool>(c, false));
+               }
+           
             }
             return result;
         }
 
         public float FuncFromBoard(bool isFirstPlayer)
         {
-            List<Cell> bestWay = null;
-            foreach (Cell c in FindWinCells(isFirstPlayer ? board.FirstPlayer : board.SecondPlayer, board.Cells)) 
-            {
-                List<Cell> currList = algorithm.FindBestWay(isFirstPlayer ? board.FirstPlayer.Cell : board.SecondPlayer.Cell, c);
-                if (bestWay==null || bestWay.Count > currList.Count)
-                {
-                    bestWay = currList;
-                }
-            }
-
+            List<Cell> bestWay = algorithm.FindBestWay(isFirstPlayer ? board.FirstPlayer : board.SecondPlayer, board);
             
-            List<Cell> enemyBestWay = null;
-            foreach (Cell c in FindWinCells(isFirstPlayer ? board.SecondPlayer : board.FirstPlayer, board.Cells))
-            {
-                
-                List<Cell> currList = algorithm.FindBestWay(isFirstPlayer ? board.SecondPlayer.Cell : board.FirstPlayer.Cell, c);
-                if (enemyBestWay == null || enemyBestWay.Count > currList.Count)
-                {
-                    enemyBestWay = currList;
-                }
-            }
-            
-            
+            List<Cell> enemyBestWay = algorithm.FindBestWay(isFirstPlayer ? board.SecondPlayer : board.FirstPlayer, board);
+        
             return (float)1/bestWay.Count - (float)1/enemyBestWay.Count; 
             
         }

@@ -9,5 +9,6 @@ namespace Queridor.ServicesAbstract
     {
         void MakeTurn(bool isFirstPlayer, int x, int y);
         void PlaceWall(bool isFirstPlayer, int x, int y, bool horizontal);
+        void PlaceTestWall(bool isFirstPlayer, int x, int y, bool horizontal);
     }
 }
