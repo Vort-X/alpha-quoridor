@@ -56,6 +56,7 @@ namespace Quoridor.Model.GameManager
 
         private void MakeTurn(IPlayer sender, Turn turn)
         {
+            var isJump = false;
             if (_ptsm is null)
             {
                 throw new NullReferenceException("State machine is null. Call method \"DefaultGameManager.RegisterPlayers\" to create state machine.");

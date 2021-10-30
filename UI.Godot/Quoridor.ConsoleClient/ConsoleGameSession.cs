@@ -43,8 +43,9 @@ namespace Quoridor.ConsoleClient
             var pawnColor = Console.ReadLine();
             var consoleGame = new ConsoleGameSession();
 
-            var gameManager = GameCreator.NewGameHardBotVsRandomBot(consoleGame, pawnColor).GameManager;
+            var gameManager = GameCreator.NewGameVsConsole(consoleGame, pawnColor).GameManager;
             gameManager.BoardUpdated += consoleGame.OnBoardUpdate;
+            gameManager.InvalidTurn += consoleGame.OnInvalidTurn;
 
             var isGameFinished = false;
             gameManager.PlayerWon += _ => isGameFinished = true;
@@ -60,6 +61,11 @@ namespace Quoridor.ConsoleClient
             if (sender != _turnReciever)
                 Console.WriteLine(turn.ToString());
         }
+        
+        private void OnInvalidTurn(string errorMessage)
+        {
+            Console.WriteLine(errorMessage);
+        }
 
         public void RequestTurn(ConsolePlayer turnReceiver)
         {
@@ -67,22 +73,34 @@ namespace Quoridor.ConsoleClient
             
             var (turnType, turnParameters) = ReadTurnData();
 
-            if (isMoveTurn(turnType))
+            if (IsMoveTurn(turnType))
             {
                 SendMoveTurn(turnReceiver, turnParameters);
             }
-            else
+            else if (IsWallTurn(turnType))
             {
                 SendWallTurn(turnReceiver, turnParameters);
             }
+            else
+            {
+                SendJumpTurn(turnReceiver, turnParameters);
+            }
             
+        }
+
+        private void SendJumpTurn(ConsolePlayer turnReceiver, string turnParameters)
+        {
+            int x = _cellLetterCoordinates[turnParameters[0]];
+            int y = turnParameters[1] - '0';
+
+            turnReceiver.OnMoveTurn(new Tuple<int, int>(x - 1, y - 1));
         }
 
         private void SendWallTurn(ConsolePlayer turnReceiver, string turnParameters)
         {
             int x = _wallLetterCoordinates[turnParameters[0]];
             int y = turnParameters[1] - '0';
-            bool isHorizontal = turnParameters[2] == 'h';
+            bool isHorizontal = turnParameters[2] == 'H';
 
             turnReceiver.OnWallTurn(new Tuple<int, int>(x - 1, y - 1), isHorizontal);
         }
@@ -95,14 +113,19 @@ namespace Quoridor.ConsoleClient
             turnReceiver.OnMoveTurn(new Tuple<int, int>(x - 1, y - 1));
         }
 
-        private bool isMoveTurn(string turnType)
+        private bool IsMoveTurn(string turnType)
         {
-            return turnType == "move";
+            return turnType == "MOVE";
+        }
+
+        private bool IsWallTurn(string turnType)
+        {
+            return turnType == "WALL";
         }
 
         private static (string turnType, string turnParameters) ReadTurnData()
         {
-            var turnString = Console.ReadLine();
+            var turnString = Console.ReadLine().ToUpper();
             
             var turnType = turnString.Split(' ')[0];
             var turnParameters = turnString.Split(' ')[1];

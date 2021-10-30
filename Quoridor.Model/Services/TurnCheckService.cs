@@ -22,15 +22,18 @@ namespace Queridor.Services
             this.makeTurnService = makeTurnService;
         }
 
-        public bool CanMakeTurnCheck(bool isFirstPlayer, int x, int y)
+        public (bool, bool) CanMakeTurnCheck(bool isFirstPlayer, int x, int y)
         {
             var finishCell = board.Cells.Find(c => c.X == x && c.Y == y);
             if (board.FirstPlayer.Cell == finishCell 
-                || board.SecondPlayer.Cell == finishCell) return false;
-            else return CheckSituationWithMoveThroughtEnemy(finishCell,
+                || board.SecondPlayer.Cell == finishCell) return (false, false);
+            var jumpOver = CheckSituationWithMoveThroughtEnemy(finishCell,
                 isFirstPlayer ? board.SecondPlayer : board.FirstPlayer,
-                isFirstPlayer ? board.FirstPlayer : board.SecondPlayer, board.Cells)
-                    || FindAvaliableNeihbours(isFirstPlayer ? board.FirstPlayer.Cell : board.SecondPlayer.Cell).Contains(finishCell);
+                isFirstPlayer ? board.FirstPlayer : board.SecondPlayer, board.Cells);
+            if (jumpOver) return (true, true);
+            var moveToCell = FindAvaliableNeihbours(isFirstPlayer ? board.FirstPlayer.Cell : board.SecondPlayer.Cell)
+                .Contains(finishCell);
+            return (moveToCell, false);
         }
 
         private List<Cell> FindAvaliableNeihbours(Cell start)
@@ -125,7 +128,7 @@ namespace Queridor.Services
             if (neihbours.Contains(isFirstPlayer ? board.SecondPlayer.Cell : board.FirstPlayer.Cell))
             {
                 neihbours.AddRange(FindAvaliableNeihbours(isFirstPlayer ? board.SecondPlayer.Cell : board.FirstPlayer.Cell)
-                                        .Where(e => CanMakeTurnCheck(isFirstPlayer, e.X, e.Y))
+                                        .Where(e => CanMakeTurnCheck(isFirstPlayer, e.X, e.Y).Item1)
                                         .ToList());
                 neihbours.Remove(isFirstPlayer ? board.SecondPlayer.Cell : board.FirstPlayer.Cell);
             }

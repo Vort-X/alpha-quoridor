@@ -10,6 +10,7 @@ namespace Quoridor.Model.Turns
 {
     class MakeMoveTurn : Turn
     {
+        private bool _isJumpTurn;
         private Dictionary<int, char> _cellLetterCoordinates = new Dictionary<int, char>()
         {
             [0] = 'A',
@@ -37,7 +38,9 @@ namespace Quoridor.Model.Turns
 
         internal override bool CanExecute(ITurnCheckService turnCheckService)
         {
-            return turnCheckService.CanMakeTurnCheck(isFirstPlayer, x, y);
+            var (canExecute, isJumpTurn) =  turnCheckService.CanMakeTurnCheck(isFirstPlayer, x, y);
+            _isJumpTurn = isJumpTurn;
+            return canExecute;
         }
 
         internal override void Execute(IMakeTurnService makeTurnService)
@@ -47,6 +50,7 @@ namespace Quoridor.Model.Turns
 
         public override string ToString()
         {
+            if (_isJumpTurn) return $"jump {_cellLetterCoordinates[x]}{y + 1}";
             return $"move {_cellLetterCoordinates[x]}{y + 1}";
         }
     }
