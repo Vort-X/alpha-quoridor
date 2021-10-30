@@ -70,7 +70,7 @@ namespace Quoridor.Model.GameManager
             {
                 InvalidTurn?.Invoke(turn.ErrorMessage);
                 State = GameState.FinishedTurn;
-                return;
+                throw new Exception($"Invalid Turn: {turn}.");
             }
             if (turn is PlaceWallTurn pwTurn)
             {
