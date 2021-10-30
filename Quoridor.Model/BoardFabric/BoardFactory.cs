@@ -50,6 +50,8 @@ namespace Queridor.BoardFabric
                     {
                         X = j,
                         Y = i,
+                        isBlockedHorizontal = false,
+                        isBlockedVertical = false,
                         HorizontalEdges = new KeyValuePair<Edge, Edge>
                             (FindEdgeBetween(board.Cells[j + 9 * i], board.Cells[j + 9 * i + 9]),
                             FindEdgeBetween(board.Cells[j + 9 * i + 1], board.Cells[j + 9 * i + 10])),

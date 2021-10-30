@@ -73,13 +73,14 @@ namespace Queridor.Services
         {
             return allCells.FirstOrDefault(c => c.X == coords.Key && c.Y == coords.Value);
         }
+
         public bool CanPlaceWallCheck(bool isFirstPlayer, int x, int y, bool horizontal)
         {
             var corner = board.Corners.Find(c => c.X == x && c.Y == y);
             if ((horizontal & (corner.HorizontalEdges.Key.IsBlocked || corner.HorizontalEdges.Value.IsBlocked))
                 || (!horizontal & (corner.VerticalEdges.Key.IsBlocked || corner.VerticalEdges.Value.IsBlocked))
-                || (!horizontal & corner.HorizontalEdges.Key.IsBlocked & corner.HorizontalEdges.Value.IsBlocked)
-                || (horizontal & corner.VerticalEdges.Key.IsBlocked & corner.VerticalEdges.Value.IsBlocked))
+                || (!horizontal & corner.isBlockedHorizontal)
+                || (horizontal & corner.isBlockedVertical))
                 return false;
             makeTurnService.PlaceWall(isFirstPlayer, x, y, horizontal);
             if (isFirstPlayer) 
@@ -102,11 +103,13 @@ namespace Queridor.Services
             {
                 corner.HorizontalEdges.Key.IsBlocked = false;
                 corner.HorizontalEdges.Value.IsBlocked = false;
+                corner.isBlockedHorizontal = false;
             }
             else
             {
                 corner.VerticalEdges.Key.IsBlocked = false;
                 corner.VerticalEdges.Value.IsBlocked = false;
+                corner.isBlockedVertical = false;
             }
         }
 

@@ -29,11 +29,13 @@ namespace Queridor.Services
             {
                 corner.HorizontalEdges.Key.IsBlocked = true;
                 corner.HorizontalEdges.Value.IsBlocked = true;
+                corner.isBlockedHorizontal = true;
             }
             else
             {
                 corner.VerticalEdges.Key.IsBlocked = true;
                 corner.VerticalEdges.Value.IsBlocked = true;
+                corner.isBlockedVertical = true;
             }
         }
 

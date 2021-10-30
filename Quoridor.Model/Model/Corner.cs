@@ -8,6 +8,8 @@ namespace Queridor.Model
     {
         public int X { get; internal set; }
         public int Y { get; internal set; }
+        public bool isBlockedVertical { get; internal set; }
+        public bool isBlockedHorizontal { get; internal set; }
         public KeyValuePair<Edge, Edge> HorizontalEdges { get; internal set; }
         public KeyValuePair<Edge, Edge> VerticalEdges { get; internal set; }
     }
