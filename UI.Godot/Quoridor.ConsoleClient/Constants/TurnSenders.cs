@@ -18,7 +18,7 @@ namespace Quoridor.ConsoleClient.Constants
             },
             ["WALL"] = (player, @params) => 
             {
-                var corner = CoordConvert.Cell(@params[0], @params[1]);
+                var corner = CoordConvert.Wall(@params[0], @params[1]);
                 bool isHorizontal = @params[2] == 'H';
                 player.OnWallTurn(corner, isHorizontal);
             },
