@@ -28,17 +28,15 @@ namespace Quoridor.Model.BotAlgorithms
             Turn result = null;
             foreach (Cell c in turnCheckService.FindAvaliableCells(isFirstPlayer))
             {
-                Turn t = new MakeMoveTurn(isFirstPlayer, c.X, c.Y);
-                if (t.CanExecute(turnCheckService))
+                if (turnCheckService.CanMakeTurnCheck(isFirstPlayer, c.X, c.Y).Item1)
                 {
-                    t.Execute(makeTurnService);
+                    makeTurnService.MakeTurn(isFirstPlayer, c.X, c.Y);
                     float score = MiniMax(false, 0);
-                    Turn t1 = new MakeMoveTurn(isFirstPlayer, startPos.X, startPos.Y);
-                    t1.Execute(makeTurnService);
+                    makeTurnService.MakeTurn(isFirstPlayer, startPos.X, startPos.Y);
                     if (score > bestScore)
                     {
                         bestScore = score;
-                        result = t;
+                        result = new MakeMoveTurn(isFirstPlayer, c.X, c.Y);
                     }
                 }
             }
@@ -86,13 +84,11 @@ namespace Quoridor.Model.BotAlgorithms
                 Cell newStartPos = turnCheckService.GetPlayerCell(isFirstPlayer);
                 foreach (Cell c in turnCheckService.FindAvaliableCells(isFirstPlayer))
                 {
-                    Turn t = new MakeMoveTurn(isFirstPlayer, c.X, c.Y);
-                    if (t.CanExecute(turnCheckService))
+                    if (turnCheckService.CanMakeTurnCheck(isFirstPlayer, c.X, c.Y).Item1)
                     {
-                        t.Execute(makeTurnService);
+                        makeTurnService.MakeTurn(isFirstPlayer, c.X, c.Y);
                         float score = MiniMax(false, depth + 1);
-                        t = new MakeMoveTurn(isFirstPlayer, newStartPos.X, newStartPos.Y);
-                        t.Execute(makeTurnService);
+                        makeTurnService.MakeTurn(isFirstPlayer, newStartPos.X, newStartPos.Y);
                         bestScore = Math.Max(bestScore, score);
                     }
                 }
@@ -126,21 +122,6 @@ namespace Quoridor.Model.BotAlgorithms
                         bestScore = Math.Min(bestScore, score);
                     }
                 }
-
-                /*
-                foreach (KeyValuePair<Corner, bool> kvp in turnCheckService.FindAvaliableWalls(!isFirstPlayer))
-                {
-                    if (turnCheckService.GetAvaliableWallsCount(!isFirstPlayer) > 0
-                     && turnCheckService.CanPlaceWallCheck(!isFirstPlayer, kvp.Key.X, kvp.Key.Y, kvp.Value))
-                    {
-                        makeTurnService.PlaceTestWall(!isFirstPlayer, kvp.Key.X, kvp.Key.Y, kvp.Value);
-                        float score = MiniMax(true, depth + 1);
-                        turnCheckService.DestroyWalls(kvp.Key, kvp.Value);
-                        bestScore = Math.Min(bestScore, score);
-                    }
-                }
-                */
-                
             }
             return bestScore;
         }
